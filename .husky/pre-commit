@@ -1,0 +1,15 @@
+# Run formatting
+echo "Running formatting..."
+bun format
+
+# Run lint fix
+echo "Running formatting..."
+bun lint:fix
+
+# Run type checking
+echo "Running type check..."
+bun typecheck
+
+# Run biome checks (linting + formatting)
+echo "Running biome checks..."
+bun check

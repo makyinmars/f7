@@ -1,0 +1,82 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# TanStack Start Full-Stack Project Guide
+
+## Project Overview
+This is a full-stack TypeScript application built with TanStack Start, featuring a modern React frontend with server-side rendering, tRPC API layer, and PostgreSQL database with Drizzle ORM.
+
+## Key Configuration Files
+- [package.json](mdc:package.json) - Project dependencies and scripts
+- [vite.config.ts](mdc:vite.config.ts) - Vite build configuration with TanStack Start plugin
+- [components.json](mdc:components.json) - Shadcn/ui component configuration
+- [src/styles/app.css](mdc:src/styles/app.css) - Global styles with Tailwind CSS and custom CSS variables
+- [drizzle.config.ts](mdc:drizzle.config.ts) - Database configuration
+- [tsconfig.json](mdc:tsconfig.json) - TypeScript configuration
+
+## Tech Stack
+- **Frontend**: React 19, TanStack Router, TanStack Query
+- **Backend**: TanStack Start SSR, tRPC
+- **Database**: PostgreSQL with Drizzle ORM
+- **Styling**: Tailwind CSS v4, Shadcn/ui components
+- **Development**: TypeScript, Vite, Bun package manager
+
+## Project Structure
+
+### Source Directory (`src/`)
+- `components/` - React components organized by feature
+  - `ui/` - Shadcn/ui base components
+  - `common/` - Shared utility components
+  - `todo/` - Feature-specific components
+- `routes/` - TanStack Router route definitions
+- `trpc/` - tRPC client/server setup and routers
+- `db/` - Database schema, migrations, and utilities
+- `hooks/` - Custom React hooks
+- `lib/` - Utility libraries and helpers
+- `services/` - Business logic services
+- `styles/` - Global CSS and styling
+
+### Key Patterns
+1. **File-based Routing**: Routes are defined in `src/routes/` following TanStack Router conventions
+2. **tRPC API**: API endpoints in `src/trpc/routers/` with type-safe client consumption
+3. **Database Schema**: Drizzle schemas in `src/db/schema/` with type generation
+4. **Component Organization**: Feature-based component structure with shared UI components
+
+## Development Scripts
+- `bun dev` - Start development server on port 3000
+- `bun build` - Production build
+- `bun db:generate` - Generate database migrations
+- `bun db:migrate` - Run database migrations
+- `bun db:studio` - Open Drizzle Studio
+- `bun db:seed` - Seed database with sample data
+
+## Styling Guidelines
+- Uses Tailwind CSS v4 with custom CSS variables defined in [src/styles/app.css](mdc:src/styles/app.css)
+- Dark/light theme support via CSS custom properties
+- Geist font family for sans-serif and monospace
+- Shadcn/ui components with "new-york" style variant
+
+## Database Conventions
+- Drizzle ORM with PostgreSQL
+- Schema files in `src/db/schema/`
+- Migration files in `drizzle/` directory
+- Seed data scripts in `src/db/seed/`
+
+## API Patterns
+- tRPC routers in `src/trpc/routers/`
+- Type-safe API calls using TanStack Query integration
+- Server-side utilities in `src/trpc/utils.ts`
+
+## Import Aliases
+Configure path aliases in tsconfig.json:
+- `@/components` → `src/components`
+- `@/lib` → `src/lib`
+- `@/hooks` → `src/hooks`
+- `@/utils` → `src/lib/utils`
+
+## Environment Setup
+- Uses T3 Env for environment variable validation
+- Client-side env in `src/env/client.ts`
+- Server-side env in `src/env/server.ts`
