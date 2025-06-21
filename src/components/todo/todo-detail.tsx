@@ -84,10 +84,11 @@ function TodoDetail() {
                   Active State
                 </h3>
                 <span
-                  className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ${todoQuery.data.active
+                  className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ${
+                    todoQuery.data.active
                       ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
                       : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
-                    }`}
+                  }`}
                 >
                   {todoQuery.data.active ? "Active" : "Inactive"}
                 </span>

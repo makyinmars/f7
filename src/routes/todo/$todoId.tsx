@@ -1,10 +1,10 @@
-import { Suspense } from "react";
 import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
+import { Suspense } from "react";
 import LoadingState from "@/components/common/loading-state";
-import { APP_NAME } from "@/constants/app";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
+import { APP_NAME } from "@/constants/app";
 
 export const Route = createFileRoute("/todo/$todoId")({
   loader: async ({ context, params }) => {
