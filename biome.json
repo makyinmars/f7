@@ -20,7 +20,8 @@
       "!**/.nitro",
       "!**/.vercel",
       "!**/.sst",
-      "!**/sst-env.d.ts"
+      "!**/sst-env.d.ts",
+      "!**/locales/**/*.js"
     ]
   },
   "formatter": {

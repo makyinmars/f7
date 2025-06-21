@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "biome check && lingui:compile && vite build && tsc --noEmit",
+    "build": "biome check && bun run lingui:compile && vite build && tsc --noEmit",
     "start": "bun .output/server/index.mjs",
     "check": "biome check",
     "check:all": "bun typecheck && biome check",
