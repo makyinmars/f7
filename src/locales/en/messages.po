@@ -19,7 +19,7 @@ msgid "\"{0}\" has been added to your list"
 msgstr "\"{0}\" has been added to your list"
 
 #. placeholder {0}: deleted.text
-#: src/components/todo/todo-delete.tsx:73
+#: src/components/todo/todo-delete.tsx:74
 msgid "\"{0}\" has been removed from your list"
 msgstr "\"{0}\" has been removed from your list"
 
@@ -51,11 +51,11 @@ msgstr "Add a new task to your todo list"
 msgid "Add Todo"
 msgstr "Add Todo"
 
-#: src/components/todo/todo-delete.tsx:84
+#: src/components/todo/todo-delete.tsx:85
 msgid "Are you absolutely sure?"
 msgstr "Are you absolutely sure?"
 
-#: src/components/todo/todo-delete.tsx:95
+#: src/components/todo/todo-delete.tsx:96
 msgid "Cancel"
 msgstr "Cancel"
 
@@ -91,7 +91,7 @@ msgstr "Creating todo..."
 
 #: src/routes/index.tsx:238
 #: src/components/todo/todo-detail.tsx:72
-#: src/components/todo/todo-delete.tsx:98
+#: src/components/todo/todo-delete.tsx:99
 msgid "Delete"
 msgstr "Delete"
 
@@ -118,7 +118,7 @@ msgid "Error creating todo: {0}"
 msgstr "Error creating todo: {0}"
 
 #. placeholder {0}: err.message
-#: src/components/todo/todo-delete.tsx:74
+#: src/components/todo/todo-delete.tsx:75
 msgid "Error deleting todo: {0}"
 msgstr "Error deleting todo: {0}"
 
@@ -188,7 +188,7 @@ msgid "Task"
 msgstr "Task"
 
 #. placeholder {0}: todo.text
-#: src/components/todo/todo-delete.tsx:87
+#: src/components/todo/todo-delete.tsx:88
 msgid "This action cannot be undone. This will permanently delete the todo \"{0}\"."
 msgstr "This action cannot be undone. This will permanently delete the todo \"{0}\"."
 
@@ -215,3 +215,23 @@ msgstr "Updating todo..."
 #: src/routes/index.tsx:222
 msgid "View"
 msgstr "View"
+
+#: src/trpc/errors.ts
+msgid "Failed to create todo"
+msgstr "Failed to create todo"
+
+#: src/trpc/errors.ts
+msgid "Failed to delete todo"
+msgstr "Failed to delete todo"
+
+#: src/trpc/errors.ts
+msgid "Failed to update todo"
+msgstr "Failed to update todo"
+
+#: src/trpc/errors.ts
+msgid "Invalid input"
+msgstr "Invalid input"
+
+#: src/trpc/errors.ts
+msgid "Todo not found"
+msgstr "Todo not found"

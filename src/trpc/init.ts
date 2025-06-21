@@ -1,11 +1,13 @@
+import type { I18n } from "@lingui/core";
 import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod/v4";
 import { db } from "@/db";
 
-export const createTRPCContext = async () => {
+export const createTRPCContext = async (opts?: { i18n?: I18n }) => {
   return {
     db,
+    i18n: opts?.i18n,
   };
 };
 

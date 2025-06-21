@@ -1,4 +1,4 @@
-import { TRPCError, type TRPCRouterRecord } from "@trpc/server";
+import { type TRPCRouterRecord } from "@trpc/server";
 import { desc, eq } from "drizzle-orm";
 import { z } from "zod/v4";
 import {
@@ -8,6 +8,7 @@ import {
   todoInsert,
   todoUpdate,
 } from "@/db/schema";
+import { createErrors } from "../errors";
 import { publicProcedure } from "../init";
 import type { RouterOutput } from "../utils";
 
@@ -22,15 +23,13 @@ export const todoRouter = {
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input, ctx }) => {
+      const errors = createErrors(ctx.i18n);
       const foundTodo = await ctx.db.query.todo.findFirst({
         where: eq(todo.id, input.id),
       });
 
       if (!foundTodo) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Todo not found",
-        });
+        throw errors.todoNotFound();
       }
 
       return foundTodo;
@@ -38,53 +37,63 @@ export const todoRouter = {
   create: publicProcedure
     .input(apiTodoCreate)
     .mutation(async ({ input, ctx }) => {
+      const errors = createErrors(ctx.i18n);
       const parsed = todoInsert.safeParse(input);
 
       if (!parsed.success) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid input",
-        });
+        throw errors.invalidInput();
       }
 
-      const [created] = await ctx.db
-        .insert(todo)
-        .values({
-          ...parsed.data,
-        })
-        .returning();
+      try {
+        const [created] = await ctx.db
+          .insert(todo)
+          .values({
+            ...parsed.data,
+          })
+          .returning();
 
-      return created;
+        return created;
+      } catch (_error) {
+        throw errors.todoCreateFailed();
+      }
     }),
   delete: publicProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      const [deleted] = await ctx.db
-        .delete(todo)
-        .where(eq(todo.id, input.id))
-        .returning();
-      return deleted;
+      const errors = createErrors(ctx.i18n);
+
+      try {
+        const [deleted] = await ctx.db
+          .delete(todo)
+          .where(eq(todo.id, input.id))
+          .returning();
+        return deleted;
+      } catch (_error) {
+        throw errors.todoDeleteFailed();
+      }
     }),
   update: publicProcedure
     .input(apiTodoUpdate)
     .mutation(async ({ input, ctx }) => {
+      const errors = createErrors(ctx.i18n);
       const parsed = todoUpdate.safeParse(input);
 
       if (!parsed.success) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "Invalid input",
-        });
+        throw errors.invalidInput();
       }
 
-      const [updated] = await ctx.db
-        .update(todo)
-        .set({
-          ...parsed.data,
-        })
-        .where(eq(todo.id, parsed.data.id as string))
-        .returning();
+      try {
+        const [updated] = await ctx.db
+          .update(todo)
+          .set({
+            ...parsed.data,
+          })
+          .where(eq(todo.id, parsed.data.id as string))
+          .returning();
 
-      return updated;
+        return updated;
+      } catch (_error) {
+        throw errors.todoUpdateFailed();
+      }
     }),
 } satisfies TRPCRouterRecord;
