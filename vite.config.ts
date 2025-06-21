@@ -18,7 +18,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     tanstackStart({
-      target: "bun",
+      target: "aws-lambda",
       react: {
         babel: {
           plugins: ["@lingui/babel-plugin-lingui-macro"],
