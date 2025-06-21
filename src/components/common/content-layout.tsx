@@ -1,8 +1,8 @@
+import { useLingui } from "@lingui/react/macro";
 import { Link } from "@tanstack/react-router";
 import { APP_LOGO_URL, APP_NAME } from "@/constants/app";
-import { ModeToggle } from "./mode-toggle";
 import LanguageToggle from "./language-toogle";
-import { useLingui } from "@lingui/react/macro";
+import { ModeToggle } from "./mode-toggle";
 
 const ContentLayout = ({ children }: { children: React.ReactNode }) => {
   const { t } = useLingui();

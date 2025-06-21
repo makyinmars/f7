@@ -1,3 +1,4 @@
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -10,6 +11,7 @@ import TodoDelete from "./todo-delete";
 import TodoForm from "./todo-form";
 
 function TodoDetail() {
+  const { i18n, t } = useLingui();
   const trpc = useTRPC();
   const { todoId } = Route.useParams();
   const todoQuery = useSuspenseQuery(
@@ -19,7 +21,7 @@ function TodoDetail() {
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
     const d = new Date(date);
-    return d.toLocaleDateString("en-US", {
+    return d.toLocaleDateString(i18n.locale, {
       month: "long",
       day: "numeric",
       year: "numeric",
@@ -39,22 +41,35 @@ function TodoDetail() {
     }
   };
 
+  const getStatusLabel = (status: TodoStatus) => {
+    switch (status) {
+      case TodoStatus.NOT_STARTED:
+        return t`Not Started`;
+      case TodoStatus.IN_PROGRESS:
+        return t`In Progress`;
+      case TodoStatus.COMPLETED:
+        return t`Completed`;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
-          <h1 className="font-bold text-3xl">Todo Details</h1>
+          <h1 className="font-bold text-3xl">
+            <Trans>Todo Details</Trans>
+          </h1>
           <div className="flex items-center gap-2">
             <TodoForm todo={todoQuery.data}>
               <Button variant="outline" className="gap-2">
                 <Pencil className="h-4 w-4" />
-                Edit
+                <Trans>Edit</Trans>
               </Button>
             </TodoForm>
             <TodoDelete todo={todoQuery.data}>
               <Button variant="destructive" className="gap-2">
                 <Trash2 className="h-4 w-4" />
-                Delete
+                <Trans>Delete</Trans>
               </Button>
             </TodoDelete>
           </div>
@@ -68,20 +83,20 @@ function TodoDetail() {
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
-                  Status
+                  <Trans>Status</Trans>
                 </h3>
                 <span
                   className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
                     todoQuery.data.status,
                   )}`}
                 >
-                  {todoQuery.data.status.replace("_", " ")}
+                  {getStatusLabel(todoQuery.data.status)}
                 </span>
               </div>
 
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
-                  Active State
+                  <Trans>Active State</Trans>
                 </h3>
                 <span
                   className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ${
@@ -90,7 +105,7 @@ function TodoDetail() {
                       : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
                   }`}
                 >
-                  {todoQuery.data.active ? "Active" : "Inactive"}
+                  {todoQuery.data.active ? t`Active` : t`Inactive`}
                 </span>
               </div>
             </div>
@@ -100,7 +115,7 @@ function TodoDetail() {
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
-                  Created At
+                  <Trans>Created At</Trans>
                 </h3>
                 <p className="text-sm">
                   {formatDate(todoQuery.data.createdAt)}
@@ -109,7 +124,7 @@ function TodoDetail() {
 
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
-                  Last Updated
+                  <Trans>Last Updated</Trans>
                 </h3>
                 <p className="text-sm">
                   {formatDate(todoQuery.data.updatedAt)}
@@ -121,7 +136,7 @@ function TodoDetail() {
 
             <div className="space-y-2">
               <h3 className="font-medium text-muted-foreground text-sm">
-                Todo ID
+                <Trans>Todo ID</Trans>
               </h3>
               <p className="font-mono text-muted-foreground text-sm">
                 {todoId}

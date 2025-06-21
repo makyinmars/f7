@@ -8,8 +8,8 @@ import {
   Link,
   Outlet,
   Scripts,
-  useRouter,
   useRouteContext,
+  useRouter,
 } from "@tanstack/react-router";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { ThemeProvider } from "next-themes";
@@ -34,10 +34,10 @@ const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
     ? () => null
     : React.lazy(() =>
-      import("@tanstack/react-router-devtools").then((res) => ({
-        default: res.TanStackRouterDevtools,
-      })),
-    );
+        import("@tanstack/react-router-devtools").then((res) => ({
+          default: res.TanStackRouterDevtools,
+        })),
+      );
 
 function ErrorComponent({ error }: { error: Error }) {
   const router = useRouter();
@@ -132,7 +132,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootComponent() {
-  const { i18n } = useRouteContext({ from: '__root__' });
+  const { i18n } = useRouteContext({ from: "__root__" });
   return (
     <RootDocument locale={i18n.locale}>
       <ContentLayout>
@@ -142,7 +142,13 @@ function RootComponent() {
   );
 }
 
-function RootDocument({ children, locale }: { children: React.ReactNode; locale: string }) {
+function RootDocument({
+  children,
+  locale,
+}: {
+  children: React.ReactNode;
+  locale: string;
+}) {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <head>

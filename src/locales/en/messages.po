@@ -6,7 +6,212 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
-#: src/routes/index.tsx:115
+#. placeholder {0}: created.text
+#: src/components/todo/todo-form.tsx:166
+msgid "\"{0}\" has been added to your list"
+msgstr "\"{0}\" has been added to your list"
+
+#. placeholder {0}: deleted.text
+#: src/components/todo/todo-delete.tsx:73
+msgid "\"{0}\" has been removed from your list"
+msgstr "\"{0}\" has been removed from your list"
+
+#. placeholder {0}: updated.text
+#: src/components/todo/todo-form.tsx:160
+msgid "\"{0}\" has been updated"
+msgstr "\"{0}\" has been updated"
+
+#: src/routes/index.tsx:170
+msgid "Actions"
+msgstr "Actions"
+
+#: src/routes/index.tsx:161
+#: src/routes/index.tsx:203
+#: src/components/todo/todo-form.tsx:242
+#: src/components/todo/todo-detail.tsx:108
+msgid "Active"
+msgstr "Active"
+
+#: src/components/todo/todo-detail.tsx:99
+msgid "Active State"
+msgstr "Active State"
+
+#: src/components/todo/todo-form.tsx:184
+msgid "Add a new task to your todo list"
+msgstr "Add a new task to your todo list"
+
+#: src/routes/index.tsx:132
 msgid "Add Todo"
 msgstr "Add Todo"
+
+#: src/components/todo/todo-delete.tsx:84
+msgid "Are you absolutely sure?"
+msgstr "Are you absolutely sure?"
+
+#: src/components/todo/todo-delete.tsx:95
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/routes/index.tsx:119
+#: src/components/todo/todo-form.tsx:227
+#: src/components/todo/todo-detail.tsx:51
+msgid "Completed"
+msgstr "Completed"
+
+#: src/components/todo/todo-form.tsx:178
+msgid "Create New Todo"
+msgstr "Create New Todo"
+
+#: src/components/todo/todo-form.tsx:264
+msgid "Create Todo"
+msgstr "Create Todo"
+
+#: src/routes/index.tsx:145
+msgid "Create your first todo"
+msgstr "Create your first todo"
+
+#: src/routes/index.tsx:164
+msgid "Created"
+msgstr "Created"
+
+#: src/components/todo/todo-detail.tsx:118
+msgid "Created At"
+msgstr "Created At"
+
+#: src/components/todo/todo-form.tsx:165
+msgid "Creating todo..."
+msgstr "Creating todo..."
+
+#: src/routes/index.tsx:238
+#: src/components/todo/todo-detail.tsx:72
+#: src/components/todo/todo-delete.tsx:98
+msgid "Delete"
+msgstr "Delete"
+
+#: src/components/todo/todo-delete.tsx:72
+msgid "Deleting todo..."
+msgstr "Deleting todo..."
+
+#: src/routes/index.tsx:228
+#: src/components/todo/todo-detail.tsx:66
+msgid "Edit"
+msgstr "Edit"
+
+#: src/components/todo/todo-form.tsx:178
+msgid "Edit Todo"
+msgstr "Edit Todo"
+
+#: src/components/todo/todo-form.tsx:199
+msgid "Enter task description"
+msgstr "Enter task description"
+
+#. placeholder {0}: err.message
+#: src/components/todo/todo-form.tsx:167
+msgid "Error creating todo: {0}"
+msgstr "Error creating todo: {0}"
+
+#. placeholder {0}: err.message
+#: src/components/todo/todo-delete.tsx:74
+msgid "Error deleting todo: {0}"
+msgstr "Error deleting todo: {0}"
+
+#. placeholder {0}: err.message
+#: src/components/todo/todo-form.tsx:161
+msgid "Error updating todo: {0}"
+msgstr "Error updating todo: {0}"
+
+#: src/routes/index.tsx:117
+#: src/components/todo/todo-form.tsx:224
+#: src/components/todo/todo-detail.tsx:49
+msgid "In Progress"
+msgstr "In Progress"
+
+#: src/routes/index.tsx:203
+#: src/components/todo/todo-detail.tsx:108
+msgid "Inactive"
+msgstr "Inactive"
+
+#: src/components/todo/todo-detail.tsx:127
+msgid "Last Updated"
+msgstr "Last Updated"
+
+#: src/routes/index.tsx:29
+msgid "Loading todos..."
+msgstr "Loading todos..."
+
+#: src/components/common/content-layout.tsx:16
+msgid "Logo"
+msgstr "Logo"
+
+#: src/components/todo/todo-form.tsx:182
+msgid "Make changes to your todo item"
+msgstr "Make changes to your todo item"
+
+#: src/routes/index.tsx:127
+msgid "My Todos"
+msgstr "My Todos"
+
+#: src/routes/index.tsx:140
+msgid "No todos yet"
+msgstr "No todos yet"
+
+#: src/routes/index.tsx:115
+#: src/components/todo/todo-form.tsx:221
+#: src/components/todo/todo-detail.tsx:47
+msgid "Not Started"
+msgstr "Not Started"
+
+#: src/components/todo/todo-form.tsx:216
+msgid "Select status"
+msgstr "Select status"
+
+#: src/components/todo/todo-form.tsx:245
+msgid "Set whether this todo is active"
+msgstr "Set whether this todo is active"
+
+#: src/routes/index.tsx:158
+#: src/components/todo/todo-form.tsx:211
+#: src/components/todo/todo-detail.tsx:86
+msgid "Status"
+msgstr "Status"
+
+#: src/routes/index.tsx:155
+#: src/components/todo/todo-form.tsx:196
+msgid "Task"
+msgstr "Task"
+
+#. placeholder {0}: todo.text
+#: src/components/todo/todo-delete.tsx:87
+msgid "This action cannot be undone. This will permanently delete the todo \"{0}\"."
+msgstr "This action cannot be undone. This will permanently delete the todo \"{0}\"."
+
+#: src/components/todo/todo-detail.tsx:60
+msgid "Todo Details"
+msgstr "Todo Details"
+
+#: src/components/todo/todo-detail.tsx:139
+msgid "Todo ID"
+msgstr "Todo ID"
+
+#: src/components/todo/todo-form.tsx:264
+msgid "Update Todo"
+msgstr "Update Todo"
+
+#: src/routes/index.tsx:167
+msgid "Updated"
+msgstr "Updated"
+
+#: src/components/todo/todo-form.tsx:159
+msgid "Updating todo..."
+msgstr "Updating todo..."
+
+#: src/routes/index.tsx:222
+msgid "View"
+msgstr "View"

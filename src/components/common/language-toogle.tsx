@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import { dynamicActivate, locales } from "@/modules/lingui/i18n";
-import { createServerFn } from "@tanstack/react-start";
 import { useLingui } from "@lingui/react";
+import { useNavigate } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
 import { setHeader } from "@tanstack/react-start/server";
 import { serialize } from "cookie-es";
-import { useNavigate } from "@tanstack/react-router";
+import { cn } from "@/lib/utils";
+import { dynamicActivate, locales } from "@/modules/lingui/i18n";
 
 const updateLanguage = createServerFn({ method: "POST" })
   .validator((locale: string) => locale)
@@ -14,7 +14,7 @@ const updateLanguage = createServerFn({ method: "POST" })
       serialize("locale", data, {
         maxAge: 30 * 24 * 60 * 60,
         path: "/",
-      })
+      }),
     );
   });
 
@@ -26,7 +26,7 @@ const LanguageToggle = () => {
   return (
     <div
       className={cn(
-        "relative flex h-8 items-center rounded-lg bg-background p-1 ring-1 ring-border"
+        "relative flex h-8 items-center rounded-lg bg-background p-1 ring-1 ring-border",
       )}
     >
       {Object.entries(locales).map(([locale, label]) => {
@@ -36,8 +36,8 @@ const LanguageToggle = () => {
             type="button"
             key={locale}
             className={cn(
-              "relative rounded-lg px-3 py-0.5 text-sm font-medium transition-colors",
-              isActive ? "bg-primary text-primary-foreground" : "text-primary"
+              "relative rounded-lg px-3 py-0.5 font-medium text-sm transition-colors",
+              isActive ? "bg-primary text-primary-foreground" : "text-primary",
             )}
             onClick={async () => {
               try {

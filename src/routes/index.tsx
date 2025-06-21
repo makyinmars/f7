@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/react/macro";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
@@ -24,7 +24,10 @@ export const Route = createFileRoute("/")({
       context.trpc.todo.list.queryOptions(),
     );
   },
-  pendingComponent: () => <LoadingState text="Loading todos..." />,
+  pendingComponent: () => {
+    const { t } = useLingui();
+    return <LoadingState text={t`Loading todos...`} />;
+  },
   component: Home,
   head: () => ({
     meta: [
@@ -78,6 +81,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const { i18n, t } = useLingui();
   const trpc = useTRPC();
   const todosQuery = useSuspenseQuery(trpc.todo.list.queryOptions());
   const todos = todosQuery.data;
@@ -85,7 +89,7 @@ function Home() {
   const formatDate = (date: Date | string | null) => {
     if (!date) return "-";
     const d = new Date(date);
-    return d.toLocaleDateString("en-US", {
+    return d.toLocaleDateString(i18n.locale, {
       month: "short",
       day: "numeric",
       year: "numeric",
@@ -105,10 +109,23 @@ function Home() {
     }
   };
 
+  const getStatusLabel = (status: TodoStatus) => {
+    switch (status) {
+      case TodoStatus.NOT_STARTED:
+        return t`Not Started`;
+      case TodoStatus.IN_PROGRESS:
+        return t`In Progress`;
+      case TodoStatus.COMPLETED:
+        return t`Completed`;
+    }
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-semibold text-2xl">My Todos</h2>
+        <h2 className="font-semibold text-2xl">
+          <Trans>My Todos</Trans>
+        </h2>
         <TodoForm>
           <Button variant="default" className="gap-2">
             <Plus className="h-4 w-4" />
@@ -119,11 +136,13 @@ function Home() {
 
       {todos.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <p className="mb-4 text-lg text-muted-foreground">No todos yet</p>
+          <p className="mb-4 text-lg text-muted-foreground">
+            <Trans>No todos yet</Trans>
+          </p>
           <TodoForm>
             <Button className="gap-2">
               <Plus className="h-4 w-4" />
-              Create your first todo
+              <Trans>Create your first todo</Trans>
             </Button>
           </TodoForm>
         </div>
@@ -132,12 +151,24 @@ function Home() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[200px]">Task</TableHead>
-                <TableHead className="w-[120px]">Status</TableHead>
-                <TableHead className="w-[100px]">Active</TableHead>
-                <TableHead className="w-[180px]">Created</TableHead>
-                <TableHead className="w-[180px]">Updated</TableHead>
-                <TableHead className="w-[150px] text-right">Actions</TableHead>
+                <TableHead className="w-[200px]">
+                  <Trans>Task</Trans>
+                </TableHead>
+                <TableHead className="w-[120px]">
+                  <Trans>Status</Trans>
+                </TableHead>
+                <TableHead className="w-[100px]">
+                  <Trans>Active</Trans>
+                </TableHead>
+                <TableHead className="w-[180px]">
+                  <Trans>Created</Trans>
+                </TableHead>
+                <TableHead className="w-[180px]">
+                  <Trans>Updated</Trans>
+                </TableHead>
+                <TableHead className="w-[150px] text-right">
+                  <Trans>Actions</Trans>
+                </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -158,17 +189,18 @@ function Home() {
                         todo.status,
                       )}`}
                     >
-                      {todo.status.replace("_", " ")}
+                      {getStatusLabel(todo.status)}
                     </span>
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ${todo.active
-                        ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
-                        : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
-                        }`}
+                      className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ${
+                        todo.active
+                          ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
+                          : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
+                      }`}
                     >
-                      {todo.active ? "Active" : "Inactive"}
+                      {todo.active ? t`Active` : t`Inactive`}
                     </span>
                   </TableCell>
                   <TableCell className="text-muted-foreground text-sm">
@@ -187,13 +219,13 @@ function Home() {
                       >
                         <Link to="/todo/$todoId" params={{ todoId: todo.id }}>
                           <Eye className="h-3 w-3" />
-                          View
+                          <Trans>View</Trans>
                         </Link>
                       </Button>
                       <TodoForm todo={todo}>
                         <Button variant="outline" size="sm" className="gap-2">
                           <Pencil className="h-3 w-3" />
-                          Edit
+                          <Trans>Edit</Trans>
                         </Button>
                       </TodoForm>
                       <TodoDelete todo={todo}>
@@ -203,7 +235,7 @@ function Home() {
                           className="gap-2"
                         >
                           <Trash2 className="h-3 w-3" />
-                          Delete
+                          <Trans>Delete</Trans>
                         </Button>
                       </TodoDelete>
                     </div>

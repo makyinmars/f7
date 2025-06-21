@@ -1,3 +1,4 @@
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation, useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
@@ -21,6 +22,7 @@ interface TodoDeleteProps {
 }
 
 const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
+  const { t } = useLingui();
   const trpc = useTRPC();
   const queryClient = useQueryClient();
   const router = useRouter();
@@ -67,9 +69,10 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
 
   const handleDelete = () => {
     toast.promise(deleteMutation.mutateAsync({ id: todo.id }), {
-      loading: "Deleting todo...",
-      success: (deleted) => `"${deleted.text}" has been removed from your list`,
-      error: (err) => `Error deleting todo: ${err.message}`,
+      loading: t`Deleting todo...`,
+      success: (deleted) =>
+        t`"${deleted.text}" has been removed from your list`,
+      error: (err) => t`Error deleting todo: ${err.message}`,
     });
   };
 
@@ -78,15 +81,23 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogTitle>
+            <Trans>Are you absolutely sure?</Trans>
+          </AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the todo
-            "{todo.text}".
+            <Trans>
+              This action cannot be undone. This will permanently delete the
+              todo "{todo.text}".
+            </Trans>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+          <AlertDialogCancel>
+            <Trans>Cancel</Trans>
+          </AlertDialogCancel>
+          <AlertDialogAction onClick={handleDelete}>
+            <Trans>Delete</Trans>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

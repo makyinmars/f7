@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Trans, useLingui } from "@lingui/react/macro";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -43,6 +44,7 @@ interface TodoFormProps {
 }
 
 const TodoForm = ({ todo, children }: TodoFormProps) => {
+  const { t } = useLingui();
   const [open, setOpen] = useState(false);
   const trpc = useTRPC();
   const queryClient = useQueryClient();
@@ -154,15 +156,15 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
   const onSubmit = async (data: TodoCreateAndUpdate) => {
     if (data.id) {
       toast.promise(updateMutation.mutateAsync({ ...data }), {
-        loading: "Updating todo...",
-        success: (updated) => `"${updated.text}" has been updated`,
-        error: (err) => `Error updating todo: ${err.message}`,
+        loading: t`Updating todo...`,
+        success: (updated) => t`"${updated.text}" has been updated`,
+        error: (err) => t`Error updating todo: ${err.message}`,
       });
     } else {
       toast.promise(createMutation.mutateAsync(data), {
-        loading: "Creating todo...",
-        success: (created) => `"${created.text}" has been added to your list`,
-        error: (err) => `Error creating todo: ${err.message}`,
+        loading: t`Creating todo...`,
+        success: (created) => t`"${created.text}" has been added to your list`,
+        error: (err) => t`Error creating todo: ${err.message}`,
       });
     }
   };
@@ -172,11 +174,15 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{todo ? "Edit Todo" : "Create New Todo"}</DialogTitle>
+          <DialogTitle>
+            {todo ? <Trans>Edit Todo</Trans> : <Trans>Create New Todo</Trans>}
+          </DialogTitle>
           <DialogDescription>
-            {todo
-              ? "Make changes to your todo item"
-              : "Add a new task to your todo list"}
+            {todo ? (
+              <Trans>Make changes to your todo item</Trans>
+            ) : (
+              <Trans>Add a new task to your todo list</Trans>
+            )}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -186,9 +192,11 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
               name="text"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Task</FormLabel>
+                  <FormLabel>
+                    <Trans>Task</Trans>
+                  </FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter task description" {...field} />
+                    <Input placeholder={t`Enter task description`} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -199,22 +207,24 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
               name="status"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Status</FormLabel>
+                  <FormLabel>
+                    <Trans>Status</Trans>
+                  </FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select status" />
+                        <SelectValue placeholder={t`Select status`} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       <SelectItem value={TodoStatus.NOT_STARTED}>
-                        Not Started
+                        <Trans>Not Started</Trans>
                       </SelectItem>
                       <SelectItem value={TodoStatus.IN_PROGRESS}>
-                        In Progress
+                        <Trans>In Progress</Trans>
                       </SelectItem>
                       <SelectItem value={TodoStatus.COMPLETED}>
-                        Completed
+                        <Trans>Completed</Trans>
                       </SelectItem>
                     </SelectContent>
                   </Select>
@@ -228,9 +238,11 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
                   <div className="space-y-0.5">
-                    <FormLabel>Active</FormLabel>
+                    <FormLabel>
+                      <Trans>Active</Trans>
+                    </FormLabel>
                     <div className="text-muted-foreground text-sm">
-                      Set whether this todo is active
+                      <Trans>Set whether this todo is active</Trans>
                     </div>
                   </div>
                   <FormControl>
@@ -249,7 +261,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
                 todo ? updateMutation.isPending : createMutation.isPending
               }
             >
-              {todo ? "Update Todo" : "Create Todo"}
+              {todo ? <Trans>Update Todo</Trans> : <Trans>Create Todo</Trans>}
             </Button>
           </form>
         </Form>
