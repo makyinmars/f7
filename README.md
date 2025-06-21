@@ -118,7 +118,7 @@ src/
 - **Form Handling**: React Hook Form with Zod validation
 - **Dark Mode**: Built-in theme switching
 - **Real-time**: Optimistic updates with TanStack Query
-- **Internationalization**: Multi-language support with Lingui.js
+- **Internationalization**: Full-stack multi-language support with client and server-side translations
 
 ## Deployment
 
@@ -288,11 +288,30 @@ function MyComponent() {
 
 4. Translate the extracted messages in `src/locales/es/messages.po`
 
+#### Server-Side Error Translation (tRPC)
+
+The application includes full server-side translation support for tRPC error messages:
+
+```tsx
+// Server-side errors are automatically translated based on user's locale
+// Error messages respect the same language selection as the UI
+
+// In tRPC routers, errors are thrown with translated messages:
+const errors = createErrors(ctx.i18n);
+throw errors.todoNotFound(); // "Todo not found" or "Tâche introuvable"
+```
+
+**Key Server-Side Features:**
+- **Automatic locale detection**: Server errors use the same locale as client UI
+- **Type-safe error handling**: Consistent error codes with localized messages  
+- **Cookie-based persistence**: Language preference maintained across requests
+- **Complete coverage**: All tRPC error messages are translated
+
 ### Development Workflow
 
 1. Write code with `<Trans>` or `t` tagged templates
 2. Run `bun lingui:extract` to extract new strings
-3. Translate strings in `.po` files
+3. Translate strings in `.po` files (including server error messages)
 4. Run `bun lingui:compile` to generate catalogs
 5. Commit both `.po` and compiled `.po.ts` files
 

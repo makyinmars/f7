@@ -29,11 +29,23 @@ export const createErrors = (i18n: I18n | undefined) => ({
     createTranslatedError(i18n, "BAD_REQUEST", "Invalid input"),
 
   todoDeleteFailed: () =>
-    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to delete todo"),
+    createTranslatedError(
+      i18n,
+      "INTERNAL_SERVER_ERROR",
+      "Failed to delete todo",
+    ),
 
   todoUpdateFailed: () =>
-    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to update todo"),
+    createTranslatedError(
+      i18n,
+      "INTERNAL_SERVER_ERROR",
+      "Failed to update todo",
+    ),
 
   todoCreateFailed: () =>
-    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to create todo"),
+    createTranslatedError(
+      i18n,
+      "INTERNAL_SERVER_ERROR",
+      "Failed to create todo",
+    ),
 });
