@@ -20,7 +20,6 @@ const updateLanguage = createServerFn({ method: "POST" })
 
 const LanguageToggle = () => {
   const { i18n } = useLingui();
-  console.log("i18n", i18n);
   const navigate = useNavigate();
 
   return (

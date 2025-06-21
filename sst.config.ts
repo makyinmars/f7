@@ -19,6 +19,7 @@ export default $config({
     };
   },
   async run() {
+    console.log("PROCESS NODE ENV", process.env.NODE_ENV);
     new sst.aws.TanStackStart("MyWeb", {
       environment: {
         DATABASE_URL: process.env.DATABASE_URL as string,

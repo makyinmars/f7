@@ -19,7 +19,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
 import { APP_LOGO_URL, APP_NAME } from "@/constants/app";
-import { getServerTime } from "@/lib/server-time";
 import appCss from "@/styles/app.css?url";
 import type { TRPCRouter } from "@/trpc/router";
 import { seo } from "@/utils/seo";
@@ -123,12 +122,6 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   errorComponent: ErrorComponent,
   notFoundComponent: NotFoundComponent,
   wrapInSuspense: true,
-
-  beforeLoad: async () => {
-    // This is a test to see if the server time is being fetched
-    const serverTime = await getServerTime();
-    console.log("serverTime", serverTime);
-  },
 });
 
 function RootComponent() {

@@ -101,6 +101,7 @@ export const createQueryClient = () => {
       hydrate: { deserializeData: superjson.deserialize },
       queries: {
         staleTime: FIVE_MINUTES_CACHE,
+        gcTime: FIVE_MINUTES_CACHE,
         retry(failureCount, _err) {
           const err = _err as unknown as TRPCClientErrorLike<TRPCRouter>;
           const code = err?.data?.code;

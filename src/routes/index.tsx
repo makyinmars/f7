@@ -20,7 +20,7 @@ import { useTRPC } from "@/trpc/react";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
-    await context.queryClient.prefetchQuery(
+    await context.queryClient.ensureQueryData(
       context.trpc.todo.list.queryOptions(),
     );
   },
