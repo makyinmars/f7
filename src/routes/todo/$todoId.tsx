@@ -1,18 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod/v4";
 import LoadingState from "@/components/common/loading-state";
 import TodoDetail from "@/components/todo/todo-detail";
 import { APP_NAME } from "@/constants/app";
 
 export const Route = createFileRoute("/todo/$todoId")({
+  parseParams: (params) => ({
+    todoId: z.uuid("Invalid todo ID format").parse(params.todoId),
+  }),
   loader: async ({ context, params }) => {
     const { todoId } = params;
-
-    // Validate UUID format on client side
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-    if (!uuidRegex.test(todoId)) {
-      throw new Error(`Invalid todo ID format: ${todoId}`);
-    }
 
     try {
       const todo = await context.queryClient.ensureQueryData(

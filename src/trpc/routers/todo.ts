@@ -21,7 +21,7 @@ export const todoRouter = {
     });
   }),
   byId: publicProcedure
-    .input(z.object({ id: z.string().uuid("Invalid todo ID format") }))
+    .input(z.object({ id: z.uuid("Invalid todo ID format") }))
     .query(async ({ input, ctx }) => {
       const errors = createErrors(ctx.i18n);
       const foundTodo = await ctx.db.query.todo.findFirst({
