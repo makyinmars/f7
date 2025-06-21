@@ -6,7 +6,6 @@ import { Separator } from "@/components/ui/separator";
 import { TodoStatus } from "@/db/schema/todo";
 import { Route } from "@/routes/todo/$todoId";
 import { useTRPC } from "@/trpc/react";
-import LoadingState from "../common/loading-state";
 import TodoDelete from "./todo-delete";
 import TodoForm from "./todo-form";
 
@@ -42,98 +41,94 @@ function TodoDetail() {
 
   return (
     <div className="flex flex-col gap-6">
-      {todoQuery.isLoading && <LoadingState text="Loading todo..." />}
-      {todoQuery.data && (
-        <div className="flex flex-col gap-6">
-          <div className="flex items-center justify-between">
-            <h1 className="font-bold text-3xl">Todo Details</h1>
-            <div className="flex items-center gap-2">
-              <TodoForm todo={todoQuery.data}>
-                <Button variant="outline" className="gap-2">
-                  <Pencil className="h-4 w-4" />
-                  Edit
-                </Button>
-              </TodoForm>
-              <TodoDelete todo={todoQuery.data}>
-                <Button variant="destructive" className="gap-2">
-                  <Trash2 className="h-4 w-4" />
-                  Delete
-                </Button>
-              </TodoDelete>
-            </div>
+      <div className="flex flex-col gap-6">
+        <div className="flex items-center justify-between">
+          <h1 className="font-bold text-3xl">Todo Details</h1>
+          <div className="flex items-center gap-2">
+            <TodoForm todo={todoQuery.data}>
+              <Button variant="outline" className="gap-2">
+                <Pencil className="h-4 w-4" />
+                Edit
+              </Button>
+            </TodoForm>
+            <TodoDelete todo={todoQuery.data}>
+              <Button variant="destructive" className="gap-2">
+                <Trash2 className="h-4 w-4" />
+                Delete
+              </Button>
+            </TodoDelete>
           </div>
+        </div>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">{todoQuery.data.text}</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <h3 className="font-medium text-muted-foreground text-sm">
-                    Status
-                  </h3>
-                  <span
-                    className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
-                      todoQuery.data.status,
-                    )}`}
-                  >
-                    {todoQuery.data.status.replace("_", " ")}
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <h3 className="font-medium text-muted-foreground text-sm">
-                    Active State
-                  </h3>
-                  <span
-                    className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ${
-                      todoQuery.data.active
-                        ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
-                        : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
-                    }`}
-                  >
-                    {todoQuery.data.active ? "Active" : "Inactive"}
-                  </span>
-                </div>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">{todoQuery.data.text}</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <h3 className="font-medium text-muted-foreground text-sm">
+                  Status
+                </h3>
+                <span
+                  className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
+                    todoQuery.data.status,
+                  )}`}
+                >
+                  {todoQuery.data.status.replace("_", " ")}
+                </span>
               </div>
-
-              <Separator />
-
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <h3 className="font-medium text-muted-foreground text-sm">
-                    Created At
-                  </h3>
-                  <p className="text-sm">
-                    {formatDate(todoQuery.data.createdAt)}
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <h3 className="font-medium text-muted-foreground text-sm">
-                    Last Updated
-                  </h3>
-                  <p className="text-sm">
-                    {formatDate(todoQuery.data.updatedAt)}
-                  </p>
-                </div>
-              </div>
-
-              <Separator />
 
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
-                  Todo ID
+                  Active State
                 </h3>
-                <p className="font-mono text-muted-foreground text-sm">
-                  {todoId}
+                <span
+                  className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ${todoQuery.data.active
+                      ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
+                      : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
+                    }`}
+                >
+                  {todoQuery.data.active ? "Active" : "Inactive"}
+                </span>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="grid grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <h3 className="font-medium text-muted-foreground text-sm">
+                  Created At
+                </h3>
+                <p className="text-sm">
+                  {formatDate(todoQuery.data.createdAt)}
                 </p>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      )}
+
+              <div className="space-y-2">
+                <h3 className="font-medium text-muted-foreground text-sm">
+                  Last Updated
+                </h3>
+                <p className="text-sm">
+                  {formatDate(todoQuery.data.updatedAt)}
+                </p>
+              </div>
+            </div>
+
+            <Separator />
+
+            <div className="space-y-2">
+              <h3 className="font-medium text-muted-foreground text-sm">
+                Todo ID
+              </h3>
+              <p className="font-mono text-muted-foreground text-sm">
+                {todoId}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

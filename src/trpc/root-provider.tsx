@@ -17,6 +17,7 @@ import superjson, { SuperJSON } from "superjson";
 import { clientEnv } from "@/env/client";
 import { TRPCProvider } from "./react";
 import type { TRPCRouter } from "./router";
+import { FIVE_MINUTES_CACHE } from "@/constants/utils";
 
 export const transformer: TRPCCombinedDataTransformer = {
   input: {
@@ -99,7 +100,7 @@ export const createQueryClient = () => {
       dehydrate: { serializeData: superjson.serialize },
       hydrate: { deserializeData: superjson.deserialize },
       queries: {
-        staleTime: 300000, // 5 minutes
+        staleTime: FIVE_MINUTES_CACHE,
         retry(failureCount, _err) {
           const err = _err as unknown as TRPCClientErrorLike<TRPCRouter>;
           const code = err?.data?.code;
