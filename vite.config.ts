@@ -1,3 +1,4 @@
+import { lingui } from "@lingui/vite-plugin";
 import tailwindcss from "@tailwindcss/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { defineConfig } from "vite";
@@ -8,12 +9,18 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
+    lingui(),
     tsConfigPaths({
       projects: ["./tsconfig.json"],
     }),
     tailwindcss(),
     tanstackStart({
       target: "aws-lambda",
+      react: {
+        babel: {
+          plugins: ["@lingui/babel-plugin-lingui-macro"],
+        },
+      },
     }),
   ],
 });

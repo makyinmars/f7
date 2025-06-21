@@ -7,6 +7,8 @@
 - `bun check` - Run Biome linting and formatting
 - `bun lint:fix` - Auto-fix linting issues
 - `bun format` - Format code with Biome
+- `bun lingui:extract` - Extract translatable strings
+- `bun lingui:compile` - Compile translation catalogs
 - No test framework configured - verify changes manually
 
 ## Code Style Guidelines
@@ -18,6 +20,7 @@
 - **React**: Functional components, React Hook Form + Zod validation, optimistic updates
 - **Database**: Drizzle ORM with PostgreSQL, schema-first approach
 - **Styling**: Tailwind CSS v4, Shadcn/ui components, `cn()` utility for class merging
+- **i18n**: Use `<Trans>` for JSX text, `useLingui().t` for dynamic text, extract/compile translations regularly
 
 ## Project Rules (from .cursor/rules/project-guide.mdc)
 - Keep functions single-purpose unless composable/reusable

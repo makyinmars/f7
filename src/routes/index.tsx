@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
@@ -111,7 +112,7 @@ function Home() {
         <TodoForm>
           <Button variant="default" className="gap-2">
             <Plus className="h-4 w-4" />
-            Add Todo
+            <Trans>Add Todo</Trans>
           </Button>
         </TodoForm>
       </div>
@@ -162,11 +163,10 @@ function Home() {
                   </TableCell>
                   <TableCell>
                     <span
-                      className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ${
-                        todo.active
-                          ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
-                          : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
-                      }`}
+                      className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ${todo.active
+                        ? "bg-green-50 text-green-700 ring-1 ring-green-600/20 ring-inset"
+                        : "bg-gray-50 text-gray-600 ring-1 ring-gray-500/10 ring-inset"
+                        }`}
                     >
                       {todo.active ? "Active" : "Inactive"}
                     </span>

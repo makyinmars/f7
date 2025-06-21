@@ -1,0 +1,69 @@
+import { cn } from "@/lib/utils";
+import { dynamicActivate, locales } from "@/modules/lingui/i18n";
+import { createServerFn } from "@tanstack/react-start";
+import { useLingui } from "@lingui/react";
+import { setHeader } from "@tanstack/react-start/server";
+import { serialize } from "cookie-es";
+import { useNavigate } from "@tanstack/react-router";
+
+const updateLanguage = createServerFn({ method: "POST" })
+  .validator((locale: string) => locale)
+  .handler(async ({ data }) => {
+    setHeader(
+      "Set-Cookie",
+      serialize("locale", data, {
+        maxAge: 30 * 24 * 60 * 60,
+        path: "/",
+      })
+    );
+  });
+
+const LanguageToggle = () => {
+  const { i18n } = useLingui();
+  console.log("i18n", i18n);
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className={cn(
+        "relative flex h-8 items-center rounded-lg bg-background p-1 ring-1 ring-border"
+      )}
+    >
+      {Object.entries(locales).map(([locale, label]) => {
+        const isActive = locale === i18n.locale;
+        return (
+          <button
+            type="button"
+            key={locale}
+            className={cn(
+              "relative rounded-lg px-3 py-0.5 text-sm font-medium transition-colors",
+              isActive ? "bg-primary text-primary-foreground" : "text-primary"
+            )}
+            onClick={async () => {
+              try {
+                // First update the server-side cookie
+                await updateLanguage({ data: locale });
+
+                // Then update the client-side language immediately
+                await dynamicActivate(i18n, locale);
+
+                // Update html lang attribute for accessibility
+                document.documentElement.lang = locale;
+
+                // Optionally refresh the current route to update any translated content
+                // This is much gentler than a full page reload
+                navigate({ to: window.location.pathname, replace: true });
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            {label}
+          </button>
+        );
+      })}
+    </div>
+  );
+};
+
+export default LanguageToggle;

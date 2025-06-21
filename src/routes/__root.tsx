@@ -1,5 +1,6 @@
 /// <reference types="vite/client" />
 
+import type { I18n } from "@lingui/core";
 import type { QueryClient } from "@tanstack/react-query";
 import {
   createRootRouteWithContext,
@@ -8,6 +9,7 @@ import {
   Outlet,
   Scripts,
   useRouter,
+  useRouteContext,
 } from "@tanstack/react-router";
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { ThemeProvider } from "next-themes";
@@ -25,16 +27,17 @@ import { seo } from "@/utils/seo";
 interface MyRouterContext {
   queryClient: QueryClient;
   trpc: TRPCOptionsProxy<TRPCRouter>;
+  i18n: I18n;
 }
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
     ? () => null
     : React.lazy(() =>
-        import("@tanstack/react-router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
+      import("@tanstack/react-router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+      })),
+    );
 
 function ErrorComponent({ error }: { error: Error }) {
   const router = useRouter();
@@ -129,8 +132,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootComponent() {
+  const { i18n } = useRouteContext({ from: '__root__' });
   return (
-    <RootDocument>
+    <RootDocument locale={i18n.locale}>
       <ContentLayout>
         <Outlet />
       </ContentLayout>
@@ -138,9 +142,9 @@ function RootComponent() {
   );
 }
 
-function RootDocument({ children }: { children: React.ReactNode }) {
+function RootDocument({ children, locale }: { children: React.ReactNode; locale: string }) {
   return (
-    <html lang="en" suppressHydrationWarning={true}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <head>
         <HeadContent />
       </head>

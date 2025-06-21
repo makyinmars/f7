@@ -11,6 +11,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 - **Backend**: tRPC for type-safe APIs
 - **Database**: PostgreSQL with Drizzle ORM
 - **Validation**: Zod schemas
+- **Internationalization**: Lingui.js for i18n support
 - **Environment**: T3 OSS env-core for type-safe environment variables
 - **Deployment**: AWS Lambda (configurable)
 - **Code Quality**: Biome for linting & formatting
@@ -79,6 +80,10 @@ bun db:generate      # Generate new migration files
 bun lint             # Lint code with Biome
 bun format           # Format code with Biome
 bun check            # Run both linting and formatting checks
+
+# Internationalization
+bun lingui:extract   # Extract translatable strings
+bun lingui:compile   # Compile translation catalogs
 ```
 
 ## Project Structure
@@ -97,7 +102,12 @@ src/
 │   ├── ui/             # Shadcn/ui components
 │   └── todo/           # Todo-specific components
 ├── services/           # Business logic services
-└── lib/                # Utility functions
+├── lib/                # Utility functions
+├── locales/            # Translation catalogs
+│   ├── en/             # English translations
+│   └── fr/             # French translations
+└── modules/            # Feature modules
+    └── lingui/         # i18n configuration
 ```
 
 ## Key Features
@@ -108,6 +118,7 @@ src/
 - **Form Handling**: React Hook Form with Zod validation
 - **Dark Mode**: Built-in theme switching
 - **Real-time**: Optimistic updates with TanStack Query
+- **Internationalization**: Multi-language support with Lingui.js
 
 ## Deployment
 
@@ -204,6 +215,86 @@ import { clientEnv } from "@/env/client";  // Client-side only
 const dbUrl = serverEnv.DATABASE_URL;
 const publicUrl = clientEnv.VITE_PUBLIC_URL;
 ```
+
+## Internationalization (i18n)
+
+This project uses [Lingui.js](https://lingui.dev/) for internationalization with full TypeScript support.
+
+### Supported Languages
+- English (en) - Default
+- French (fr)
+
+### Using Translations
+
+There are two ways to add translations in your components:
+
+#### 1. Using `<Trans>` Component (Recommended for JSX)
+```tsx
+import { Trans } from "@lingui/react/macro";
+
+// Simple text
+<Trans>Hello World</Trans>
+
+// With variables
+<Trans>Welcome {name}!</Trans>
+
+// Inside components
+<Button>
+  <Trans>Submit</Trans>
+</Button>
+```
+
+#### 2. Using `useLingui` Hook (For dynamic text)
+```tsx
+import { useLingui } from "@lingui/react/macro";
+
+function MyComponent() {
+  const { t } = useLingui();
+  
+  // For attributes, alerts, or non-JSX contexts
+  const placeholder = t`Enter your name`;
+  const message = t`Task "${taskName}" completed`;
+  
+  return <input placeholder={placeholder} />;
+}
+```
+
+### Key Differences
+
+- **`<Trans>`**: Use for static text in JSX. Provides better extraction and compile-time optimizations.
+- **`useLingui().t`**: Use for dynamic text, attributes, or when you need the translated string as a value.
+
+### Adding New Languages
+
+1. Update `src/modules/lingui/i18n.ts`:
+   ```typescript
+   export const locales = {
+     en: "English",
+     fr: "French",
+     es: "Spanish", // Add new language
+   };
+   ```
+
+2. Create locale directory:
+   ```bash
+   mkdir -p src/locales/es
+   ```
+
+3. Extract and compile translations:
+   ```bash
+   bun lingui:extract
+   bun lingui:compile
+   ```
+
+4. Translate the extracted messages in `src/locales/es/messages.po`
+
+### Development Workflow
+
+1. Write code with `<Trans>` or `t` tagged templates
+2. Run `bun lingui:extract` to extract new strings
+3. Translate strings in `.po` files
+4. Run `bun lingui:compile` to generate catalogs
+5. Commit both `.po` and compiled `.po.ts` files
 
 ## Architecture Patterns
 

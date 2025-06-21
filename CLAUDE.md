@@ -14,7 +14,8 @@ This is a full-stack Todo application built with TanStack Start, a type-safe, cl
 - **Styling**: Tailwind CSS v4 with Shadcn/ui components
 - **Backend**: tRPC for type-safe APIs
 - **Database**: PostgreSQL with Drizzle ORM
-- **Deployment**: Configured for Vercel
+- **Internationalization**: Lingui.js for i18n support
+- **Deployment**: Configured for AWS Lambda
 
 ## Common Development Commands
 
@@ -40,6 +41,10 @@ bun db:push         # Push schema changes to database
 bun db:studio       # Open Drizzle Studio GUI
 bun db:seed         # Seed the database
 bun db:generate     # Generate migration files
+
+# Internationalization commands
+bun lingui:extract  # Extract translatable strings
+bun lingui:compile  # Compile translation catalogs
 ```
 
 ## Local Database Setup
@@ -61,6 +66,8 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 - `/src/components/ui/` - Shadcn/ui components
 - `/src/components/todo/` - Todo-specific components
 - `/src/services/` - Business logic services
+- `/src/locales/` - Translation catalogs for each language
+- `/src/modules/lingui/` - i18n configuration and setup
 
 ### Key Patterns
 
@@ -68,6 +75,7 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 2. **Database Access**: Use Drizzle ORM for all database operations with the schema defined in `/src/db/schema/`
 3. **Form Handling**: React Hook Form with Zod validation for type-safe forms
 4. **Component Library**: Shadcn/ui components are in `/src/components/ui/` - use these for consistent UI
+5. **Internationalization**: Use `<Trans>` from `@lingui/react/macro` for JSX text and `useLingui().t` for dynamic text
 
 ### Path Aliases
 - `@/*` maps to `./src/*` - always use this for imports
@@ -87,5 +95,7 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 - No test or lint scripts are currently configured
 - The project uses Bun as the JavaScript runtime (not Node.js or npm)
 - Database migrations must be run manually after schema changes
-- Vercel deployment is configured in `vite.config.ts`
+- AWS Lambda deployment is configured in `vite.config.ts`
 - ALWAYS run `bun typecheck` after editing files to ensure type safety
+- When adding translations, use `<Trans>` for JSX and `useLingui().t` for dynamic text
+- Run `bun lingui:extract` to extract new strings and `bun lingui:compile` after translating

@@ -1,8 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { APP_LOGO_URL, APP_NAME } from "@/constants/app";
 import { ModeToggle } from "./mode-toggle";
+import LanguageToggle from "./language-toogle";
+import { useLingui } from "@lingui/react/macro";
 
 const ContentLayout = ({ children }: { children: React.ReactNode }) => {
+  const { t } = useLingui();
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex items-center justify-between">
@@ -10,7 +13,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
           <Link to="/">
             <img
               src={APP_LOGO_URL}
-              alt={`${APP_NAME} logo`}
+              alt={`${APP_NAME} ${t`Logo`}`}
               className="h-20 w-20"
             />
           </Link>
@@ -22,6 +25,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
         <div className="flex items-center gap-2 self-start">
+          <LanguageToggle />
           <ModeToggle />
         </div>
       </div>
