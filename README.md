@@ -128,6 +128,65 @@ The project is configured for AWS Lambda deployment with streaming support. The 
 - **`vite.config.ts`**: Sets the TanStack Start target to `aws-lambda`
 - **`nitro.config.ts`**: Configures Nitro for AWS Lambda with streaming enabled
 
+### SST (Ion) - Optional AWS Deployment
+
+[SST](https://sst.dev/) is an optional Infrastructure as Code framework for deploying full-stack applications to AWS. The project includes an SST configuration for streamlined AWS deployment.
+
+**Configuration (`sst.config.ts`):**
+
+```typescript
+export default $config({
+  app(input) {
+    return {
+      name: "f7-template",                    // Application name
+      removal: input?.stage === "production" ? "retain" : "remove", // Resource cleanup policy
+      protect: ["production"].includes(input?.stage),               // Protection from deletion
+      home: "aws",                           // Default cloud provider
+      providers: {
+        aws: {
+          region: "us-east-2",               // AWS deployment region
+          profile: input.stage === "production" 
+            ? "developer-production"         // Production AWS profile
+            : "developer-dev",               // Development AWS profile
+        },
+      },
+    };
+  },
+  async run() {
+    new sst.aws.TanStackStart("MyWeb", {     // Creates TanStack Start deployment
+      environment: {                         // Environment variables for the app
+        DATABASE_URL: process.env.DATABASE_URL,
+        VITE_PUBLIC_URL: process.env.VITE_PUBLIC_URL,
+      },
+    });
+  },
+});
+```
+
+**Key SST Features:**
+- **Multi-stage deployment**: Separate dev/production environments
+- **Infrastructure as Code**: Versioned AWS resource management
+- **Type-safe configuration**: Full TypeScript support for infrastructure
+- **AWS native**: Optimized for AWS services and best practices
+- **Environment management**: Secure handling of secrets and environment variables
+
+**SST Deployment Commands:**
+```bash
+# Deploy to development stage
+sst deploy
+
+# Deploy to production stage  
+sst deploy --stage production
+
+# Remove development resources
+sst remove
+
+# View deployed resources
+sst console
+```
+
+**Note**: SST deployment is optional. You can use either the direct AWS Lambda configuration or SST based on your infrastructure preferences.
+
 ### Other Platforms
 You can change the deployment target by modifying both configuration files:
 
