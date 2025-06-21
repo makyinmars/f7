@@ -1,10 +1,10 @@
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { useParams } from "@tanstack/react-router";
 import { Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { TodoStatus } from "@/db/schema/todo";
+import { Route } from "@/routes/todo/$todoId";
 import { useTRPC } from "@/trpc/react";
 import LoadingState from "../common/loading-state";
 import TodoDelete from "./todo-delete";
@@ -12,7 +12,7 @@ import TodoForm from "./todo-form";
 
 function TodoDetail() {
   const trpc = useTRPC();
-  const { todoId } = useParams({ from: "/todo/$todoId" });
+  const { todoId } = Route.useParams();
   const todoQuery = useSuspenseQuery(
     trpc.todo.byId.queryOptions({ id: todoId }, { enabled: !!todoId }),
   );

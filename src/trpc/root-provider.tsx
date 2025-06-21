@@ -14,6 +14,7 @@ import {
 import type { TRPCCombinedDataTransformer } from "@trpc/server";
 import { createTRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import superjson, { SuperJSON } from "superjson";
+import { clientEnv } from "@/env/client";
 import { TRPCProvider } from "./react";
 import type { TRPCRouter } from "./router";
 
@@ -51,6 +52,7 @@ const headers = createIsomorphicFn()
 function getUrl() {
   const base = (() => {
     if (typeof window !== "undefined") return "";
+    if (clientEnv.VITE_PUBLIC_URL) return clientEnv.VITE_PUBLIC_URL;
     return `http://localhost:${process.env.PORT ?? 3000}`;
   })();
   return `${base}/api/trpc`;
@@ -97,7 +99,7 @@ export const createQueryClient = () => {
       dehydrate: { serializeData: superjson.serialize },
       hydrate: { deserializeData: superjson.deserialize },
       queries: {
-        staleTime: 3000,
+        staleTime: 300000, // 5 minutes
         retry(failureCount, _err) {
           const err = _err as unknown as TRPCClientErrorLike<TRPCRouter>;
           const code = err?.data?.code;

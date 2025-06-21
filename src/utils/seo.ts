@@ -1,32 +1,51 @@
+import {
+  APP_LOGO_URL,
+  APP_NAME,
+  DEFAULT_DESCRIPTION,
+  DEFAULT_KEYWORDS,
+} from "@/constants/app";
+
+export interface SEOConfig {
+  title?: string;
+  description?: string;
+  keywords?: string;
+  image?: string;
+  url?: string;
+  type?: "website" | "article";
+}
+
 export const seo = ({
   title,
-  description,
-  keywords,
-  image,
-}: {
-  title: string;
-  description?: string;
-  image?: string;
-  keywords?: string;
-}) => {
+  description = DEFAULT_DESCRIPTION,
+  keywords = DEFAULT_KEYWORDS,
+  image = APP_LOGO_URL,
+  url,
+  type = "website",
+}: SEOConfig) => {
+  const fullTitle = title ? `${APP_NAME} - ${title}` : APP_NAME;
+
   const tags = [
-    { title },
+    { title: fullTitle },
     { name: "description", content: description },
     { name: "keywords", content: keywords },
-    { name: "twitter:title", content: title },
-    { name: "twitter:description", content: description },
-    { name: "twitter:creator", content: "@f7stack" },
+
+    // Twitter Card tags
+    { name: "twitter:card", content: "summary_large_image" },
     { name: "twitter:site", content: "@f7stack" },
-    { name: "og:type", content: "website" },
-    { name: "og:title", content: title },
-    { name: "og:description", content: description },
-    ...(image
-      ? [
-          { name: "twitter:image", content: image },
-          { name: "twitter:card", content: "summary_large_image" },
-          { name: "og:image", content: image },
-        ]
-      : []),
+    { name: "twitter:creator", content: "@f7stack" },
+    { name: "twitter:title", content: fullTitle },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+
+    // OpenGraph tags (use 'property' not 'name')
+    { property: "og:type", content: type },
+    { property: "og:title", content: fullTitle },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:site_name", content: APP_NAME },
+
+    // Add canonical URL if provided
+    ...(url ? [{ property: "og:url", content: url }] : []),
   ];
 
   return tags;

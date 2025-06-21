@@ -18,7 +18,9 @@
       "!**/routeTree.gen.ts",
       "!**/.output",
       "!**/.nitro",
-      "!**/.vercel"
+      "!**/.vercel",
+      "!**/.sst",
+      "!**/sst-env.d.ts"
     ]
   },
   "formatter": {
@@ -64,6 +66,9 @@
             "functions": ["clsx", "cva", "cn"]
           }
         }
+      },
+      "suspicious": {
+        "noDocumentCookie": "off"
       }
     }
   },

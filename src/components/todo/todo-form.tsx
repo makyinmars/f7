@@ -69,8 +69,11 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           trpc.todo.list.queryKey(),
         );
 
+        // Generate a temporary ID that works on both server and client
+        const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
         const optimisticTodo: Todo = {
-          id: crypto.randomUUID(),
+          id: tempId,
           active: variables.active ?? false,
           ...variables,
           createdAt: new Date(),
@@ -133,10 +136,15 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           context?.previousData,
         );
       },
-      onSuccess: (updated) => {
+      onSuccess: async (updated) => {
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
           if (!old) return [updated];
           return old.map((todo) => (todo.id === updated.id ? updated : todo));
+        });
+        await queryClient.invalidateQueries({
+          queryKey: trpc.todo.byId.queryKey({
+            id: updated.id,
+          }),
         });
         setOpen(false);
       },

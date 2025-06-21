@@ -13,10 +13,11 @@ export const Route = createFileRoute("/todo/$todoId")({
     );
     return { todo };
   },
-  head: ({ params }) => ({
+  head: ({ loaderData }) => ({
     meta: [
       {
-        title: `${APP_NAME} - Todo ${params.todoId}`,
+        title: `${APP_NAME} - Todo ${loaderData?.todo.text || "Todo item"}`,
+        description: `Managing todo: ${loaderData?.todo.text || "Todo item"}`,
       },
     ],
   }),

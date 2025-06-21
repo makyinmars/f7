@@ -13,7 +13,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     tanstackStart({
-      target: "vercel",
+      target: "aws-lambda",
     }),
   ],
 });

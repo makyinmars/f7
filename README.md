@@ -12,7 +12,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 - **Database**: PostgreSQL with Drizzle ORM
 - **Validation**: Zod schemas
 - **Environment**: T3 OSS env-core for type-safe environment variables
-- **Deployment**: Vercel (configurable)
+- **Deployment**: AWS Lambda (configurable)
 - **Code Quality**: Biome for linting & formatting
 
 ## Quick Start
@@ -39,6 +39,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
    Create a `.env` file with:
    ```env
    DATABASE_URL="postgresql://postgres:example@localhost:5432/f7"
+   VITE_PUBLIC_URL="http://localhost:3000"
    ```
 
 4. **Run database migrations**
@@ -110,19 +111,35 @@ src/
 
 ## Deployment
 
-### Vercel (Default)
-The project is configured for Vercel deployment out of the box. Simply connect your repository to Vercel.
+### AWS Lambda (Default)
+The project is configured for AWS Lambda deployment with streaming support. The configuration is defined in two files:
+
+- **`vite.config.ts`**: Sets the TanStack Start target to `aws-lambda`
+- **`nitro.config.ts`**: Configures Nitro for AWS Lambda with streaming enabled
 
 ### Other Platforms
-You can change the deployment target in `vite.config.ts`:
+You can change the deployment target by modifying both configuration files:
 
+**In `vite.config.ts`:**
 ```typescript
 tanstackStart({
-  target: "vercel" // Change to: "node", "static", "cloudflare", etc.
+  target: "aws-lambda" // Change to: "vercel", "node", "static", "cloudflare", etc.
+})
+```
+
+**In `nitro.config.ts`:**
+```typescript
+export default defineNitroConfig({
+  inlineDynamicImports: true,
+  preset: "aws-lambda", // Change to match your deployment target
+  awsLambda: {
+    streaming: true,
+  },
 })
 ```
 
 Supported targets include:
+- `aws-lambda` - AWS Lambda (current configuration)
 - `vercel` - Vercel platform
 - `node` - Node.js servers
 - `static` - Static site generation
@@ -144,8 +161,7 @@ DATABASE_URL="postgresql://username:password@host:port/database"
 Defined in `src/env/client.ts` - these must have the `VITE_` prefix and are accessible in the browser:
 
 ```env
-# Example client variables (currently none are required)
-# VITE_PUBLIC_API_URL="https://api.example.com"
+VITE_PUBLIC_URL="https://your-app-domain.com"
 ```
 
 ### Adding New Environment Variables
@@ -171,6 +187,7 @@ Defined in `src/env/client.ts` - these must have the `VITE_` prefix and are acce
    export const clientEnv = createEnv({
      clientPrefix: "VITE_",
      client: {
+       VITE_PUBLIC_URL: z.url(),
        VITE_NEW_CLIENT_VAR: z.string(), // Add your new variable here
      },
      runtimeEnv: import.meta.env,
@@ -185,7 +202,7 @@ import { clientEnv } from "@/env/client";  // Client-side only
 
 // Access with full type safety
 const dbUrl = serverEnv.DATABASE_URL;
-const apiUrl = clientEnv.VITE_PUBLIC_API_URL;
+const publicUrl = clientEnv.VITE_PUBLIC_URL;
 ```
 
 ## Architecture Patterns
