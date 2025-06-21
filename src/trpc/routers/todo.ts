@@ -21,7 +21,7 @@ export const todoRouter = {
     });
   }),
   byId: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string().uuid("Invalid todo ID format") }))
     .query(async ({ input, ctx }) => {
       const errors = createErrors(ctx.i18n);
       const foundTodo = await ctx.db.query.todo.findFirst({
@@ -58,7 +58,7 @@ export const todoRouter = {
       }
     }),
   delete: publicProcedure
-    .input(z.object({ id: z.string() }))
+    .input(z.object({ id: z.string().uuid("Invalid todo ID format") }))
     .mutation(async ({ input, ctx }) => {
       const errors = createErrors(ctx.i18n);
 

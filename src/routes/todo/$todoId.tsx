@@ -1,21 +1,34 @@
-import { createFileRoute, lazyRouteComponent } from "@tanstack/react-router";
-import { Suspense } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import LoadingState from "@/components/common/loading-state";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+import TodoDetail from "@/components/todo/todo-detail";
 import { APP_NAME } from "@/constants/app";
 
 export const Route = createFileRoute("/todo/$todoId")({
   loader: async ({ context, params }) => {
     const { todoId } = params;
 
-    const todo = await context.queryClient.ensureQueryData(
-      context.trpc.todo.byId.queryOptions({
-        id: todoId,
-      }),
-    );
-    return { todo };
+    // Validate UUID format on client side
+    const uuidRegex =
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuidRegex.test(todoId)) {
+      throw new Error(`Invalid todo ID format: ${todoId}`);
+    }
+
+    try {
+      const todo = await context.queryClient.ensureQueryData(
+        context.trpc.todo.byId.queryOptions(
+          {
+            id: todoId,
+          },
+          {
+            enabled: !!todoId,
+          },
+        ),
+      );
+      return { todo };
+    } catch (_error) {
+      throw new Error(`Todo not found or invalid: ${todoId}`);
+    }
   },
   head: ({ loaderData }) => ({
     meta: [
@@ -26,11 +39,18 @@ export const Route = createFileRoute("/todo/$todoId")({
     ],
   }),
   errorComponent: ({ error }) => {
+    const isInvalidFormat = error.message.includes("Invalid todo ID format");
     return (
       <div className="flex min-h-96 items-center justify-center">
         <div className="text-center">
-          <h2 className="mb-2 font-semibold text-2xl">Todo Not Found</h2>
-          <p className="text-muted-foreground">{error.message}</p>
+          <h2 className="mb-2 font-semibold text-2xl">
+            {isInvalidFormat ? "Invalid Todo ID" : "Todo Not Found"}
+          </h2>
+          <p className="text-muted-foreground">
+            {isInvalidFormat
+              ? "The todo ID provided is not in the correct format."
+              : error.message}
+          </p>
         </div>
       </div>
     );
@@ -48,66 +68,5 @@ export const Route = createFileRoute("/todo/$todoId")({
     );
   },
   pendingComponent: () => <LoadingState text="Loading todo details..." />,
-  component: () => {
-    const LazyTodoDetail = lazyRouteComponent(
-      () => import("@/components/todo/todo-detail"),
-    );
-    return (
-      <Suspense fallback={<TodoDetailSkeleton />}>
-        <LazyTodoDetail />
-      </Suspense>
-    );
-  },
+  component: TodoDetail,
 });
-
-function TodoDetailSkeleton() {
-  return (
-    <div className="flex flex-col gap-6">
-      <div className="flex items-center justify-between">
-        <Skeleton className="h-9 w-48" />
-        <div className="flex items-center gap-2">
-          <Skeleton className="h-10 w-20" />
-          <Skeleton className="h-10 w-24" />
-        </div>
-      </div>
-
-      <Card>
-        <CardHeader>
-          <Skeleton className="h-7 w-3/4" />
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-16" />
-              <Skeleton className="h-8 w-28" />
-            </div>
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-8 w-20" />
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="grid grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-20" />
-              <Skeleton className="h-5 w-36" />
-            </div>
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-24" />
-              <Skeleton className="h-5 w-36" />
-            </div>
-          </div>
-
-          <Separator />
-
-          <div className="space-y-2">
-            <Skeleton className="h-4 w-16" />
-            <Skeleton className="h-5 w-64" />
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  );
-}

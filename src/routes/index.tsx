@@ -81,22 +81,10 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const { i18n, t } = useLingui();
+  const { t } = useLingui();
   const trpc = useTRPC();
   const todosQuery = useSuspenseQuery(trpc.todo.list.queryOptions());
   const todos = todosQuery.data;
-
-  const formatDate = (date: Date | string | null) => {
-    if (!date) return "-";
-    const d = new Date(date);
-    return d.toLocaleDateString(i18n.locale, {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
 
   const getStatusColor = (status: TodoStatus) => {
     switch (status) {
@@ -160,12 +148,6 @@ function Home() {
                 <TableHead className="w-[100px]">
                   <Trans>Active</Trans>
                 </TableHead>
-                <TableHead className="w-[180px]">
-                  <Trans>Created</Trans>
-                </TableHead>
-                <TableHead className="w-[180px]">
-                  <Trans>Updated</Trans>
-                </TableHead>
                 <TableHead className="w-[150px] text-right">
                   <Trans>Actions</Trans>
                 </TableHead>
@@ -202,12 +184,6 @@ function Home() {
                     >
                       {todo.active ? t`Active` : t`Inactive`}
                     </span>
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    {formatDate(todo.createdAt)}
-                  </TableCell>
-                  <TableCell className="text-muted-foreground text-sm">
-                    {formatDate(todo.updatedAt)}
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
