@@ -156,7 +156,7 @@ function RootDocument({
         >
           {children}
           <TanStackRouterDevtools position="bottom-right" />
-          <Toaster />
+          <Toaster richColors={true} />
           <Scripts />
         </ThemeProvider>
       </body>
