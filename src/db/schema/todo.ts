@@ -40,10 +40,7 @@ export const apiTodoUpdate = todoUpdate.omit({
 
 export const apiTodoCreateAndUpdate = apiTodoCreate.extend({
   id: z.string().optional(),
-  text: z
-    .string()
-    .min(3, "Text must be at least 3 characters")
-    .max(250, "Text must not exceed 250 characters"),
+  text: z.string().min(3).max(250),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });

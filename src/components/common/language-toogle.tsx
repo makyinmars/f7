@@ -5,6 +5,7 @@ import { setHeader } from "@tanstack/react-start/server";
 import { serialize } from "cookie-es";
 import { cn } from "@/lib/utils";
 import { dynamicActivate, locales } from "@/modules/lingui/i18n";
+import { configureZodLocaleStatic } from "@/utils/zod-i18n";
 
 const updateLanguage = createServerFn({ method: "POST" })
   .validator((locale: string) => locale)
@@ -45,6 +46,9 @@ const LanguageToggle = () => {
 
                 // Then update the client-side language immediately
                 await dynamicActivate(i18n, locale);
+
+                // Configure Zod with the new locale
+                await configureZodLocaleStatic(locale);
 
                 // Update html lang attribute for accessibility
                 document.documentElement.lang = locale;
