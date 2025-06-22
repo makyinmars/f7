@@ -3,14 +3,8 @@ import { initTRPC } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod/v4";
 import { db } from "@/db";
-import { configureZodLocaleStatic } from "@/utils/zod-i18n";
 
 export const createTRPCContext = async (opts?: { i18n?: I18n }) => {
-  // Configure Zod locale based on the i18n context
-  if (opts?.i18n?.locale) {
-    await configureZodLocaleStatic(opts.i18n.locale);
-  }
-
   return {
     db,
     i18n: opts?.i18n,
