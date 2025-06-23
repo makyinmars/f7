@@ -10,10 +10,13 @@ function handler({ request }: { request: Request }) {
     req: request,
     router: trpcRouter,
     endpoint: "/api/trpc",
-    createContext: async (_opts) => {
-      // Setup i18n for this request
+    createContext: async (opts) => {
       await setupLocaleFromRequest(i18n);
-      return createTRPCContext({ i18n });
+      return createTRPCContext({
+        i18n,
+        headers: opts.req.headers,
+        req: opts.req,
+      });
     },
   });
 }

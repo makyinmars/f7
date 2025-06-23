@@ -28,12 +28,12 @@ msgstr "\"{0}\" a été supprimé de votre liste"
 msgid "\"{0}\" has been updated"
 msgstr "\"{0}\" a été mis à jour"
 
-#: src/routes/index.tsx:170
+#: src/routes/index.tsx:152
 msgid "Actions"
 msgstr "Actions"
 
-#: src/routes/index.tsx:161
-#: src/routes/index.tsx:203
+#: src/routes/index.tsx:149
+#: src/routes/index.tsx:185
 #: src/components/todo/todo-form.tsx:242
 #: src/components/todo/todo-detail.tsx:108
 msgid "Active"
@@ -47,19 +47,27 @@ msgstr "État actif"
 msgid "Add a new task to your todo list"
 msgstr "Ajouter une nouvelle tâche à votre liste"
 
-#: src/routes/index.tsx:132
+#: src/routes/index.tsx:120
 msgid "Add Todo"
 msgstr "Ajouter une tâche"
+
+#: src/routes/auth/index.tsx:186
+msgid "and"
+msgstr "et"
 
 #: src/components/todo/todo-delete.tsx:85
 msgid "Are you absolutely sure?"
 msgstr "Êtes-vous absolument sûr ?"
 
+#: src/routes/auth/index.tsx:182
+msgid "By clicking continue, you agree to our"
+msgstr "En cliquant sur continuer, vous acceptez nos"
+
 #: src/components/todo/todo-delete.tsx:96
 msgid "Cancel"
 msgstr "Annuler"
 
-#: src/routes/index.tsx:119
+#: src/routes/index.tsx:107
 #: src/components/todo/todo-form.tsx:227
 #: src/components/todo/todo-detail.tsx:51
 msgid "Completed"
@@ -73,13 +81,9 @@ msgstr "Créer une nouvelle tâche"
 msgid "Create Todo"
 msgstr "Créer la tâche"
 
-#: src/routes/index.tsx:145
+#: src/routes/index.tsx:133
 msgid "Create your first todo"
 msgstr "Créer votre première tâche"
-
-#: src/routes/index.tsx:164
-msgid "Created"
-msgstr "Créé"
 
 #: src/components/todo/todo-detail.tsx:118
 msgid "Created At"
@@ -89,7 +93,7 @@ msgstr "Créé le"
 msgid "Creating todo..."
 msgstr "Création de la tâche..."
 
-#: src/routes/index.tsx:238
+#: src/routes/index.tsx:214
 #: src/components/todo/todo-detail.tsx:72
 #: src/components/todo/todo-delete.tsx:99
 msgid "Delete"
@@ -99,7 +103,11 @@ msgstr "Supprimer"
 msgid "Deleting todo..."
 msgstr "Suppression de la tâche..."
 
-#: src/routes/index.tsx:228
+#: src/routes/auth/index.tsx:173
+msgid "Don't have an account?"
+msgstr "Vous n'avez pas de compte ?"
+
+#: src/routes/index.tsx:204
 #: src/components/todo/todo-detail.tsx:66
 msgid "Edit"
 msgstr "Modifier"
@@ -107,6 +115,10 @@ msgstr "Modifier"
 #: src/components/todo/todo-form.tsx:178
 msgid "Edit Todo"
 msgstr "Modifier la tâche"
+
+#: src/routes/auth/index.tsx:127
+msgid "Email"
+msgstr "Email"
 
 #: src/components/todo/todo-form.tsx:199
 msgid "Enter task description"
@@ -127,13 +139,17 @@ msgstr "Erreur lors de la suppression de la tâche : {0}"
 msgid "Error updating todo: {0}"
 msgstr "Erreur lors de la mise à jour de la tâche : {0}"
 
-#: src/routes/index.tsx:117
+#: src/routes/auth/index.tsx:153
+msgid "Forgot your password?"
+msgstr "Mot de passe oublié ?"
+
+#: src/routes/index.tsx:105
 #: src/components/todo/todo-form.tsx:224
 #: src/components/todo/todo-detail.tsx:49
 msgid "In Progress"
 msgstr "En cours"
 
-#: src/routes/index.tsx:203
+#: src/routes/index.tsx:185
 #: src/components/todo/todo-detail.tsx:108
 msgid "Inactive"
 msgstr "Inactif"
@@ -146,27 +162,64 @@ msgstr "Dernière mise à jour"
 msgid "Loading todos..."
 msgstr "Chargement des tâches..."
 
-#: src/components/common/content-layout.tsx:16
+#: src/routes/auth/index.tsx:51
+msgid "Logging in..."
+msgstr "Connexion en cours..."
+
+#: src/routes/auth/index.tsx:168
+msgid "Login"
+msgstr "Se connecter"
+
+#. placeholder {0}: err.message || "Invalid credentials"
+#: src/routes/auth/index.tsx:54
+msgid "Login failed: {0}"
+msgstr "Échec de connexion : {0}"
+
+#: src/routes/auth/index.tsx:108
+msgid "Login with Google"
+msgstr "Se connecter avec Google"
+
+#: src/routes/auth/index.tsx:85
+msgid "Login with your Google account"
+msgstr "Connectez-vous avec votre compte Google"
+
+#: src/components/common/content-layout.tsx:18
 msgid "Logo"
 msgstr "Logo"
+
+#: src/routes/auth/index.tsx:132
+msgid "m@example.com"
+msgstr "m@exemple.com"
 
 #: src/components/todo/todo-form.tsx:182
 msgid "Make changes to your todo item"
 msgstr "Modifier votre tâche"
 
-#: src/routes/index.tsx:127
+#: src/routes/index.tsx:115
 msgid "My Todos"
 msgstr "Mes tâches"
 
-#: src/routes/index.tsx:140
+#: src/routes/index.tsx:128
 msgid "No todos yet"
 msgstr "Aucune tâche pour le moment"
 
-#: src/routes/index.tsx:115
+#: src/routes/index.tsx:103
 #: src/components/todo/todo-form.tsx:221
 #: src/components/todo/todo-detail.tsx:47
 msgid "Not Started"
 msgstr "Non commencé"
+
+#: src/routes/auth/index.tsx:113
+msgid "Or continue with"
+msgstr "Ou continuer avec"
+
+#: src/routes/auth/index.tsx:147
+msgid "Password"
+msgstr "Mot de passe"
+
+#: src/routes/auth/index.tsx:188
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
 
 #: src/components/todo/todo-form.tsx:216
 msgid "Select status"
@@ -176,16 +229,24 @@ msgstr "Sélectionner le statut"
 msgid "Set whether this todo is active"
 msgstr "Définir si cette tâche est active"
 
-#: src/routes/index.tsx:158
+#: src/routes/auth/index.tsx:175
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: src/routes/index.tsx:146
 #: src/components/todo/todo-form.tsx:211
 #: src/components/todo/todo-detail.tsx:86
 msgid "Status"
 msgstr "Statut"
 
-#: src/routes/index.tsx:155
+#: src/routes/index.tsx:143
 #: src/components/todo/todo-form.tsx:196
 msgid "Task"
 msgstr "Tâche"
+
+#: src/routes/auth/index.tsx:184
+msgid "Terms of Service"
+msgstr "Conditions d'utilisation"
 
 #. placeholder {0}: todo.text
 #: src/components/todo/todo-delete.tsx:88
@@ -204,34 +265,18 @@ msgstr "ID de la tâche"
 msgid "Update Todo"
 msgstr "Mettre à jour la tâche"
 
-#: src/routes/index.tsx:167
-msgid "Updated"
-msgstr "Mis à jour"
-
 #: src/components/todo/todo-form.tsx:159
 msgid "Updating todo..."
 msgstr "Mise à jour de la tâche..."
 
-#: src/routes/index.tsx:222
+#: src/routes/index.tsx:198
 msgid "View"
 msgstr "Voir"
 
-#: src/trpc/errors.ts
-msgid "Failed to create todo"
-msgstr "Échec de la création de la tâche"
+#: src/routes/auth/index.tsx:82
+msgid "Welcome back"
+msgstr "Bon retour"
 
-#: src/trpc/errors.ts
-msgid "Failed to delete todo"
-msgstr "Échec de la suppression de la tâche"
-
-#: src/trpc/errors.ts
-msgid "Failed to update todo"
-msgstr "Échec de la mise à jour de la tâche"
-
-#: src/trpc/errors.ts
-msgid "Invalid input"
-msgstr "Saisie invalide"
-
-#: src/trpc/errors.ts
-msgid "Todo not found"
-msgstr "Tâche introuvable"
+#: src/routes/auth/index.tsx:52
+msgid "Welcome back!"
+msgstr "Bon retour !"
