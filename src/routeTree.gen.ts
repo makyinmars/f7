@@ -14,6 +14,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as TodoTodoIdRouteImport } from './routes/todo/$todoId'
+import { Route as adminDashboardRouteRouteImport } from './routes/(admin)/dashboard/route'
+import { Route as adminDashboardIndexRouteImport } from './routes/(admin)/dashboard/index'
 import { ServerRoute as ApiTrpcSplatServerRouteImport } from './routes/api/trpc/$'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
@@ -34,6 +36,16 @@ const TodoTodoIdRoute = TodoTodoIdRouteImport.update({
   path: '/todo/$todoId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const adminDashboardRouteRoute = adminDashboardRouteRouteImport.update({
+  id: '/(admin)/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const adminDashboardIndexRoute = adminDashboardIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => adminDashboardRouteRoute,
+} as any)
 const ApiTrpcSplatServerRoute = ApiTrpcSplatServerRouteImport.update({
   id: '/api/trpc/$',
   path: '/api/trpc/$',
@@ -47,30 +59,42 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dashboard': typeof adminDashboardRouteRouteWithChildren
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth': typeof AuthIndexRoute
+  '/dashboard/': typeof adminDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth': typeof AuthIndexRoute
+  '/dashboard': typeof adminDashboardIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/(admin)/dashboard': typeof adminDashboardRouteRouteWithChildren
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth/': typeof AuthIndexRoute
+  '/(admin)/dashboard/': typeof adminDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/todo/$todoId' | '/auth'
+  fullPaths: '/' | '/dashboard' | '/todo/$todoId' | '/auth' | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/todo/$todoId' | '/auth'
-  id: '__root__' | '/' | '/todo/$todoId' | '/auth/'
+  to: '/' | '/todo/$todoId' | '/auth' | '/dashboard'
+  id:
+    | '__root__'
+    | '/'
+    | '/(admin)/dashboard'
+    | '/todo/$todoId'
+    | '/auth/'
+    | '/(admin)/dashboard/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  adminDashboardRouteRoute: typeof adminDashboardRouteRouteWithChildren
   TodoTodoIdRoute: typeof TodoTodoIdRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
@@ -123,6 +147,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodoTodoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(admin)/dashboard': {
+      id: '/(admin)/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof adminDashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(admin)/dashboard/': {
+      id: '/(admin)/dashboard/'
+      path: '/'
+      fullPath: '/dashboard/'
+      preLoaderRoute: typeof adminDashboardIndexRouteImport
+      parentRoute: typeof adminDashboardRouteRoute
+    }
   }
 }
 declare module '@tanstack/react-start/server' {
@@ -144,8 +182,20 @@ declare module '@tanstack/react-start/server' {
   }
 }
 
+interface adminDashboardRouteRouteChildren {
+  adminDashboardIndexRoute: typeof adminDashboardIndexRoute
+}
+
+const adminDashboardRouteRouteChildren: adminDashboardRouteRouteChildren = {
+  adminDashboardIndexRoute: adminDashboardIndexRoute,
+}
+
+const adminDashboardRouteRouteWithChildren =
+  adminDashboardRouteRoute._addFileChildren(adminDashboardRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  adminDashboardRouteRoute: adminDashboardRouteRouteWithChildren,
   TodoTodoIdRoute: TodoTodoIdRoute,
   AuthIndexRoute: AuthIndexRoute,
 }

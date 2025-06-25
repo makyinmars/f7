@@ -2,6 +2,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
+import ContentLayout from "@/components/common/content-layout";
 import LoadingState from "@/components/common/loading-state";
 import TodoDelete from "@/components/todo/todo-delete";
 import TodoForm from "@/components/todo/todo-form";
@@ -109,7 +110,7 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <ContentLayout>
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-2xl">
           <Trans>My Todos</Trans>
@@ -222,6 +223,6 @@ function Home() {
           </Table>
         </div>
       )}
-    </div>
+    </ContentLayout>
   );
 }

@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { TodoStatus } from "@/db/schema/todo";
 import { Route } from "@/routes/todo/$todoId";
 import { useTRPC } from "@/trpc/react";
+import ContentLayout from "../common/content-layout";
 import TodoDelete from "./todo-delete";
 import TodoForm from "./todo-form";
 
@@ -53,7 +54,7 @@ function TodoDetail() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <ContentLayout>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-3xl">
@@ -145,7 +146,7 @@ function TodoDetail() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ContentLayout>
   );
 }
 
