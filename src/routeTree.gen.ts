@@ -14,6 +14,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthIndexRouteImport } from './routes/auth/index'
 import { Route as TodoTodoIdRouteImport } from './routes/todo/$todoId'
+import { Route as AuthSignupRouteImport } from './routes/auth/signup'
 import { Route as adminDashboardRouteRouteImport } from './routes/(admin)/dashboard/route'
 import { Route as adminDashboardIndexRouteImport } from './routes/(admin)/dashboard/index'
 import { ServerRoute as ApiTrpcSplatServerRouteImport } from './routes/api/trpc/$'
@@ -34,6 +35,11 @@ const AuthIndexRoute = AuthIndexRouteImport.update({
 const TodoTodoIdRoute = TodoTodoIdRouteImport.update({
   id: '/todo/$todoId',
   path: '/todo/$todoId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthSignupRoute = AuthSignupRouteImport.update({
+  id: '/auth/signup',
+  path: '/auth/signup',
   getParentRoute: () => rootRouteImport,
 } as any)
 const adminDashboardRouteRoute = adminDashboardRouteRouteImport.update({
@@ -60,12 +66,14 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof adminDashboardRouteRouteWithChildren
+  '/auth/signup': typeof AuthSignupRoute
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard/': typeof adminDashboardIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth/signup': typeof AuthSignupRoute
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth': typeof AuthIndexRoute
   '/dashboard': typeof adminDashboardIndexRoute
@@ -74,19 +82,27 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/(admin)/dashboard': typeof adminDashboardRouteRouteWithChildren
+  '/auth/signup': typeof AuthSignupRoute
   '/todo/$todoId': typeof TodoTodoIdRoute
   '/auth/': typeof AuthIndexRoute
   '/(admin)/dashboard/': typeof adminDashboardIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/todo/$todoId' | '/auth' | '/dashboard/'
+  fullPaths:
+    | '/'
+    | '/dashboard'
+    | '/auth/signup'
+    | '/todo/$todoId'
+    | '/auth'
+    | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/todo/$todoId' | '/auth' | '/dashboard'
+  to: '/' | '/auth/signup' | '/todo/$todoId' | '/auth' | '/dashboard'
   id:
     | '__root__'
     | '/'
     | '/(admin)/dashboard'
+    | '/auth/signup'
     | '/todo/$todoId'
     | '/auth/'
     | '/(admin)/dashboard/'
@@ -95,6 +111,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   adminDashboardRouteRoute: typeof adminDashboardRouteRouteWithChildren
+  AuthSignupRoute: typeof AuthSignupRoute
   TodoTodoIdRoute: typeof TodoTodoIdRoute
   AuthIndexRoute: typeof AuthIndexRoute
 }
@@ -147,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TodoTodoIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/signup': {
+      id: '/auth/signup'
+      path: '/auth/signup'
+      fullPath: '/auth/signup'
+      preLoaderRoute: typeof AuthSignupRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(admin)/dashboard': {
       id: '/(admin)/dashboard'
       path: '/dashboard'
@@ -196,6 +220,7 @@ const adminDashboardRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   adminDashboardRouteRoute: adminDashboardRouteRouteWithChildren,
+  AuthSignupRoute: AuthSignupRoute,
   TodoTodoIdRoute: TodoTodoIdRoute,
   AuthIndexRoute: AuthIndexRoute,
 }

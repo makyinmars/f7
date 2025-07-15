@@ -2,15 +2,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { Route as DashboardRoute } from "./route"
+import { Route as DashboardRoute } from "./route";
 
 export const Route = createFileRoute("/(admin)/dashboard/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { auth } = DashboardRoute.useRouteContext()
-  console.log("Session", auth)
+  const { auth } = DashboardRoute.useRouteContext();
+  console.log("Session", auth);
   return (
     <div className="[--header-height:calc(--spacing(14))]">
       <SidebarProvider className="flex flex-col">

@@ -1,6 +1,7 @@
 # AGENTS.md - TanStack Start Full-Stack Project
 
 ## Build/Test/Lint Commands
+
 - `bun dev` - Start development server
 - `bun build` - Production build with type checking
 - `bun typecheck` - Run TypeScript type checking
@@ -12,6 +13,7 @@
 - No test framework configured - verify changes manually
 
 ## Code Style Guidelines
+
 - **Formatting**: 2-space indentation, double quotes, Biome formatter
 - **Imports**: Use `@/` path aliases, organize imports automatically, prefer type imports with `import type`
 - **Types**: Strict TypeScript, avoid `any`, use Zod for validation, prefer `const` over `let`
@@ -23,6 +25,7 @@
 - **i18n**: Use `<Trans>` for JSX text, `useLingui().t` for dynamic text, extract/compile translations regularly
 
 ## Project Rules (from .cursor/rules/project-guide.mdc)
+
 - Keep functions single-purpose unless composable/reusable
 - Avoid unnecessary destructuring and else statements
 - Prefer single-word variable names where possible
@@ -30,4 +33,5 @@
 - Always run `bun typecheck` after editing files
 
 ## Additional Context
+
 See CLAUDE.md for comprehensive project overview, architecture patterns, and development workflow details.

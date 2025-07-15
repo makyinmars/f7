@@ -1,7 +1,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
+import { Eye, LogIn, Pencil, Plus, Trash2 } from "lucide-react";
 import ContentLayout from "@/components/common/content-layout";
 import LoadingState from "@/components/common/loading-state";
 import TodoDelete from "@/components/todo/todo-delete";
@@ -115,12 +115,20 @@ function Home() {
         <h2 className="font-semibold text-2xl">
           <Trans>My Todos</Trans>
         </h2>
-        <TodoForm>
-          <Button variant="default" className="gap-2">
-            <Plus className="h-4 w-4" />
-            <Trans>Add Todo</Trans>
+        <div className="flex items-center gap-3">
+          <Button variant="outline" className="gap-2" asChild>
+            <Link to="/auth">
+              <LogIn className="h-4 w-4" />
+              <Trans>Login</Trans>
+            </Link>
           </Button>
-        </TodoForm>
+          <TodoForm>
+            <Button variant="default" className="gap-2">
+              <Plus className="h-4 w-4" />
+              <Trans>Add Todo</Trans>
+            </Button>
+          </TodoForm>
+        </div>
       </div>
 
       {todos.length === 0 ? (

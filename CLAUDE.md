@@ -42,6 +42,13 @@ bun db:studio       # Open Drizzle Studio GUI
 bun db:seed         # Seed the database
 bun db:generate     # Generate migration files
 
+# Development mode database commands (using custom env file)
+bun --env-file=.env.franklin db:migrate
+bun --env-file=.env.franklin db:push
+bun --env-file=.env.franklin db:studio
+bun --env-file=.env.franklin db:seed
+bun --env-file=.env.franklin db:generate
+
 # Internationalization commands
 bun lingui:extract  # Extract translatable strings
 bun lingui:compile  # Compile translation catalogs
@@ -50,6 +57,7 @@ bun lingui:compile  # Compile translation catalogs
 ## Local Database Setup
 
 The project uses PostgreSQL via Docker Compose:
+
 ```bash
 docker compose up -d  # Start PostgreSQL container
 ```
@@ -59,6 +67,7 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 ## Architecture
 
 ### File Structure
+
 - `/src/routes/` - TanStack Router pages with file-based routing
 - `/src/routes/api/trpc/` - tRPC API endpoint
 - `/src/trpc/routers/` - tRPC route handlers (business logic)
@@ -78,6 +87,7 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 5. **Internationalization**: Use `<Trans>` from `@lingui/react/macro` for JSX text and `useLingui().t` for dynamic text
 
 ### Path Aliases
+
 - `@/*` maps to `./src/*` - always use this for imports
 
 ## Important Notes

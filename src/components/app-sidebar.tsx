@@ -152,7 +152,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { auth } = Route.useRouteContext()
+  const { auth } = Route.useRouteContext();
   return (
     <Sidebar
       className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
@@ -181,13 +181,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={
-          {
+        <NavUser
+          user={{
             name: auth?.user.name ?? "",
             email: auth?.user.email ?? "",
-            avatar: auth?.user.image ?? ""
-          }
-        } />
+            avatar: auth?.user.image ?? "",
+          }}
+        />
       </SidebarFooter>
     </Sidebar>
   );
