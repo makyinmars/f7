@@ -81,6 +81,17 @@ function TodoDetail() {
             <CardTitle className="text-xl">{todoQuery.data.text}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {todoQuery.data.description && (
+              <>
+                <div className="space-y-2">
+                  <h3 className="font-medium text-muted-foreground text-sm">
+                    <Trans>Description</Trans>
+                  </h3>
+                  <p className="text-sm">{todoQuery.data.description}</p>
+                </div>
+                <Separator />
+              </>
+            )}
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">

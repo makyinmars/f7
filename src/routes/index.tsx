@@ -151,6 +151,9 @@ function Home() {
                 <TableHead className="w-[200px]">
                   <Trans>Task</Trans>
                 </TableHead>
+                <TableHead>
+                  <Trans>Description</Trans>
+                </TableHead>
                 <TableHead className="w-[120px]">
                   <Trans>Status</Trans>
                 </TableHead>
@@ -173,6 +176,11 @@ function Home() {
                     >
                       {todo.text}
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    <div className="max-w-xs truncate text-muted-foreground text-sm">
+                      {todo.description || "-"}
+                    </div>
                   </TableCell>
                   <TableCell>
                     <span

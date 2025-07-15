@@ -14,6 +14,7 @@ export const todoStatusSchema = pgEnum("status", TodoStatus);
 export const todo = pgTable("todo", {
   id: uuid().defaultRandom().primaryKey(),
   text: text("text").notNull(),
+  description: text("description"),
   active: boolean("active").default(true).notNull(),
   status: todoStatusSchema("status").default(TodoStatus.NOT_STARTED).notNull(),
   ...timestamps,
@@ -41,6 +42,7 @@ export const apiTodoUpdate = todoUpdate.omit({
 export const apiTodoCreateAndUpdate = apiTodoCreate.extend({
   id: z.string().optional(),
   text: z.string().min(3).max(250),
+  description: z.string().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
 });
