@@ -31,7 +31,9 @@ export const Route = createFileRoute("/todo/$todoId")({
     meta: [
       {
         title: `${APP_NAME} - Todo ${loaderData?.todo.text || "Todo item"}`,
-        description: `Managing todo: ${loaderData?.todo.text || "Todo item"}`,
+        description: loaderData?.todo.description
+          ? `${loaderData.todo.description}`
+          : `Managing todo: ${loaderData?.todo.text || "Todo item"}`,
       },
     ],
   }),

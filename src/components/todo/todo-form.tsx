@@ -78,6 +78,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           id: tempId,
           active: variables.active ?? false,
           ...variables,
+          description: variables.description ?? null,
           createdAt: new Date(),
           updatedAt: new Date(),
         };

@@ -14,7 +14,6 @@ import {
 import type { TRPCOptionsProxy } from "@trpc/tanstack-react-query";
 import { ThemeProvider } from "next-themes";
 import * as React from "react";
-import ContentLayout from "@/components/common/content-layout";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Toaster } from "@/components/ui/sonner";
@@ -128,9 +127,7 @@ function RootComponent() {
   const { i18n } = useRouteContext({ from: "__root__" });
   return (
     <RootDocument locale={i18n.locale}>
-      <ContentLayout>
-        <Outlet />
-      </ContentLayout>
+      <Outlet />
     </RootDocument>
   );
 }

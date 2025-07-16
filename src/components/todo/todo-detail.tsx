@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { TodoStatus } from "@/db/schema/todo";
 import { Route } from "@/routes/todo/$todoId";
 import { useTRPC } from "@/trpc/react";
+import ContentLayout from "../common/content-layout";
 import TodoDelete from "./todo-delete";
 import TodoForm from "./todo-form";
 
@@ -53,7 +54,7 @@ function TodoDetail() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <ContentLayout>
       <div className="flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h1 className="font-bold text-3xl">
@@ -80,6 +81,17 @@ function TodoDetail() {
             <CardTitle className="text-xl">{todoQuery.data.text}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {todoQuery.data.description && (
+              <>
+                <div className="space-y-2">
+                  <h3 className="font-medium text-muted-foreground text-sm">
+                    <Trans>Description</Trans>
+                  </h3>
+                  <p className="text-sm">{todoQuery.data.description}</p>
+                </div>
+                <Separator />
+              </>
+            )}
             <div className="grid grid-cols-2 gap-6">
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
@@ -145,7 +157,7 @@ function TodoDetail() {
           </CardContent>
         </Card>
       </div>
-    </div>
+    </ContentLayout>
   );
 }
 

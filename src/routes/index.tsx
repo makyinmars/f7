@@ -2,6 +2,7 @@ import { Trans, useLingui } from "@lingui/react/macro";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Eye, Pencil, Plus, Trash2 } from "lucide-react";
+import ContentLayout from "@/components/common/content-layout";
 import LoadingState from "@/components/common/loading-state";
 import TodoDelete from "@/components/todo/todo-delete";
 import TodoForm from "@/components/todo/todo-form";
@@ -109,17 +110,19 @@ function Home() {
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <ContentLayout>
       <div className="flex items-center justify-between">
         <h2 className="font-semibold text-2xl">
           <Trans>My Todos</Trans>
         </h2>
-        <TodoForm>
-          <Button variant="default" className="gap-2">
-            <Plus className="h-4 w-4" />
-            <Trans>Add Todo</Trans>
-          </Button>
-        </TodoForm>
+        <div className="flex items-center gap-3">
+          <TodoForm>
+            <Button variant="default" className="gap-2">
+              <Plus className="h-4 w-4" />
+              <Trans>Add Todo</Trans>
+            </Button>
+          </TodoForm>
+        </div>
       </div>
 
       {todos.length === 0 ? (
@@ -141,6 +144,9 @@ function Home() {
               <TableRow>
                 <TableHead className="w-[200px]">
                   <Trans>Task</Trans>
+                </TableHead>
+                <TableHead>
+                  <Trans>Description</Trans>
                 </TableHead>
                 <TableHead className="w-[120px]">
                   <Trans>Status</Trans>
@@ -164,6 +170,11 @@ function Home() {
                     >
                       {todo.text}
                     </Link>
+                  </TableCell>
+                  <TableCell>
+                    <div className="max-w-xs truncate text-muted-foreground text-sm">
+                      {todo.description || "-"}
+                    </div>
                   </TableCell>
                   <TableCell>
                     <span
@@ -222,6 +233,6 @@ function Home() {
           </Table>
         </div>
       )}
-    </div>
+    </ContentLayout>
   );
 }
