@@ -3,8 +3,9 @@ import { useRouter } from "@tanstack/react-router";
 import type { ErrorContext } from "better-auth/react";
 import type { SocialProvider } from "better-auth/social-providers";
 import { authClient } from "@/auth/client";
+import { useTRPC } from "@/trpc/react";
 
-const authQueryKeys = {
+const _authQueryKeys = {
   session: ["session"],
 };
 
@@ -33,7 +34,7 @@ export const useLogin = () => {
     },
     onSuccess(response) {
       if (response.data?.user.id) {
-        router.navigate({ to: "/" });
+        router.navigate({ to: "/dashboard" });
       }
     },
   });
@@ -61,10 +62,11 @@ export const useLogin = () => {
 export const useLogout = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
+  const trpc = useTRPC();
   return useMutation({
     mutationFn: async () => await authClient.signOut(),
     onSettled: async () => {
-      queryClient.removeQueries({ queryKey: authQueryKeys.session });
+      await queryClient.invalidateQueries(trpc.auth.getSession.queryFilter());
       await router.navigate({ to: "/" });
     },
   });

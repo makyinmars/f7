@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import { GalleryVerticalEnd } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -26,6 +26,17 @@ import { apiUserSignup, type UserSignup } from "@/db/schema/auth";
 import { useLogin, useRegister } from "@/hooks/use-auth";
 
 export const Route = createFileRoute("/auth/signup")({
+  beforeLoad: async ({ context }) => {
+    const auth = await context.queryClient.ensureQueryData(
+      context.trpc.auth.getSession.queryOptions(),
+    );
+
+    if (auth?.session) {
+      throw redirect({
+        to: "/dashboard",
+      });
+    }
+  },
   component: RouteComponent,
 });
 
