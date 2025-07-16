@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2025-06-21 11:38-0400\n"
+"POT-Creation-Date: 2025-07-16 19:15-0400\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: @lingui/cli\n"
-"Language: en\n"
+"Language: sp\n"
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: \n"
@@ -16,241 +16,241 @@ msgstr ""
 #. placeholder {0}: created.text
 #: src/components/todo/todo-form.tsx:169
 msgid "\"{0}\" has been added to your list"
-msgstr "\"{0}\" has been added to your list"
+msgstr "\"{0}\" ha sido añadido a tu lista"
 
 #. placeholder {0}: deleted.text
 #: src/components/todo/todo-delete.tsx:74
 msgid "\"{0}\" has been removed from your list"
-msgstr "\"{0}\" has been removed from your list"
+msgstr "\"{0}\" ha sido eliminado de tu lista"
 
 #. placeholder {0}: updated.text
 #: src/components/todo/todo-form.tsx:163
 msgid "\"{0}\" has been updated"
-msgstr "\"{0}\" has been updated"
+msgstr "\"{0}\" ha sido actualizado"
 
 #: src/components/nav-user.tsx:102
 #: src/components/common/content-layout.tsx:124
 msgid "Account"
-msgstr "Account"
+msgstr "Cuenta"
 
 #: src/routes/auth/signup.tsx:59
 msgid "Account created successfully! Please check your email to verify your account."
-msgstr "Account created successfully! Please check your email to verify your account."
+msgstr "¡Cuenta creada exitosamente! Por favor revisa tu email para verificar tu cuenta."
 
 #: src/routes/index.tsx:158
 msgid "Actions"
-msgstr "Actions"
+msgstr "Acciones"
 
 #: src/routes/index.tsx:155
 #: src/routes/index.tsx:196
 #: src/components/todo/todo-form.tsx:264
 #: src/components/todo/todo-detail.tsx:120
 msgid "Active"
-msgstr "Active"
+msgstr "Activo"
 
 #: src/components/todo/todo-detail.tsx:111
 msgid "Active State"
-msgstr "Active State"
+msgstr "Estado Activo"
 
 #: src/components/todo/todo-form.tsx:187
 msgid "Add a new task to your todo list"
-msgstr "Add a new task to your todo list"
+msgstr "Añadir una nueva tarea a tu lista"
 
 #: src/routes/index.tsx:122
 msgid "Add Todo"
-msgstr "Add Todo"
+msgstr "Añadir Tarea"
 
 #: src/routes/auth/signup.tsx:199
 msgid "Already have an account?"
-msgstr "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
 
 #: src/routes/auth/signup.tsx:212
 #: src/routes/auth/index.tsx:202
 msgid "and"
-msgstr "and"
+msgstr "y"
 
 #: src/components/todo/todo-delete.tsx:85
 msgid "Are you absolutely sure?"
-msgstr "Are you absolutely sure?"
+msgstr "¿Estás absolutamente seguro?"
 
 #: src/components/nav-user.tsx:106
 #: src/components/common/content-layout.tsx:128
 msgid "Billing"
-msgstr "Billing"
+msgstr "Facturación"
 
 #: src/routes/auth/signup.tsx:208
 #: src/routes/auth/index.tsx:198
 msgid "By clicking continue, you agree to our"
-msgstr "By clicking continue, you agree to our"
+msgstr "Al hacer clic en continuar, aceptas nuestros"
 
 #: src/components/todo/todo-delete.tsx:96
 msgid "Cancel"
-msgstr "Cancel"
+msgstr "Cancelar"
 
 #: src/routes/index.tsx:108
 #: src/components/todo/todo-form.tsx:249
 #: src/components/todo/todo-detail.tsx:52
 msgid "Completed"
-msgstr "Completed"
+msgstr "Completado"
 
 #: src/routes/auth/signup.tsx:194
 msgid "Create account"
-msgstr "Create account"
+msgstr "Crear cuenta"
 
 #: src/routes/auth/signup.tsx:97
 msgid "Create an account"
-msgstr "Create an account"
+msgstr "Crear una cuenta"
 
 #: src/components/todo/todo-form.tsx:181
 msgid "Create New Todo"
-msgstr "Create New Todo"
+msgstr "Crear Nueva Tarea"
 
 #: src/components/todo/todo-form.tsx:286
 msgid "Create Todo"
-msgstr "Create Todo"
+msgstr "Crear Tarea"
 
 #: src/routes/index.tsx:136
 msgid "Create your first todo"
-msgstr "Create your first todo"
+msgstr "Crea tu primera tarea"
 
 #: src/components/todo/todo-detail.tsx:130
 msgid "Created At"
-msgstr "Created At"
+msgstr "Creado el"
 
 #: src/components/todo/todo-form.tsx:168
 msgid "Creating todo..."
-msgstr "Creating todo..."
+msgstr "Creando tarea..."
 
 #: src/components/common/content-layout.tsx:116
 msgid "Dashboard"
-msgstr "Dashboard"
+msgstr "Panel"
 
 #: src/routes/index.tsx:225
 #: src/components/todo/todo-detail.tsx:73
 #: src/components/todo/todo-delete.tsx:99
 msgid "Delete"
-msgstr "Delete"
+msgstr "Eliminar"
 
 #: src/components/todo/todo-delete.tsx:72
 msgid "Deleting todo..."
-msgstr "Deleting todo..."
+msgstr "Eliminando tarea..."
 
 #: src/routes/index.tsx:149
 #: src/components/todo/todo-form.tsx:214
 #: src/components/todo/todo-detail.tsx:88
 msgid "Description"
-msgstr "Description"
+msgstr "Descripción"
 
 #: src/routes/auth/index.tsx:186
 msgid "Don't have an account?"
-msgstr "Don't have an account?"
+msgstr "¿No tienes una cuenta?"
 
 #: src/routes/index.tsx:215
 #: src/components/todo/todo-detail.tsx:67
 msgid "Edit"
-msgstr "Edit"
+msgstr "Editar"
 
 #: src/components/todo/todo-form.tsx:181
 msgid "Edit Todo"
-msgstr "Edit Todo"
+msgstr "Editar Tarea"
 
 #: src/routes/auth/signup.tsx:161
 #: src/routes/auth/index.tsx:140
 msgid "Email"
-msgstr "Email"
+msgstr "Correo"
 
 #: src/components/todo/todo-form.tsx:218
 msgid "Enter optional description"
-msgstr "Enter optional description"
+msgstr "Ingresa descripción opcional"
 
 #: src/components/todo/todo-form.tsx:202
 msgid "Enter task description"
-msgstr "Enter task description"
+msgstr "Ingresa descripción de la tarea"
 
 #. placeholder {0}: err.message
 #: src/components/todo/todo-form.tsx:170
 msgid "Error creating todo: {0}"
-msgstr "Error creating todo: {0}"
+msgstr "Error creando tarea: {0}"
 
 #. placeholder {0}: err.message
 #: src/components/todo/todo-delete.tsx:75
 msgid "Error deleting todo: {0}"
-msgstr "Error deleting todo: {0}"
+msgstr "Error eliminando tarea: {0}"
 
 #. placeholder {0}: err.message
 #: src/components/todo/todo-form.tsx:164
 msgid "Error updating todo: {0}"
-msgstr "Error updating todo: {0}"
+msgstr "Error actualizando tarea: {0}"
 
 #: src/components/common/content-layout.tsx:42
 msgid "Failed to log out. Please try again."
-msgstr "Failed to log out. Please try again."
+msgstr "Error al cerrar sesión. Por favor intenta de nuevo."
 
 #: src/routes/auth/index.tsx:166
 msgid "Forgot your password?"
-msgstr "Forgot your password?"
+msgstr "¿Olvidaste tu contraseña?"
 
 #: src/routes/auth/signup.tsx:142
 msgid "Full Name"
-msgstr "Full Name"
+msgstr "Nombre Completo"
 
 #: src/routes/index.tsx:106
 #: src/components/todo/todo-form.tsx:246
 #: src/components/todo/todo-detail.tsx:50
 msgid "In Progress"
-msgstr "In Progress"
+msgstr "En Progreso"
 
 #: src/routes/index.tsx:196
 #: src/components/todo/todo-detail.tsx:120
 msgid "Inactive"
-msgstr "Inactive"
+msgstr "Inactivo"
 
 #: src/routes/auth/signup.tsx:147
 msgid "John Doe"
-msgstr "John Doe"
+msgstr "Juan Pérez"
 
 #: src/components/todo/todo-detail.tsx:139
 msgid "Last Updated"
-msgstr "Last Updated"
+msgstr "Última Actualización"
 
 #: src/routes/index.tsx:30
 msgid "Loading todos..."
-msgstr "Loading todos..."
+msgstr "Cargando tareas..."
 
 #: src/components/nav-user.tsx:119
 #: src/components/common/content-layout.tsx:141
 msgid "Log out"
-msgstr "Log out"
+msgstr "Cerrar sesión"
 
 #: src/components/common/content-layout.tsx:41
 msgid "Logged out successfully"
-msgstr "Logged out successfully"
+msgstr "Sesión cerrada exitosamente"
 
 #: src/routes/auth/index.tsx:63
 msgid "Logging in..."
-msgstr "Logging in..."
+msgstr "Iniciando sesión..."
 
 #: src/components/common/content-layout.tsx:40
 msgid "Logging out..."
-msgstr "Logging out..."
+msgstr "Cerrando sesión..."
 
 #: src/routes/auth/index.tsx:181
 #: src/components/common/content-layout.tsx:149
 msgid "Login"
-msgstr "Login"
+msgstr "Iniciar Sesión"
 
 #. placeholder {0}: err.message || "Invalid credentials"
 #: src/routes/auth/index.tsx:66
 msgid "Login failed: {0}"
-msgstr "Login failed: {0}"
+msgstr "Error de inicio de sesión: {0}"
 
 #: src/routes/auth/index.tsx:121
 msgid "Login with Google"
-msgstr "Login with Google"
+msgstr "Iniciar sesión con Google"
 
 #: src/routes/auth/index.tsx:98
 msgid "Login with your Google account"
-msgstr "Login with your Google account"
+msgstr "Inicia sesión con tu cuenta de Google"
 
 #: src/components/common/content-layout.tsx:54
 msgid "Logo"
@@ -259,123 +259,123 @@ msgstr "Logo"
 #: src/routes/auth/signup.tsx:166
 #: src/routes/auth/index.tsx:145
 msgid "m@example.com"
-msgstr "m@example.com"
+msgstr "m@ejemplo.com"
 
 #: src/components/todo/todo-form.tsx:185
 msgid "Make changes to your todo item"
-msgstr "Make changes to your todo item"
+msgstr "Hacer cambios a tu tarea"
 
 #: src/routes/index.tsx:116
 msgid "My Todos"
-msgstr "My Todos"
+msgstr "Mis Tareas"
 
 #: src/routes/index.tsx:131
 msgid "No todos yet"
-msgstr "No todos yet"
+msgstr "Aún no hay tareas"
 
 #: src/routes/index.tsx:104
 #: src/components/todo/todo-form.tsx:243
 #: src/components/todo/todo-detail.tsx:48
 msgid "Not Started"
-msgstr "Not Started"
+msgstr "Sin Iniciar"
 
 #: src/components/nav-user.tsx:110
 #: src/components/common/content-layout.tsx:132
 msgid "Notifications"
-msgstr "Notifications"
+msgstr "Notificaciones"
 
 #: src/routes/auth/signup.tsx:128
 #: src/routes/auth/index.tsx:126
 msgid "Or continue with"
-msgstr "Or continue with"
+msgstr "O continúa con"
 
 #: src/routes/auth/signup.tsx:180
 #: src/routes/auth/index.tsx:160
 msgid "Password"
-msgstr "Password"
+msgstr "Contraseña"
 
 #: src/routes/auth/signup.tsx:214
 #: src/routes/auth/index.tsx:204
 msgid "Privacy Policy"
-msgstr "Privacy Policy"
+msgstr "Política de Privacidad"
 
 #: src/routes/auth/signup.tsx:64
 msgid "Registration failed: Please try again"
-msgstr "Registration failed: Please try again"
+msgstr "Error de registro: Por favor intenta de nuevo"
 
 #: src/components/todo/todo-form.tsx:238
 msgid "Select status"
-msgstr "Select status"
+msgstr "Seleccionar estado"
 
 #: src/components/todo/todo-form.tsx:267
 msgid "Set whether this todo is active"
-msgstr "Set whether this todo is active"
+msgstr "Establecer si esta tarea está activa"
 
 #: src/routes/auth/signup.tsx:201
 msgid "Sign in"
-msgstr "Sign in"
+msgstr "Iniciar Sesión"
 
 #: src/routes/auth/index.tsx:191
 msgid "Sign up"
-msgstr "Sign up"
+msgstr "Registrarse"
 
 #: src/routes/auth/signup.tsx:123
 msgid "Sign up with Google"
-msgstr "Sign up with Google"
+msgstr "Registrarse con Google"
 
 #: src/routes/auth/signup.tsx:100
 msgid "Sign up with your Google account or email"
-msgstr "Sign up with your Google account or email"
+msgstr "Regístrate con tu cuenta de Google o correo"
 
 #: src/routes/index.tsx:152
 #: src/components/todo/todo-form.tsx:233
 #: src/components/todo/todo-detail.tsx:98
 msgid "Status"
-msgstr "Status"
+msgstr "Estado"
 
 #: src/routes/index.tsx:146
 #: src/components/todo/todo-form.tsx:199
 msgid "Task"
-msgstr "Task"
+msgstr "Tarea"
 
 #: src/routes/auth/signup.tsx:210
 #: src/routes/auth/index.tsx:200
 msgid "Terms of Service"
-msgstr "Terms of Service"
+msgstr "Términos de Servicio"
 
 #. placeholder {0}: todo.text
 #: src/components/todo/todo-delete.tsx:88
 msgid "This action cannot be undone. This will permanently delete the todo \"{0}\"."
-msgstr "This action cannot be undone. This will permanently delete the todo \"{0}\"."
+msgstr "Esta acción no se puede deshacer. Esto eliminará permanentemente la tarea \"{0}\"."
 
 #: src/components/todo/todo-detail.tsx:61
 msgid "Todo Details"
-msgstr "Todo Details"
+msgstr "Detalles de la Tarea"
 
 #: src/components/todo/todo-detail.tsx:151
 msgid "Todo ID"
-msgstr "Todo ID"
+msgstr "ID de Tarea"
 
 #: src/components/todo/todo-form.tsx:286
 msgid "Update Todo"
-msgstr "Update Todo"
+msgstr "Actualizar Tarea"
 
 #: src/components/todo/todo-form.tsx:162
 msgid "Updating todo..."
-msgstr "Updating todo..."
+msgstr "Actualizando tarea..."
 
 #: src/components/nav-user.tsx:95
 msgid "Upgrade to Pro"
-msgstr "Upgrade to Pro"
+msgstr "Actualizar a Pro"
 
 #: src/routes/index.tsx:209
 msgid "View"
-msgstr "View"
+msgstr "Ver"
 
 #: src/routes/auth/index.tsx:95
 msgid "Welcome back"
-msgstr "Welcome back"
+msgstr "Bienvenido de vuelta"
 
 #: src/routes/auth/index.tsx:64
 msgid "Welcome back!"
-msgstr "Welcome back!"
+msgstr "¡Bienvenido de vuelta!"

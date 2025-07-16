@@ -3,6 +3,7 @@ import type { I18n } from "@lingui/core";
 export const locales = {
   en: "English",
   fr: "French",
+  sp: "Spanish",
 };
 
 export const isLocaleValid = (locale: string) =>

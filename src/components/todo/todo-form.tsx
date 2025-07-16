@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 import {
   apiTodoCreateAndUpdate,
   type Todo,
@@ -53,6 +54,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
     defaultValues: {
       id: todo?.id,
       text: todo?.text || "",
+      description: todo?.description || "",
       status: todo?.status || TodoStatus.NOT_STARTED,
       active: todo?.active ?? true,
     },
@@ -198,6 +200,25 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
                   </FormLabel>
                   <FormControl>
                     <Input placeholder={t`Enter task description`} {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <Trans>Description</Trans>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder={t`Enter optional description`}
+                      rows={3}
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

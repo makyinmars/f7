@@ -19,12 +19,14 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 ## Quick Start
 
 ### Prerequisites
+
 - [Bun](https://bun.sh) installed
 - [Docker](https://docker.com) for PostgreSQL
 
 ### Setup
 
 1. **Clone and install dependencies**
+
    ```bash
    git clone <repository-url>
    cd f7
@@ -32,28 +34,33 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
    ```
 
 2. **Start PostgreSQL database**
+
    ```bash
    docker compose up -d
    ```
 
 3. **Set up environment variables**
    Create a `.env` file with:
+
    ```env
    DATABASE_URL="postgresql://postgres:example@localhost:5432/f7"
    VITE_PUBLIC_URL="http://localhost:3000"
    ```
 
 4. **Run database migrations**
+
    ```bash
    bun db:migrate
    ```
 
 5. **Seed the database (optional)**
+
    ```bash
    bun db:seed
    ```
 
 6. **Start development server**
+
    ```bash
    bun dev
    ```
@@ -123,6 +130,7 @@ src/
 ## Deployment
 
 ### AWS Lambda (Default)
+
 The project is configured for AWS Lambda deployment with streaming support. The configuration is defined in two files:
 
 - **`vite.config.ts`**: Sets the TanStack Start target to `aws-lambda`
@@ -138,23 +146,26 @@ The project is configured for AWS Lambda deployment with streaming support. The 
 export default $config({
   app(input) {
     return {
-      name: "f7-template",                    // Application name
+      name: "f7-template", // Application name
       removal: input?.stage === "production" ? "retain" : "remove", // Resource cleanup policy
-      protect: ["production"].includes(input?.stage),               // Protection from deletion
-      home: "aws",                           // Default cloud provider
+      protect: ["production"].includes(input?.stage), // Protection from deletion
+      home: "aws", // Default cloud provider
       providers: {
         aws: {
-          region: "us-east-2",               // AWS deployment region
-          profile: input.stage === "production" 
-            ? "developer-production"         // Production AWS profile
-            : "developer-dev",               // Development AWS profile
+          region: "us-east-2", // AWS deployment region
+          profile:
+            input.stage === "production"
+              ? "developer-production" // Production AWS profile
+              : "developer-dev", // Development AWS profile
         },
       },
     };
   },
   async run() {
-    new sst.aws.TanStackStart("MyWeb", {     // Creates TanStack Start deployment
-      environment: {                         // Environment variables for the app
+    new sst.aws.TanStackStart("MyWeb", {
+      // Creates TanStack Start deployment
+      environment: {
+        // Environment variables for the app
         DATABASE_URL: process.env.DATABASE_URL,
         VITE_PUBLIC_URL: process.env.VITE_PUBLIC_URL,
       },
@@ -164,6 +175,7 @@ export default $config({
 ```
 
 **Key SST Features:**
+
 - **Multi-stage deployment**: Separate dev/production environments
 - **Infrastructure as Code**: Versioned AWS resource management
 - **Type-safe configuration**: Full TypeScript support for infrastructure
@@ -171,11 +183,12 @@ export default $config({
 - **Environment management**: Secure handling of secrets and environment variables
 
 **SST Deployment Commands:**
+
 ```bash
 # Deploy to development stage
 sst deploy
 
-# Deploy to production stage  
+# Deploy to production stage
 sst deploy --stage production
 
 # Remove development resources
@@ -188,27 +201,31 @@ sst console
 **Note**: SST deployment is optional. You can use either the direct AWS Lambda configuration or SST based on your infrastructure preferences.
 
 ### Other Platforms
+
 You can change the deployment target by modifying both configuration files:
 
 **In `vite.config.ts`:**
+
 ```typescript
 tanstackStart({
-  target: "aws-lambda" // Change to: "vercel", "node", "static", "cloudflare", etc.
-})
+  target: "aws-lambda", // Change to: "vercel", "node", "static", "cloudflare", etc.
+});
 ```
 
 **In `nitro.config.ts`:**
+
 ```typescript
 export default defineNitroConfig({
   inlineDynamicImports: true,
   preset: "aws-lambda", // Change to match your deployment target
   awsLambda: {
-    streaming: true,
+    streaming: false, // Currently not working as exptected, normally set to true
   },
-})
+});
 ```
 
 Supported targets include:
+
 - `aws-lambda` - AWS Lambda (current configuration)
 - `vercel` - Vercel platform
 - `node` - Node.js servers
@@ -221,6 +238,7 @@ Supported targets include:
 This project uses [T3 OSS env-core](https://env.t3.gg) for type-safe environment variable validation.
 
 ### Server Environment Variables
+
 Defined in `src/env/server.ts` - these are validated at runtime and only accessible on the server:
 
 ```env
@@ -228,6 +246,7 @@ DATABASE_URL="postgresql://username:password@host:port/database"
 ```
 
 ### Client Environment Variables
+
 Defined in `src/env/client.ts` - these must have the `VITE_` prefix and are accessible in the browser:
 
 ```env
@@ -237,8 +256,10 @@ VITE_PUBLIC_URL="https://your-app-domain.com"
 ### Adding New Environment Variables
 
 **For server-side variables** (database connections, API keys, etc.):
+
 1. Add to your `.env` file
 2. Add validation to `src/env/server.ts`:
+
    ```typescript
    export const serverEnv = createEnv({
      server: {
@@ -251,8 +272,10 @@ VITE_PUBLIC_URL="https://your-app-domain.com"
    ```
 
 **For client-side variables** (public API URLs, feature flags, etc.):
+
 1. Add to your `.env` file with `VITE_` prefix
 2. Add validation to `src/env/client.ts`:
+
    ```typescript
    export const clientEnv = createEnv({
      clientPrefix: "VITE_",
@@ -266,9 +289,10 @@ VITE_PUBLIC_URL="https://your-app-domain.com"
    ```
 
 ### Usage in Code
+
 ```typescript
 import { serverEnv } from "@/env/server"; // Server-side only
-import { clientEnv } from "@/env/client";  // Client-side only
+import { clientEnv } from "@/env/client"; // Client-side only
 
 // Access with full type safety
 const dbUrl = serverEnv.DATABASE_URL;
@@ -280,6 +304,7 @@ const publicUrl = clientEnv.VITE_PUBLIC_URL;
 This project uses [Lingui.js](https://lingui.dev/) for internationalization with full TypeScript support.
 
 ### Supported Languages
+
 - English (en) - Default
 - French (fr)
 
@@ -288,6 +313,7 @@ This project uses [Lingui.js](https://lingui.dev/) for internationalization with
 There are two ways to add translations in your components:
 
 #### 1. Using `<Trans>` Component (Recommended for JSX)
+
 ```tsx
 import { Trans } from "@lingui/react/macro";
 
@@ -304,16 +330,17 @@ import { Trans } from "@lingui/react/macro";
 ```
 
 #### 2. Using `useLingui` Hook (For dynamic text)
+
 ```tsx
 import { useLingui } from "@lingui/react/macro";
 
 function MyComponent() {
   const { t } = useLingui();
-  
+
   // For attributes, alerts, or non-JSX contexts
   const placeholder = t`Enter your name`;
   const message = t`Task "${taskName}" completed`;
-  
+
   return <input placeholder={placeholder} />;
 }
 ```
@@ -326,6 +353,7 @@ function MyComponent() {
 ### Adding New Languages
 
 1. Update `src/modules/lingui/i18n.ts`:
+
    ```typescript
    export const locales = {
      en: "English",
@@ -335,11 +363,13 @@ function MyComponent() {
    ```
 
 2. Create locale directory:
+
    ```bash
    mkdir -p src/locales/es
    ```
 
 3. Extract and compile translations:
+
    ```bash
    bun lingui:extract
    bun lingui:compile
@@ -361,8 +391,9 @@ throw errors.todoNotFound(); // "Todo not found" or "Tâche introuvable"
 ```
 
 **Key Server-Side Features:**
+
 - **Automatic locale detection**: Server errors use the same locale as client UI
-- **Type-safe error handling**: Consistent error codes with localized messages  
+- **Type-safe error handling**: Consistent error codes with localized messages
 - **Cookie-based persistence**: Language preference maintained across requests
 - **Complete coverage**: All tRPC error messages are translated
 
