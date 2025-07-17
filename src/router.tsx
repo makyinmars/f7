@@ -43,7 +43,7 @@ export const createRouter = ({ i18n }: { i18n: I18n }) => {
         );
       },
     }),
-    queryClient,
+    queryClient
   );
 
   return router;

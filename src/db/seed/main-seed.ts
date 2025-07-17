@@ -92,7 +92,7 @@ async function main() {
 
     insertedTodos.forEach((todoItem, index) => {
       console.log(
-        `  ${index + 1}. ${todoItem.text} - ${todoItem.status} (${todoItem.active ? "Active" : "Inactive"})`,
+        `  ${index + 1}. ${todoItem.text} - ${todoItem.status} (${todoItem.active ? "Active" : "Inactive"})`
       );
     });
 

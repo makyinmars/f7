@@ -28,7 +28,7 @@ import { useLogin, useRegister } from "@/hooks/use-auth";
 export const Route = createFileRoute("/auth/signup")({
   beforeLoad: async ({ context }) => {
     const auth = await context.queryClient.ensureQueryData(
-      context.trpc.auth.getSession.queryOptions(),
+      context.trpc.auth.getSession.queryOptions()
     );
 
     if (auth?.session) {
@@ -56,7 +56,7 @@ function RouteComponent() {
   const register = useRegister({
     onSuccess: () => {
       toast.success(
-        t`Account created successfully! Please check your email to verify your account.`,
+        t`Account created successfully! Please check your email to verify your account.`
       );
       form.reset();
     },
@@ -67,7 +67,9 @@ function RouteComponent() {
   });
 
   const onSubmit = async (data: UserSignup) => {
-    register.mutate(data);
+    try {
+      await register.mutateAsync(data);
+    } catch {}
   };
 
   const handleGoogleSignup = () => {
@@ -82,8 +84,8 @@ function RouteComponent() {
       <div className="flex min-h-svh flex-col items-center justify-center gap-6">
         <div className="flex w-full max-w-sm flex-col gap-6">
           <Link
-            to="/"
             className="flex items-center gap-2 self-center font-medium"
+            to="/"
           >
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
@@ -104,15 +106,15 @@ function RouteComponent() {
                 <div className="grid gap-6">
                   <div className="flex flex-col gap-4">
                     <Button
-                      variant="outline"
                       className="w-full"
-                      onClick={handleGoogleSignup}
                       disabled={loginWithSocial.isPending}
+                      onClick={handleGoogleSignup}
+                      variant="outline"
                     >
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
                         className="mr-2 h-4 w-4"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <title>Google</title>
                         <path
@@ -130,8 +132,8 @@ function RouteComponent() {
                   </div>
                   <Form {...form}>
                     <form
-                      onSubmit={form.handleSubmit(onSubmit)}
                       className="space-y-4"
+                      onSubmit={form.handleSubmit(onSubmit)}
                     >
                       <FormField
                         control={form.control}
@@ -143,8 +145,8 @@ function RouteComponent() {
                             </FormLabel>
                             <FormControl>
                               <Input
-                                type="text"
                                 placeholder={t`John Doe`}
+                                type="text"
                                 {...field}
                               />
                             </FormControl>
@@ -162,8 +164,8 @@ function RouteComponent() {
                             </FormLabel>
                             <FormControl>
                               <Input
-                                type="email"
                                 placeholder={t`m@example.com`}
+                                type="email"
                                 {...field}
                               />
                             </FormControl>
@@ -187,9 +189,9 @@ function RouteComponent() {
                         )}
                       />
                       <Button
-                        type="submit"
                         className="w-full"
                         disabled={register.isPending}
+                        type="submit"
                       >
                         <Trans>Create account</Trans>
                       </Button>
@@ -197,7 +199,7 @@ function RouteComponent() {
                   </Form>
                   <div className="text-center text-sm">
                     <Trans>Already have an account?</Trans>{" "}
-                    <Link to="/auth" className="underline underline-offset-4">
+                    <Link className="underline underline-offset-4" to="/auth">
                       <Trans>Sign in</Trans>
                     </Link>
                   </div>

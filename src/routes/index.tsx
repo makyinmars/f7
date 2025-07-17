@@ -22,7 +22,7 @@ import { useTRPC } from "@/trpc/react";
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
     await context.queryClient.ensureQueryData(
-      context.trpc.todo.list.queryOptions(),
+      context.trpc.todo.list.queryOptions()
     );
   },
   pendingComponent: () => {
@@ -95,6 +95,8 @@ function Home() {
         return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
       case TodoStatus.COMPLETED:
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
     }
   };
 
@@ -106,6 +108,8 @@ function Home() {
         return t`In Progress`;
       case TodoStatus.COMPLETED:
         return t`Completed`;
+      default:
+        return t`Unknown`;
     }
   };
 
@@ -117,7 +121,7 @@ function Home() {
         </h2>
         <div className="flex items-center gap-3">
           <TodoForm>
-            <Button variant="default" className="gap-2">
+            <Button className="gap-2" variant="default">
               <Plus className="h-4 w-4" />
               <Trans>Add Todo</Trans>
             </Button>
@@ -164,9 +168,9 @@ function Home() {
                 <TableRow key={todo.id}>
                   <TableCell className="font-medium">
                     <Link
-                      to="/todo/$todoId"
-                      params={{ todoId: todo.id }}
                       className="hover:text-primary hover:underline"
+                      params={{ todoId: todo.id }}
+                      to="/todo/$todoId"
                     >
                       {todo.text}
                     </Link>
@@ -179,7 +183,7 @@ function Home() {
                   <TableCell>
                     <span
                       className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
-                        todo.status,
+                        todo.status
                       )}`}
                     >
                       {getStatusLabel(todo.status)}
@@ -199,27 +203,27 @@ function Home() {
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
                       <Button
-                        variant="ghost"
-                        size="sm"
-                        className="gap-2"
                         asChild
+                        className="gap-2"
+                        size="sm"
+                        variant="ghost"
                       >
-                        <Link to="/todo/$todoId" params={{ todoId: todo.id }}>
+                        <Link params={{ todoId: todo.id }} to="/todo/$todoId">
                           <Eye className="h-3 w-3" />
                           <Trans>View</Trans>
                         </Link>
                       </Button>
                       <TodoForm todo={todo}>
-                        <Button variant="outline" size="sm" className="gap-2">
+                        <Button className="gap-2" size="sm" variant="outline">
                           <Pencil className="h-3 w-3" />
                           <Trans>Edit</Trans>
                         </Button>
                       </TodoForm>
                       <TodoDelete todo={todo}>
                         <Button
-                          variant="destructive"
-                          size="sm"
                           className="gap-2"
+                          size="sm"
+                          variant="destructive"
                         >
                           <Trash2 className="h-3 w-3" />
                           <Trans>Delete</Trans>

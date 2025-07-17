@@ -16,7 +16,7 @@ export type TodoListProcedure = RouterOutput["todo"]["list"];
 
 export const todoRouter = {
   list: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.query.todo.findMany({
+    return await ctx.db.query.todo.findMany({
       orderBy: desc(todo.createdAt),
     });
   }),
@@ -58,7 +58,7 @@ export const todoRouter = {
       }
     }),
   delete: publicProcedure
-    .input(z.object({ id: z.string().uuid("Invalid todo ID format") }))
+    .input(z.object({ id: z.uuid("Invalid todo ID format") }))
     .mutation(async ({ input, ctx }) => {
       const errors = createErrors(ctx.i18n);
 

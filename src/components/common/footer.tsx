@@ -4,16 +4,16 @@ const Footer = () => {
   return (
     <footer className="mt-auto border-t py-6">
       <div className="flex items-center justify-center">
-        <Button variant="ghost" size="sm" asChild>
+        <Button asChild size="sm" variant="ghost">
           <a
-            href="https://github.com/makyinmars/f7"
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground"
+            href="https://github.com/makyinmars/f7"
+            rel="noopener noreferrer"
+            target="_blank"
           >
             <svg
-              viewBox="0 0 24 24"
               fill="currentColor"
+              viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <title>GitHub</title>

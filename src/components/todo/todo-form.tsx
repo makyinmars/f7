@@ -70,7 +70,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         });
 
         const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey(),
+          trpc.todo.list.queryKey()
         );
 
         // Generate a temporary ID that works on both server and client
@@ -86,7 +86,9 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         };
 
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
-          if (!old) return [optimisticTodo];
+          if (!old) {
+            return [optimisticTodo];
+          }
           return [optimisticTodo, ...old];
         });
 
@@ -95,20 +97,22 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
       onError: (_err, _variables, context) => {
         queryClient.setQueryData(
           trpc.todo.list.queryKey(),
-          context?.previousData,
+          context?.previousData
         );
       },
       onSuccess: (created, _variables, context) => {
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
-          if (!old) return [created];
+          if (!old) {
+            return [created];
+          }
           return old.map((todo) =>
-            todo.id === context?.optimisticTodo.id ? created : todo,
+            todo.id === context?.optimisticTodo.id ? created : todo
           );
         });
         form.reset();
         setOpen(false);
       },
-    }),
+    })
   );
 
   // Update mutation with optimistic updates
@@ -121,15 +125,17 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         });
 
         const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey(),
+          trpc.todo.list.queryKey()
         );
 
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
-          if (!old) return previousData;
+          if (!old) {
+            return previousData;
+          }
           return old.map((todo) =>
             todo.id === variables.id
               ? { ...todo, ...variables, updatedAt: new Date() }
-              : todo,
+              : todo
           );
         });
 
@@ -138,12 +144,14 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
       onError: (_err, _variables, context) => {
         queryClient.setQueryData(
           trpc.todo.list.queryKey(),
-          context?.previousData,
+          context?.previousData
         );
       },
       onSuccess: async (updated) => {
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
-          if (!old) return [updated];
+          if (!old) {
+            return [updated];
+          }
           return old.map((todo) => (todo.id === updated.id ? updated : todo));
         });
         await queryClient.invalidateQueries({
@@ -153,10 +161,10 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         });
         setOpen(false);
       },
-    }),
+    })
   );
 
-  const onSubmit = async (data: TodoCreateAndUpdate) => {
+  const onSubmit = (data: TodoCreateAndUpdate) => {
     if (data.id) {
       toast.promise(updateMutation.mutateAsync({ ...data }), {
         loading: t`Updating todo...`,
@@ -173,7 +181,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog onOpenChange={setOpen} open={open}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -189,7 +197,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
               name="text"
@@ -277,11 +285,11 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
               )}
             />
             <Button
-              type="submit"
               className="w-full"
               disabled={
                 todo ? updateMutation.isPending : createMutation.isPending
               }
+              type="submit"
             >
               {todo ? <Trans>Update Todo</Trans> : <Trans>Create Todo</Trans>}
             </Button>

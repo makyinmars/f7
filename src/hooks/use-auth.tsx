@@ -98,7 +98,7 @@ export const useRegister = ({
           onError: (error: ErrorContext) => {
             onError(error);
           },
-        },
+        }
       ),
   });
 };
