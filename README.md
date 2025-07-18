@@ -14,7 +14,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 - **Internationalization**: Lingui.js for i18n support
 - **Environment**: T3 OSS env-core for type-safe environment variables
 - **Deployment**: AWS Lambda (configurable)
-- **Code Quality**: Biome for linting & formatting
+- **Code Quality**: Ultracite for code formatting and linting
 
 ## Quick Start
 
@@ -84,9 +84,10 @@ bun db:seed          # Seed the database with sample data
 bun db:generate      # Generate new migration files
 
 # Code Quality
-bun lint             # Lint code with Biome
-bun format           # Format code with Biome
-bun check            # Run both linting and formatting checks
+bun lint             # Lint/check code with Ultracite
+bun format           # Format code with Ultracite
+bun format:unsafe    # Format code with Ultracite (unsafe mode)
+bun check            # Run Ultracite lint checks
 
 # Internationalization
 bun lingui:extract   # Extract translatable strings
@@ -420,6 +421,26 @@ throw errors.todoNotFound(); // "Todo not found" or "Tâche introuvable"
 - Use Drizzle Studio (`bun db:studio`) for database exploration
 - Follow the existing code conventions and patterns
 - Prefer composition over inheritance for component design
+- Code formatting and linting handled by Ultracite
+
+## Ultracite Integration
+
+This project uses [Ultracite](https://www.ultracite.ai/) for code formatting and linting. Ultracite enhances the development workflow by providing consistent code quality tools.
+
+### Commands
+
+```bash
+bun format           # Format code using Ultracite
+bun format:unsafe    # Format code using Ultracite (unsafe transformations)
+bun lint             # Lint and validate code with Ultracite
+bun check            # Run Ultracite lint checks
+```
+
+Ultracite provides:
+- Consistent code formatting across the project
+- Advanced linting capabilities
+- Integration with existing development workflows
+- Enhanced code quality maintenance
 
 ## Contributing
 
