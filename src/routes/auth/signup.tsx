@@ -1,6 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans, useLingui } from "@lingui/react/macro";
-import { createFileRoute, Link, redirect } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import {
+  createFileRoute,
+  Link,
+  redirect,
+  useRouter,
+} from "@tanstack/react-router";
 import { GalleryVerticalEnd } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -24,6 +30,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { apiUserSignup, type UserSignup } from "@/db/schema/auth";
 import { useLogin, useRegister } from "@/hooks/use-auth";
+import { useTRPC } from "@/trpc/react";
 
 export const Route = createFileRoute("/auth/signup")({
   beforeLoad: async ({ context }) => {
@@ -43,6 +50,9 @@ export const Route = createFileRoute("/auth/signup")({
 function RouteComponent() {
   const { t } = useLingui();
   const { loginWithSocial } = useLogin();
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const trpc = useTRPC();
 
   const form = useForm<UserSignup>({
     resolver: zodResolver(apiUserSignup),
@@ -54,11 +64,15 @@ function RouteComponent() {
   });
 
   const register = useRegister({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast.success(
         t`Account created successfully! Please check your email to verify your account.`
       );
       form.reset();
+      await queryClient.invalidateQueries(trpc.auth.getSession.queryFilter());
+      await router.navigate({
+        to: "/dashboard",
+      });
     },
     onError: (error) => {
       toast.error(t`Registration failed: Please try again`);
@@ -72,8 +86,8 @@ function RouteComponent() {
     } catch {}
   };
 
-  const handleGoogleSignup = () => {
-    loginWithSocial.mutate({
+  const handleGoogleSignup = async () => {
+    await loginWithSocial.mutateAsync({
       provider: "google",
       callbackURL: "/dashboard",
     });

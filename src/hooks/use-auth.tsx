@@ -5,10 +5,6 @@ import type { SocialProvider } from "better-auth/social-providers";
 import { authClient } from "@/auth/client";
 import { useTRPC } from "@/trpc/react";
 
-const _authQueryKeys = {
-  session: ["session"],
-};
-
 export const useSession = () => {
   const session = authClient.useSession();
   return session;
@@ -16,6 +12,8 @@ export const useSession = () => {
 
 export const useLogin = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const trpc = useTRPC();
   const loginWithCredentials = useMutation({
     mutationFn: async ({
       email,
@@ -32,9 +30,10 @@ export const useLogin = () => {
         rememberMe,
       });
     },
-    onSuccess(response) {
+    async onSuccess(response) {
       if (response.data?.user.id) {
-        router.navigate({ to: "/dashboard" });
+        await queryClient.invalidateQueries(trpc.auth.getSession.queryFilter());
+        await router.navigate({ to: "/dashboard" });
       }
     },
   });
