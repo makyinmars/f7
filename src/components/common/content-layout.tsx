@@ -35,7 +35,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
   const sessionQuery = useQuery(trpc.auth.getSession.queryOptions());
   const logout = useLogout();
 
-  const handleLogout = async () => {
+  const handleLogout = () => {
     toast.promise(logout.mutateAsync(), {
       loading: t`Logging out...`,
       success: t`Logged out successfully`,
@@ -50,9 +50,9 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
           <div className="flex flex-col items-center gap-2 text-center sm:flex-row sm:items-center sm:gap-4 sm:text-left">
             <Link to="/">
               <img
-                src={APP_LOGO_URL}
                 alt={`${APP_NAME} ${t`Logo`}`}
                 className="h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20"
+                src={APP_LOGO_URL}
               />
             </Link>
             <div className="flex flex-col gap-1">
@@ -68,11 +68,11 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
             {sessionQuery.data?.session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="gap-2">
+                  <Button className="gap-2" variant="outline">
                     <Avatar className="h-5 w-5">
                       <AvatarImage
-                        src={sessionQuery.data.user.image || ""}
                         alt={sessionQuery.data.user.name}
+                        src={sessionQuery.data.user.image || ""}
                       />
                       <AvatarFallback className="text-xs">
                         {sessionQuery.data.user.name.slice(0, 2).toUpperCase()}
@@ -89,8 +89,8 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8">
                         <AvatarImage
-                          src={sessionQuery.data.user.image || ""}
                           alt={sessionQuery.data.user.name}
+                          src={sessionQuery.data.user.image || ""}
                         />
                         <AvatarFallback>
                           {sessionQuery.data.user.name
@@ -134,8 +134,8 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    onClick={handleLogout}
                     disabled={logout.isPending}
+                    onClick={handleLogout}
                   >
                     <LogOut className="mr-2 h-4 w-4" />
                     <Trans>Log out</Trans>
@@ -143,7 +143,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button variant="outline" className="gap-2" asChild>
+              <Button asChild className="gap-2" variant="outline">
                 <Link to="/auth">
                   <LogIn className="h-4 w-4" />
                   <Trans>Login</Trans>

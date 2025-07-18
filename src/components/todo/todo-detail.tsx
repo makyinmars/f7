@@ -16,11 +16,13 @@ function TodoDetail() {
   const trpc = useTRPC();
   const { todoId } = Route.useParams();
   const todoQuery = useSuspenseQuery(
-    trpc.todo.byId.queryOptions({ id: todoId }, { enabled: !!todoId }),
+    trpc.todo.byId.queryOptions({ id: todoId }, { enabled: !!todoId })
   );
 
   const formatDate = (date: Date | string | null) => {
-    if (!date) return "-";
+    if (!date) {
+      return "-";
+    }
     const d = new Date(date);
     return d.toLocaleDateString(i18n.locale, {
       month: "long",
@@ -39,6 +41,8 @@ function TodoDetail() {
         return "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300";
       case TodoStatus.COMPLETED:
         return "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300";
     }
   };
 
@@ -50,6 +54,8 @@ function TodoDetail() {
         return t`In Progress`;
       case TodoStatus.COMPLETED:
         return t`Completed`;
+      default:
+        return t`Unknown`;
     }
   };
 
@@ -62,13 +68,13 @@ function TodoDetail() {
           </h1>
           <div className="flex items-center gap-2">
             <TodoForm todo={todoQuery.data}>
-              <Button variant="outline" className="gap-2">
+              <Button className="gap-2" variant="outline">
                 <Pencil className="h-4 w-4" />
                 <Trans>Edit</Trans>
               </Button>
             </TodoForm>
             <TodoDelete todo={todoQuery.data}>
-              <Button variant="destructive" className="gap-2">
+              <Button className="gap-2" variant="destructive">
                 <Trash2 className="h-4 w-4" />
                 <Trans>Delete</Trans>
               </Button>
@@ -99,7 +105,7 @@ function TodoDetail() {
                 </h3>
                 <span
                   className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
-                    todoQuery.data.status,
+                    todoQuery.data.status
                   )}`}
                 >
                   {getStatusLabel(todoQuery.data.status)}

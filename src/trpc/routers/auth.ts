@@ -5,7 +5,7 @@ import type { RouterOutput } from "../utils";
 export type AuthSessionProcedure = RouterOutput["auth"]["getSession"];
 
 export const authRouter = {
-  getSession: publicProcedure.query(async ({ ctx }) => {
+  getSession: publicProcedure.query(({ ctx }) => {
     return ctx.session;
   }),
 } satisfies TRPCRouterRecord;

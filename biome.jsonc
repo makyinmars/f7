@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -23,7 +23,9 @@
       "!**/sst-env.d.ts",
       "!**/locales/**/*.js",
       "!drizzle/**",
-      "!**/.claude/**"
+      "!**/.claude/**",
+      "!**/sst.config.ts",
+      "!drizzle/"
     ]
   },
   "formatter": {
@@ -48,7 +50,13 @@
       "correctness": {
         "useExhaustiveDependencies": "info"
       },
+      "performance": {
+        "noNamespaceImport": "off",
+        "noImgElement": "off"
+      },
       "style": {
+        "noHeadElement": "off",
+        "useFilenamingConvention": "off",
         "useImportType": "warn",
         "noParameterAssign": "error",
         "useAsConstAssertion": "error",
@@ -59,19 +67,25 @@
         "noUnusedTemplateLiteral": "error",
         "useNumberNamespace": "error",
         "noInferrableTypes": "error",
-        "noUselessElse": "error"
+        "noUselessElse": "error",
+        "noEnum": "off"
       },
       "nursery": {
+        "noUnknownAtRule": "off",
+        "useConsistentObjectDefinition": "off",
         "useSortedClasses": {
           "level": "warn",
           "fix": "safe",
           "options": {
             "functions": ["clsx", "cva", "cn"]
           }
-        }
+        },
+        "noShadow": "off"
       },
       "suspicious": {
-        "noDocumentCookie": "off"
+        "noEmptyBlockStatements": "off",
+        "noDocumentCookie": "off",
+        "noConsole": "off"
       }
     }
   },
@@ -79,5 +93,6 @@
     "formatter": {
       "quoteStyle": "double"
     }
-  }
+  },
+  "extends": ["ultracite"]
 }

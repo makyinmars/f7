@@ -16,6 +16,7 @@ This is a full-stack Todo application built with TanStack Start, a type-safe, cl
 - **Database**: PostgreSQL with Drizzle ORM
 - **Internationalization**: Lingui.js for i18n support
 - **Deployment**: Configured for AWS Lambda
+- **Code Quality**: Ultracite for code formatting and linting
 
 ## Common Development Commands
 
@@ -48,6 +49,12 @@ bun --env-file=.env.franklin db:push
 bun --env-file=.env.franklin db:studio
 bun --env-file=.env.franklin db:seed
 bun --env-file=.env.franklin db:generate
+
+# Code Quality (Ultracite)
+bun format           # Format code with Ultracite
+bun format:unsafe    # Format code with Ultracite (unsafe mode)
+bun lint             # Lint/check code with Ultracite
+bun check            # Run Ultracite lint checks
 
 # Internationalization commands
 bun lingui:extract  # Extract translatable strings
@@ -109,3 +116,7 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 - ALWAYS run `bun typecheck` after editing files to ensure type safety
 - When adding translations, use `<Trans>` for JSX and `useLingui().t` for dynamic text
 - Run `bun lingui:extract` to extract new strings and `bun lingui:compile` after translating
+- Use `bun format` (Ultracite) for code formatting and `bun lint` for linting
+- Use `bun format:unsafe` for aggressive code transformations when needed
+- Run `bun check` to validate code patterns and structure with Ultracite
+- Ultracite has replaced Biome for formatting and linting in this project

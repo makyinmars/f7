@@ -34,7 +34,7 @@ const TanStackRouterDevtools =
     : React.lazy(() =>
         import("@tanstack/react-router-devtools").then((res) => ({
           default: res.TanStackRouterDevtools,
-        })),
+        }))
       );
 
 function ErrorComponent({ error }: { error: Error }) {
@@ -42,14 +42,14 @@ function ErrorComponent({ error }: { error: Error }) {
 
   return (
     <div className="flex min-h-96 items-center justify-center">
-      <Alert variant="destructive" className="max-w-lg">
+      <Alert className="max-w-lg" variant="destructive">
         <AlertTitle>Something went wrong</AlertTitle>
         <AlertDescription className="space-y-4">
           <p>{error.message}</p>
           <Button
-            variant="outline"
-            onClick={() => router.invalidate()}
             className="w-full"
+            onClick={() => router.invalidate()}
+            variant="outline"
           >
             Try again
           </Button>
@@ -148,8 +148,8 @@ function RootDocument({
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
-          enableSystem
           disableTransitionOnChange
+          enableSystem
         >
           {children}
           <TanStackRouterDevtools position="bottom-right" />

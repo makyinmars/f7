@@ -28,7 +28,7 @@ import { useLogin } from "@/hooks/use-auth";
 export const Route = createFileRoute("/auth/")({
   beforeLoad: async ({ context }) => {
     const auth = await context.queryClient.ensureQueryData(
-      context.trpc.auth.getSession.queryOptions(),
+      context.trpc.auth.getSession.queryOptions()
     );
 
     if (auth?.session) {
@@ -52,7 +52,7 @@ function RouteComponent() {
     },
   });
 
-  const onSubmit = async (data: LoginForm) => {
+  const onSubmit = (data: LoginForm) => {
     toast.promise(
       loginWithCredentials.mutateAsync({
         email: data.email,
@@ -64,7 +64,7 @@ function RouteComponent() {
         success: t`Welcome back!`,
         error: (err) =>
           t`Login failed: ${err.message || "Invalid credentials"}`,
-      },
+      }
     );
   };
 
@@ -80,8 +80,8 @@ function RouteComponent() {
       <div className="flex min-h-svh flex-col items-center justify-center gap-6">
         <div className="flex w-full max-w-sm flex-col gap-6">
           <Link
-            to="/"
             className="flex items-center gap-2 self-center font-medium"
+            to="/"
           >
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
@@ -102,15 +102,15 @@ function RouteComponent() {
                 <div className="grid gap-6">
                   <div className="flex flex-col gap-4">
                     <Button
-                      variant="outline"
                       className="w-full"
-                      onClick={handleGoogleLogin}
                       disabled={loginWithSocial.isPending}
+                      onClick={handleGoogleLogin}
+                      variant="outline"
                     >
                       <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
                         className="mr-2 h-4 w-4"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
                         <title>Google</title>
                         <path
@@ -128,8 +128,8 @@ function RouteComponent() {
                   </div>
                   <Form {...form}>
                     <form
-                      onSubmit={form.handleSubmit(onSubmit)}
                       className="space-y-4"
+                      onSubmit={form.handleSubmit(onSubmit)}
                     >
                       <FormField
                         control={form.control}
@@ -141,8 +141,8 @@ function RouteComponent() {
                             </FormLabel>
                             <FormControl>
                               <Input
-                                type="email"
                                 placeholder={t`m@example.com`}
+                                type="email"
                                 {...field}
                               />
                             </FormControl>
@@ -160,8 +160,8 @@ function RouteComponent() {
                                 <Trans>Password</Trans>
                               </FormLabel>
                               <Link
-                                to="/"
                                 className="ml-auto text-sm underline-offset-4 hover:underline"
+                                to="/"
                               >
                                 <Trans>Forgot your password?</Trans>
                               </Link>
@@ -174,9 +174,9 @@ function RouteComponent() {
                         )}
                       />
                       <Button
-                        type="submit"
                         className="w-full"
                         disabled={loginWithCredentials.isPending}
+                        type="submit"
                       >
                         <Trans>Login</Trans>
                       </Button>
@@ -185,8 +185,8 @@ function RouteComponent() {
                   <div className="text-center text-sm">
                     <Trans>Don't have an account?</Trans>{" "}
                     <Link
-                      to="/auth/signup"
                       className="underline underline-offset-4"
+                      to="/auth/signup"
                     >
                       <Trans>Sign up</Trans>
                     </Link>

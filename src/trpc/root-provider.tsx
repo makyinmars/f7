@@ -38,12 +38,12 @@ export const transformer: TRPCCombinedDataTransformer = {
 };
 
 export const getRequestHeaders = createServerFn({ method: "GET" }).handler(
-  async () => {
+  () => {
     const request = getWebRequest();
     const headers = new Headers(request?.headers);
 
     return Object.fromEntries(headers);
-  },
+  }
 );
 
 const headers = createIsomorphicFn()
@@ -52,8 +52,12 @@ const headers = createIsomorphicFn()
 
 function getUrl() {
   const base = (() => {
-    if (typeof window !== "undefined") return "";
-    if (clientEnv.VITE_PUBLIC_URL) return clientEnv.VITE_PUBLIC_URL;
+    if (typeof window !== "undefined") {
+      return "";
+    }
+    if (clientEnv.VITE_PUBLIC_URL) {
+      return clientEnv.VITE_PUBLIC_URL;
+    }
     return `http://localhost:${process.env.PORT ?? 3000}`;
   })();
   return `${base}/api/trpc`;
@@ -140,7 +144,7 @@ export function Provider({
   queryClient: QueryClient;
 }) {
   return (
-    <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>
+    <TRPCProvider queryClient={queryClient} trpcClient={trpcClient}>
       {children}
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </TRPCProvider>

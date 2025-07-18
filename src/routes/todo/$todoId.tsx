@@ -19,8 +19,8 @@ export const Route = createFileRoute("/todo/$todoId")({
           },
           {
             enabled: !!todoId,
-          },
-        ),
+          }
+        )
       );
       return { todo };
     } catch (_error) {

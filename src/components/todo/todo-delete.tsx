@@ -41,11 +41,13 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
         });
 
         const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey(),
+          trpc.todo.list.queryKey()
         );
 
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
-          if (!old) return previousData;
+          if (!old) {
+            return previousData;
+          }
           return old.filter((item) => item.id !== variables.id);
         });
 
@@ -54,7 +56,7 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
       onError: (_err, _variables, context) => {
         queryClient.setQueryData(
           trpc.todo.list.queryKey(),
-          context?.previousData,
+          context?.previousData
         );
       },
       onSuccess: (_deleted) => {
@@ -64,7 +66,7 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
         }
         // Toast is handled by toast.promise below
       },
-    }),
+    })
   );
 
   const handleDelete = () => {

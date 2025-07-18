@@ -5,10 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "biome check && bun run lingui:compile && vite build && tsc --noEmit",
+    "build": "bun run lint && bun run lingui:compile && vite build && tsc --noEmit",
     "start": "bun .output/server/index.mjs",
-    "check": "biome check",
-    "check:all": "bun typecheck && biome check",
+    "check": "ultracite lint",
+    "check:all": "bun typecheck && bun run lint",
     "ci:check": "biome ci",
     "ci:format": "biome format --check",
     "ci:lint": "biome lint",
@@ -20,10 +20,11 @@
     "db:seed": "bun ./src/db/seed/main-seed.ts",
     "db:studio": "drizzle-kit studio",
     "db:up": "drizzle-kit up",
-    "format": "biome format --write ./src",
-    "lint": "biome lint",
-    "lint:fix": "biome check --write",
-    "lint:unsafe-fix": "biome check --write --unsafe",
+    "format": "ultracite format",
+    "format:unsafe": "ultracite format --unsafe",
+    "lint": "ultracite lint",
+    "lint:fix": "ultracite format",
+    "lint:unsafe-fix": "ultracite format --unsafe",
     "prepare": "husky",
     "typecheck": "tsc --noEmit",
     "sso": "aws sso login --sso-session=engineering",
@@ -72,7 +73,7 @@
     "zod": "^3.25.64"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.0.0",
+    "@biomejs/biome": "^2.1.2",
     "@lingui/babel-plugin-lingui-macro": "^5.3.2",
     "@lingui/cli": "^5.3.2",
     "@lingui/vite-plugin": "^5.3.2",
@@ -84,9 +85,16 @@
     "autoprefixer": "^10.4.20",
     "drizzle-kit": "^0.31.1",
     "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
     "tailwindcss": "^4.1.10",
     "tw-animate-css": "^1.3.4",
     "typescript": "^5.7.2",
+    "ultracite": "5.0.36",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
+      "npx ultracite format"
+    ]
   }
 }
