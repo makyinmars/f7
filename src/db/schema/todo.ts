@@ -40,11 +40,15 @@ export const apiTodoUpdate = todoUpdate.omit({
 });
 
 export const apiTodoCreateAndUpdate = apiTodoCreate.extend({
-  id: z.string().optional(),
+  id: z.uuid().optional(),
   text: z.string().min(3).max(250),
   description: z.string().optional(),
   createdAt: z.date().optional(),
   updatedAt: z.date().optional(),
+});
+
+export const apiTodoId = apiTodoCreateAndUpdate.pick({
+  id: true,
 });
 
 export type Todo = typeof todo.$inferSelect;

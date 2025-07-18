@@ -1,8 +1,8 @@
 import type { TRPCRouterRecord } from "@trpc/server";
 import { desc, eq } from "drizzle-orm";
-import { z } from "zod/v4";
 import {
   apiTodoCreate,
+  apiTodoId,
   apiTodoUpdate,
   todo,
   todoInsert,
@@ -20,20 +20,27 @@ export const todoRouter = {
       orderBy: desc(todo.createdAt),
     });
   }),
-  byId: publicProcedure
-    .input(z.object({ id: z.uuid("Invalid todo ID format") }))
-    .query(async ({ input, ctx }) => {
-      const errors = createErrors(ctx.i18n);
-      const foundTodo = await ctx.db.query.todo.findFirst({
-        where: eq(todo.id, input.id),
-      });
+  byId: publicProcedure.input(apiTodoId).query(async ({ input, ctx }) => {
+    const errors = createErrors(ctx.i18n);
+    const parsed = apiTodoId.safeParse(input);
+    if (!parsed.success) {
+      throw errors.invalidInput();
+    }
 
-      if (!foundTodo) {
-        throw errors.todoNotFound();
-      }
+    if (!parsed.data.id) {
+      throw errors.todoNotFound();
+    }
 
-      return foundTodo;
-    }),
+    const foundTodo = await ctx.db.query.todo.findFirst({
+      where: eq(todo.id, parsed.data.id),
+    });
+
+    if (!foundTodo) {
+      throw errors.todoNotFound();
+    }
+
+    return foundTodo;
+  }),
   create: publicProcedure
     .input(apiTodoCreate)
     .mutation(async ({ input, ctx }) => {
@@ -57,21 +64,28 @@ export const todoRouter = {
         throw errors.todoCreateFailed();
       }
     }),
-  delete: publicProcedure
-    .input(z.object({ id: z.uuid("Invalid todo ID format") }))
-    .mutation(async ({ input, ctx }) => {
-      const errors = createErrors(ctx.i18n);
+  delete: publicProcedure.input(apiTodoId).mutation(async ({ input, ctx }) => {
+    const errors = createErrors(ctx.i18n);
 
-      try {
-        const [deleted] = await ctx.db
-          .delete(todo)
-          .where(eq(todo.id, input.id))
-          .returning();
-        return deleted;
-      } catch (_error) {
-        throw errors.todoDeleteFailed();
-      }
-    }),
+    const parsed = apiTodoId.safeParse(input);
+    if (!parsed.success) {
+      throw errors.invalidInput();
+    }
+
+    if (!parsed.data.id) {
+      throw errors.todoNotFound();
+    }
+
+    try {
+      const [deleted] = await ctx.db
+        .delete(todo)
+        .where(eq(todo.id, parsed.data.id))
+        .returning();
+      return deleted;
+    } catch (_error) {
+      throw errors.todoDeleteFailed();
+    }
+  }),
   update: publicProcedure
     .input(apiTodoUpdate)
     .mutation(async ({ input, ctx }) => {
