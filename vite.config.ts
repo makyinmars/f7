@@ -20,7 +20,7 @@ export default defineConfig({
     }),
     tailwindcss(),
     tanstackStart(),
-    nitroV2Plugin({ preset: "aws-lambda" }),
+    nitroV2Plugin({ preset: "aws-lambda", compatibilityDate: "2025-11-07" }),
     viteReact({
       babel: {
         plugins: ["@lingui/babel-plugin-lingui-macro"],
