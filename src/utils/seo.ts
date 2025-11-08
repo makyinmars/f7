@@ -5,14 +5,14 @@ import {
   DEFAULT_KEYWORDS,
 } from "@/constants/app";
 
-export interface SEOConfig {
+export type SEOConfig = {
   title?: string;
   description?: string;
   keywords?: string;
   image?: string;
   url?: string;
   type?: "website" | "article";
-}
+};
 
 export const seo = ({
   title,

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.4/schema.json",
   "vcs": {
     "enabled": false,
     "clientKind": "git",
@@ -22,8 +22,8 @@
       "!**/.sst",
       "!**/sst-env.d.ts",
       "!**/locales/**/*.js",
-      "!drizzle/**",
-      "!**/.claude/**",
+      "!drizzle",
+      "!**/.claude",
       "!**/sst.config.ts",
       "!drizzle/"
     ]
@@ -48,11 +48,15 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "useExhaustiveDependencies": "info"
+        "useExhaustiveDependencies": "info",
+        "useImageSize": "off"
       },
       "performance": {
         "noNamespaceImport": "off",
         "noImgElement": "off"
+      },
+      "a11y": {
+        "useSemanticElements": "off"
       },
       "style": {
         "noHeadElement": "off",
@@ -71,8 +75,7 @@
         "noEnum": "off"
       },
       "nursery": {
-        "noUnknownAtRule": "off",
-        "useConsistentObjectDefinition": "off",
+        "noEmptySource": "off",
         "useSortedClasses": {
           "level": "warn",
           "fix": "safe",
@@ -94,5 +97,5 @@
       "quoteStyle": "double"
     }
   },
-  "extends": ["ultracite"]
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/remix"]
 }

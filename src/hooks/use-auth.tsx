@@ -23,13 +23,12 @@ export const useLogin = () => {
       email: string;
       password: string;
       rememberMe: boolean;
-    }) => {
-      return await authClient.signIn.email({
+    }) =>
+      await authClient.signIn.email({
         email,
         password,
         rememberMe,
-      });
-    },
+      }),
     async onSuccess(response) {
       if (response.data?.user.id) {
         await queryClient.invalidateQueries(trpc.auth.getSession.queryFilter());
@@ -77,8 +76,8 @@ export const useRegister = ({
 }: {
   onSuccess: () => void;
   onError: (error: ErrorContext) => void;
-}) => {
-  return useMutation({
+}) =>
+  useMutation({
     mutationFn: async ({
       email,
       password,
@@ -100,7 +99,6 @@ export const useRegister = ({
         }
       ),
   });
-};
 
 export const useAuthHelpers = () => {
   const forgotPassword = useMutation({

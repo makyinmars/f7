@@ -2,7 +2,10 @@ import type { Logger } from "drizzle-orm/logger";
 import { drizzle } from "drizzle-orm/node-postgres";
 import pg from "pg";
 import { serverEnv } from "@/env/server";
-import * as schema from "./schema";
+import * as authSchema from "./schema/auth";
+import * as todoSchema from "./schema/todo";
+
+const schema = { ...authSchema, ...todoSchema };
 
 class MyLogger implements Logger {
   logQuery(query: string, params: unknown[]): void {

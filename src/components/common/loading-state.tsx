@@ -1,11 +1,11 @@
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface LoadingStateProps {
+type LoadingStateProps = {
   size?: "sm" | "md" | "lg";
   text?: string;
   className?: string;
-}
+};
 
 const LoadingState = ({ size = "md", text, className }: LoadingStateProps) => {
   const sizeClasses = {

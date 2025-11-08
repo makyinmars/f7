@@ -16,10 +16,10 @@ import {
 import type { Todo } from "@/db/schema/todo";
 import { useTRPC } from "@/trpc/react";
 
-interface TodoDeleteProps {
+type TodoDeleteProps = {
   todo: Todo;
   children?: React.ReactNode;
-}
+};
 
 const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
   const { t } = useLingui();

@@ -1,15 +1,15 @@
 import { useLingui } from "@lingui/react";
 import { useNavigate } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
-import { setHeader } from "@tanstack/react-start/server";
+import { setResponseHeader } from "@tanstack/react-start/server";
 import { serialize } from "cookie-es";
 import { cn } from "@/lib/utils";
 import { dynamicActivate, locales } from "@/modules/lingui/i18n";
 
 const updateLanguage = createServerFn({ method: "POST" })
-  .validator((locale: string) => locale)
+  .inputValidator((locale: string) => locale)
   .handler(({ data }) => {
-    setHeader(
+    setResponseHeader(
       "Set-Cookie",
       serialize("locale", data, {
         maxAge: 30 * 24 * 60 * 60,

@@ -1,20 +1,10 @@
-import { i18n } from "@lingui/core";
-import {
-  createStartHandler,
-  defaultStreamHandler,
-  requestHandler,
-} from "@tanstack/react-start/server";
-import { setupLocaleFromRequest } from "@/modules/lingui/i18n.server";
-import { createRouter } from "./router";
+import type { Register } from "@tanstack/react-router";
+import type { RequestHandler } from "@tanstack/react-start/server";
+import { createStartHandler } from "@tanstack/react-start/server";
+import { customHandler } from "./server-handler";
 
-export default requestHandler(async (ctx) => {
-  await setupLocaleFromRequest(i18n);
+const fetch = createStartHandler(customHandler);
 
-  const startHandler = createStartHandler({
-    createRouter: () => {
-      return createRouter({ i18n });
-    },
-  });
-
-  return startHandler(defaultStreamHandler)(ctx);
-});
+export default {
+  fetch: fetch as RequestHandler<Register>,
+} as const;

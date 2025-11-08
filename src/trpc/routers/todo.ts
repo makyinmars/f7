@@ -7,7 +7,7 @@ import {
   todo,
   todoInsert,
   todoUpdate,
-} from "@/db/schema";
+} from "@/db/schema/todo";
 import { createErrors } from "../errors";
 import { publicProcedure } from "../init";
 import type { RouterOutput } from "../utils";
@@ -15,11 +15,12 @@ import type { RouterOutput } from "../utils";
 export type TodoListProcedure = RouterOutput["todo"]["list"];
 
 export const todoRouter = {
-  list: publicProcedure.query(async ({ ctx }) => {
-    return await ctx.db.query.todo.findMany({
-      orderBy: desc(todo.createdAt),
-    });
-  }),
+  list: publicProcedure.query(
+    async ({ ctx }) =>
+      await ctx.db.query.todo.findMany({
+        orderBy: desc(todo.createdAt),
+      })
+  ),
   byId: publicProcedure.input(apiTodoId).query(async ({ input, ctx }) => {
     const errors = createErrors(ctx.i18n);
     const parsed = apiTodoId.safeParse(input);

@@ -3,7 +3,7 @@ import { databasePrefix } from "@/constants/utils";
 import { serverEnv } from "@/env/server";
 
 export default defineConfig({
-  schema: "./src/db/schema/index.ts",
+  schema: "./src/db/schema/*.ts",
   dialect: "postgresql",
   out: "./drizzle",
   dbCredentials: {

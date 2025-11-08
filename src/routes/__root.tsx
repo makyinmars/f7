@@ -22,11 +22,11 @@ import appCss from "@/styles/app.css?url";
 import type { TRPCRouter } from "@/trpc/router";
 import { seo } from "@/utils/seo";
 
-interface MyRouterContext {
+type MyRouterContext = {
   queryClient: QueryClient;
   trpc: TRPCOptionsProxy<TRPCRouter>;
   i18n: I18n;
-}
+};
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"

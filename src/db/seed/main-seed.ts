@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 import { db, pool } from "../index";
-import { TodoStatus, todo } from "../schema";
+import { TodoStatus, todo } from "../schema/todo";
 
 const sampleTodos = [
   {

@@ -1,7 +1,7 @@
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { createIsomorphicFn, createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { getRequest } from "@tanstack/react-start/server";
 import {
   createTRPCClient,
   httpBatchLink,
@@ -39,7 +39,7 @@ export const transformer: TRPCCombinedDataTransformer = {
 
 export const getRequestHeaders = createServerFn({ method: "GET" }).handler(
   () => {
-    const request = getWebRequest();
+    const request = getRequest();
     const headers = new Headers(request?.headers);
 
     return Object.fromEntries(headers);
@@ -75,8 +75,8 @@ export const trpcClient = createTRPCClient<TRPCRouter>({
       true: httpLink({
         url: getUrl(),
         transformer,
-        fetch(url, options) {
-          return fetch(url, {
+        fetch(_url, options) {
+          return fetch(_url, {
             ...options,
             credentials: "include",
           });
@@ -87,8 +87,8 @@ export const trpcClient = createTRPCClient<TRPCRouter>({
         url: getUrl(),
         transformer,
         headers,
-        fetch(url, options) {
-          return fetch(url, {
+        fetch(_url, options) {
+          return fetch(_url, {
             ...options,
             credentials: "include",
           });
@@ -98,8 +98,8 @@ export const trpcClient = createTRPCClient<TRPCRouter>({
   ],
 });
 
-export const createQueryClient = () => {
-  return new QueryClient({
+export const createQueryClient = () =>
+  new QueryClient({
     defaultOptions: {
       dehydrate: { serializeData: superjson.serialize },
       hydrate: { deserializeData: superjson.deserialize },
@@ -123,7 +123,6 @@ export const createQueryClient = () => {
     },
     queryCache: new QueryCache(),
   });
-};
 export const createServerHelpers = ({
   queryClient,
 }: {
@@ -131,7 +130,7 @@ export const createServerHelpers = ({
 }) => {
   const serverHelpers = createTRPCOptionsProxy({
     client: trpcClient,
-    queryClient: queryClient,
+    queryClient,
   });
   return serverHelpers;
 };

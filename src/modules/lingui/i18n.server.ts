@@ -1,22 +1,23 @@
 import type { I18n } from "@lingui/core";
 import {
-  getHeaders,
-  getWebRequest,
-  setHeader,
+  getCookies,
+  getRequest,
+  getRequestHeaders,
+  setResponseHeader,
 } from "@tanstack/react-start/server";
-import { parse, serialize } from "cookie-es";
+import { serialize } from "cookie-es";
 import { defaultLocale, dynamicActivate, isLocaleValid } from "./i18n";
 
 function getLocaleFromRequest() {
-  const request = getWebRequest();
-  const headers = getHeaders();
-  const cookie = parse(headers.cookie ?? "");
+  const request = getRequest();
+  const headers = getRequestHeaders();
+  const cookies = getCookies();
 
   const url = new URL(request.url);
   const queryLocale = url.searchParams.get("locale") ?? "";
 
   if (isLocaleValid(queryLocale)) {
-    setHeader(
+    setResponseHeader(
       "Set-Cookie",
       serialize("locale", queryLocale, {
         maxAge: 30 * 24 * 60 * 60,
@@ -27,16 +28,17 @@ function getLocaleFromRequest() {
     return queryLocale;
   }
 
-  if (cookie.locale && isLocaleValid(cookie.locale)) {
-    return cookie.locale;
+  if (cookies.locale && isLocaleValid(cookies.locale)) {
+    return cookies.locale;
   }
 
   // Mostly used for API requests
-  if (headers["accept-language"] && isLocaleValid(headers["accept-language"])) {
-    return headers["accept-language"];
+  const acceptLanguage = headers.get("accept-language");
+  if (acceptLanguage && isLocaleValid(acceptLanguage)) {
+    return acceptLanguage;
   }
 
-  setHeader(
+  setResponseHeader(
     "Set-Cookie",
     serialize("locale", defaultLocale, {
       maxAge: 30 * 24 * 60 * 60,

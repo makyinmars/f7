@@ -54,18 +54,16 @@ export const Route = createFileRoute("/todo/$todoId")({
       </div>
     );
   },
-  notFoundComponent: () => {
-    return (
-      <div className="flex min-h-96 items-center justify-center">
-        <div className="text-center">
-          <h2 className="mb-2 font-semibold text-2xl">Todo Not Found</h2>
-          <p className="text-muted-foreground">
-            The todo you're looking for doesn't exist.
-          </p>
-        </div>
+  notFoundComponent: () => (
+    <div className="flex min-h-96 items-center justify-center">
+      <div className="text-center">
+        <h2 className="mb-2 font-semibold text-2xl">Todo Not Found</h2>
+        <p className="text-muted-foreground">
+          The todo you're looking for doesn't exist.
+        </p>
       </div>
-    );
-  },
+    </div>
+  ),
   pendingComponent: () => <LoadingState text="Loading todo details..." />,
   component: TodoDetail,
 });

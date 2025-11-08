@@ -1,5 +1,5 @@
 import { i18n } from "@lingui/core";
-import { createServerFileRoute } from "@tanstack/react-start/server";
+import { createFileRoute } from "@tanstack/react-router";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { setupLocaleFromRequest } from "@/modules/lingui/i18n.server";
 import { createTRPCContext } from "@/trpc/init";
@@ -21,7 +21,11 @@ function handler({ request }: { request: Request }) {
   });
 }
 
-export const ServerRoute = createServerFileRoute("/api/trpc/$").methods({
-  GET: handler,
-  POST: handler,
+export const Route = createFileRoute("/api/trpc/$")({
+  server: {
+    handlers: {
+      GET: handler,
+      POST: handler,
+    },
+  },
 });

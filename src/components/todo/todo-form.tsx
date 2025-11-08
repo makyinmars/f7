@@ -39,10 +39,10 @@ import {
 } from "@/db/schema/todo";
 import { useTRPC } from "@/trpc/react";
 
-interface TodoFormProps {
+type TodoFormProps = {
   todo?: Todo;
   children?: React.ReactNode;
-}
+};
 
 const TodoForm = ({ todo, children }: TodoFormProps) => {
   const { t } = useLingui();
