@@ -1,15 +1,7 @@
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
-import {
-  BadgeCheck,
-  Bell,
-  ChevronDown,
-  CreditCard,
-  LogIn,
-  LogOut,
-  Sparkles,
-} from "lucide-react";
+import { BadgeCheck, Bell, ChevronDown, CreditCard, LogIn, LogOut, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -56,9 +48,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
               />
             </Link>
             <div className="flex flex-col gap-1">
-              <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">
-                {APP_NAME}
-              </h1>
+              <h1 className="font-bold text-xl sm:text-2xl md:text-3xl">{APP_NAME}</h1>
               <p className="hidden text-muted-foreground text-sm sm:block sm:text-base">
                 Manage your tasks with TanStack Start, tRPC, PostgreSQL & React
               </p>
@@ -78,9 +68,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                         {sessionQuery.data.user.name.slice(0, 2).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
-                    <span className="hidden sm:inline-block">
-                      {sessionQuery.data.user.name}
-                    </span>
+                    <span className="hidden sm:inline-block">{sessionQuery.data.user.name}</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>
@@ -93,15 +81,11 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                           src={sessionQuery.data.user.image || ""}
                         />
                         <AvatarFallback>
-                          {sessionQuery.data.user.name
-                            .slice(0, 2)
-                            .toUpperCase()}
+                          {sessionQuery.data.user.name.slice(0, 2).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-medium">
-                          {sessionQuery.data.user.name}
-                        </span>
+                        <span className="truncate font-medium">{sessionQuery.data.user.name}</span>
                         <span className="truncate text-muted-foreground text-xs">
                           {sessionQuery.data.user.email}
                         </span>
@@ -133,10 +117,7 @@ const ContentLayout = ({ children }: { children: React.ReactNode }) => {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    disabled={logout.isPending}
-                    onClick={handleLogout}
-                  >
+                  <DropdownMenuItem disabled={logout.isPending} onClick={handleLogout}>
                     <LogOut className="mr-2 h-4 w-4" />
                     <Trans>Log out</Trans>
                   </DropdownMenuItem>

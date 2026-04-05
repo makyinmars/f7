@@ -10,10 +10,7 @@ export default $config({
       providers: {
         aws: {
           region: "us-east-2",
-          profile:
-            input.stage === "production"
-              ? "developer-production"
-              : "developer-dev",
+          profile: input.stage === "production" ? "developer-production" : "developer-dev",
         },
       },
     };

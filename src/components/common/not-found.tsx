@@ -38,11 +38,7 @@ const NotFound = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-3 pt-2 sm:flex-row">
-              <Button
-                className="flex-1"
-                onClick={() => window.history.back()}
-                variant="outline"
-              >
+              <Button className="flex-1" onClick={() => window.history.back()} variant="outline">
                 Go Back
               </Button>
               <Button asChild className="flex-1">

@@ -37,14 +37,12 @@ export const transformer: TRPCCombinedDataTransformer = {
   output: SuperJSON,
 };
 
-export const getRequestHeaders = createServerFn({ method: "GET" }).handler(
-  () => {
-    const request = getRequest();
-    const headers = new Headers(request?.headers);
+export const getRequestHeaders = createServerFn({ method: "GET" }).handler(() => {
+  const request = getRequest();
+  const headers = new Headers(request?.headers);
 
-    return Object.fromEntries(headers);
-  }
-);
+  return Object.fromEntries(headers);
+});
 
 const headers = createIsomorphicFn()
   .client(() => ({}))
@@ -109,11 +107,7 @@ export const createQueryClient = () =>
         retry(failureCount, _err) {
           const err = _err as unknown as TRPCClientErrorLike<TRPCRouter>;
           const code = err?.data?.code;
-          if (
-            code === "BAD_REQUEST" ||
-            code === "FORBIDDEN" ||
-            code === "UNAUTHORIZED"
-          ) {
+          if (code === "BAD_REQUEST" || code === "FORBIDDEN" || code === "UNAUTHORIZED") {
             return false;
           }
           const MAX_QUERY_RETRIES = 0;
@@ -123,11 +117,7 @@ export const createQueryClient = () =>
     },
     queryCache: new QueryCache(),
   });
-export const createServerHelpers = ({
-  queryClient,
-}: {
-  queryClient: QueryClient;
-}) => {
+export const createServerHelpers = ({ queryClient }: { queryClient: QueryClient }) => {
   const serverHelpers = createTRPCOptionsProxy({
     client: trpcClient,
     queryClient,

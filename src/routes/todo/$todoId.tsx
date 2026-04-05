@@ -19,11 +19,11 @@ export const Route = createFileRoute("/todo/$todoId")({
           },
           {
             enabled: !!todoId,
-          }
-        )
+          },
+        ),
       );
       return { todo };
-    } catch (_error) {
+    } catch {
       throw new Error(`Todo not found or invalid: ${todoId}`);
     }
   },
@@ -46,9 +46,7 @@ export const Route = createFileRoute("/todo/$todoId")({
             {isInvalidFormat ? "Invalid Todo ID" : "Todo Not Found"}
           </h2>
           <p className="text-muted-foreground">
-            {isInvalidFormat
-              ? "The todo ID provided is not in the correct format."
-              : error.message}
+            {isInvalidFormat ? "The todo ID provided is not in the correct format." : error.message}
           </p>
         </div>
       </div>
@@ -58,9 +56,7 @@ export const Route = createFileRoute("/todo/$todoId")({
     <div className="flex min-h-96 items-center justify-center">
       <div className="text-center">
         <h2 className="mb-2 font-semibold text-2xl">Todo Not Found</h2>
-        <p className="text-muted-foreground">
-          The todo you're looking for doesn't exist.
-        </p>
+        <p className="text-muted-foreground">The todo you're looking for doesn't exist.</p>
       </div>
     </div>
   ),

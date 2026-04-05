@@ -10,11 +10,7 @@ export function SearchForm({ ...props }: React.ComponentProps<"form">) {
         <Label className="sr-only" htmlFor="search">
           Search
         </Label>
-        <SidebarInput
-          className="h-8 pl-7"
-          id="search"
-          placeholder="Type to search..."
-        />
+        <SidebarInput className="h-8 pl-7" id="search" placeholder="Type to search..." />
         <Search className="-translate-y-1/2 pointer-events-none absolute top-1/2 left-2 size-4 select-none opacity-50" />
       </div>
     </form>

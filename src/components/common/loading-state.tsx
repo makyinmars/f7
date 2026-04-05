@@ -15,12 +15,7 @@ const LoadingState = ({ size = "md", text, className }: LoadingStateProps) => {
   };
 
   return (
-    <div
-      className={cn(
-        "flex min-h-96 flex-col items-center justify-center gap-4",
-        className
-      )}
-    >
+    <div className={cn("flex min-h-96 flex-col items-center justify-center gap-4", className)}>
       <Loader2
         aria-label="Loading"
         className={cn("animate-spin text-muted-foreground", sizeClasses[size])}

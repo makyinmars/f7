@@ -8,200 +8,201 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthIndexRouteImport } from './routes/auth/index'
-import { Route as TodoTodoIdRouteImport } from './routes/todo/$todoId'
-import { Route as AuthSignupRouteImport } from './routes/auth/signup'
-import { Route as adminDashboardRouteRouteImport } from './routes/(admin)/dashboard/route'
-import { Route as adminDashboardIndexRouteImport } from './routes/(admin)/dashboard/index'
-import { Route as ApiTrpcSplatRouteImport } from './routes/api/trpc/$'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as AuthIndexRouteImport } from "./routes/auth/index";
+import { Route as TodoTodoIdRouteImport } from "./routes/todo/$todoId";
+import { Route as AuthSignupRouteImport } from "./routes/auth/signup";
+import { Route as adminDashboardRouteRouteImport } from "./routes/(admin)/dashboard/route";
+import { Route as adminDashboardIndexRouteImport } from "./routes/(admin)/dashboard/index";
+import { Route as ApiTrpcSplatRouteImport } from "./routes/api/trpc/$";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthIndexRoute = AuthIndexRouteImport.update({
-  id: '/auth/',
-  path: '/auth/',
+  id: "/auth/",
+  path: "/auth/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const TodoTodoIdRoute = TodoTodoIdRouteImport.update({
-  id: '/todo/$todoId',
-  path: '/todo/$todoId',
+  id: "/todo/$todoId",
+  path: "/todo/$todoId",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthSignupRoute = AuthSignupRouteImport.update({
-  id: '/auth/signup',
-  path: '/auth/signup',
+  id: "/auth/signup",
+  path: "/auth/signup",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const adminDashboardRouteRoute = adminDashboardRouteRouteImport.update({
-  id: '/(admin)/dashboard',
-  path: '/dashboard',
+  id: "/(admin)/dashboard",
+  path: "/dashboard",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const adminDashboardIndexRoute = adminDashboardIndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => adminDashboardRouteRoute,
-} as any)
+} as any);
 const ApiTrpcSplatRoute = ApiTrpcSplatRouteImport.update({
-  id: '/api/trpc/$',
-  path: '/api/trpc/$',
+  id: "/api/trpc/$",
+  path: "/api/trpc/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
+  id: "/api/auth/$",
+  path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/dashboard': typeof adminDashboardRouteRouteWithChildren
-  '/auth/signup': typeof AuthSignupRoute
-  '/todo/$todoId': typeof TodoTodoIdRoute
-  '/auth': typeof AuthIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/dashboard/': typeof adminDashboardIndexRoute
+  "/": typeof IndexRoute;
+  "/dashboard": typeof adminDashboardRouteRouteWithChildren;
+  "/auth/signup": typeof AuthSignupRoute;
+  "/todo/$todoId": typeof TodoTodoIdRoute;
+  "/auth/": typeof AuthIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/trpc/$": typeof ApiTrpcSplatRoute;
+  "/dashboard/": typeof adminDashboardIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/auth/signup': typeof AuthSignupRoute
-  '/todo/$todoId': typeof TodoTodoIdRoute
-  '/auth': typeof AuthIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/dashboard': typeof adminDashboardIndexRoute
+  "/": typeof IndexRoute;
+  "/auth/signup": typeof AuthSignupRoute;
+  "/todo/$todoId": typeof TodoTodoIdRoute;
+  "/auth": typeof AuthIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/trpc/$": typeof ApiTrpcSplatRoute;
+  "/dashboard": typeof adminDashboardIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/(admin)/dashboard': typeof adminDashboardRouteRouteWithChildren
-  '/auth/signup': typeof AuthSignupRoute
-  '/todo/$todoId': typeof TodoTodoIdRoute
-  '/auth/': typeof AuthIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/api/trpc/$': typeof ApiTrpcSplatRoute
-  '/(admin)/dashboard/': typeof adminDashboardIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/(admin)/dashboard": typeof adminDashboardRouteRouteWithChildren;
+  "/auth/signup": typeof AuthSignupRoute;
+  "/todo/$todoId": typeof TodoTodoIdRoute;
+  "/auth/": typeof AuthIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/api/trpc/$": typeof ApiTrpcSplatRoute;
+  "/(admin)/dashboard/": typeof adminDashboardIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/dashboard'
-    | '/auth/signup'
-    | '/todo/$todoId'
-    | '/auth'
-    | '/api/auth/$'
-    | '/api/trpc/$'
-    | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/dashboard"
+    | "/auth/signup"
+    | "/todo/$todoId"
+    | "/auth/"
+    | "/api/auth/$"
+    | "/api/trpc/$"
+    | "/dashboard/";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/auth/signup'
-    | '/todo/$todoId'
-    | '/auth'
-    | '/api/auth/$'
-    | '/api/trpc/$'
-    | '/dashboard'
+    | "/"
+    | "/auth/signup"
+    | "/todo/$todoId"
+    | "/auth"
+    | "/api/auth/$"
+    | "/api/trpc/$"
+    | "/dashboard";
   id:
-    | '__root__'
-    | '/'
-    | '/(admin)/dashboard'
-    | '/auth/signup'
-    | '/todo/$todoId'
-    | '/auth/'
-    | '/api/auth/$'
-    | '/api/trpc/$'
-    | '/(admin)/dashboard/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/(admin)/dashboard"
+    | "/auth/signup"
+    | "/todo/$todoId"
+    | "/auth/"
+    | "/api/auth/$"
+    | "/api/trpc/$"
+    | "/(admin)/dashboard/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  adminDashboardRouteRoute: typeof adminDashboardRouteRouteWithChildren
-  AuthSignupRoute: typeof AuthSignupRoute
-  TodoTodoIdRoute: typeof TodoTodoIdRoute
-  AuthIndexRoute: typeof AuthIndexRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute
+  IndexRoute: typeof IndexRoute;
+  adminDashboardRouteRoute: typeof adminDashboardRouteRouteWithChildren;
+  AuthSignupRoute: typeof AuthSignupRoute;
+  TodoTodoIdRoute: typeof TodoTodoIdRoute;
+  AuthIndexRoute: typeof AuthIndexRoute;
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
+  ApiTrpcSplatRoute: typeof ApiTrpcSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/': {
-      id: '/auth/'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/todo/$todoId': {
-      id: '/todo/$todoId'
-      path: '/todo/$todoId'
-      fullPath: '/todo/$todoId'
-      preLoaderRoute: typeof TodoTodoIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth/signup': {
-      id: '/auth/signup'
-      path: '/auth/signup'
-      fullPath: '/auth/signup'
-      preLoaderRoute: typeof AuthSignupRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(admin)/dashboard': {
-      id: '/(admin)/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof adminDashboardRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(admin)/dashboard/': {
-      id: '/(admin)/dashboard/'
-      path: '/'
-      fullPath: '/dashboard/'
-      preLoaderRoute: typeof adminDashboardIndexRouteImport
-      parentRoute: typeof adminDashboardRouteRoute
-    }
-    '/api/trpc/$': {
-      id: '/api/trpc/$'
-      path: '/api/trpc/$'
-      fullPath: '/api/trpc/$'
-      preLoaderRoute: typeof ApiTrpcSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auth/": {
+      id: "/auth/";
+      path: "/auth";
+      fullPath: "/auth/";
+      preLoaderRoute: typeof AuthIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/todo/$todoId": {
+      id: "/todo/$todoId";
+      path: "/todo/$todoId";
+      fullPath: "/todo/$todoId";
+      preLoaderRoute: typeof TodoTodoIdRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/auth/signup": {
+      id: "/auth/signup";
+      path: "/auth/signup";
+      fullPath: "/auth/signup";
+      preLoaderRoute: typeof AuthSignupRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(admin)/dashboard": {
+      id: "/(admin)/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof adminDashboardRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(admin)/dashboard/": {
+      id: "/(admin)/dashboard/";
+      path: "/";
+      fullPath: "/dashboard/";
+      preLoaderRoute: typeof adminDashboardIndexRouteImport;
+      parentRoute: typeof adminDashboardRouteRoute;
+    };
+    "/api/trpc/$": {
+      id: "/api/trpc/$";
+      path: "/api/trpc/$";
+      fullPath: "/api/trpc/$";
+      preLoaderRoute: typeof ApiTrpcSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/auth/$": {
+      id: "/api/auth/$";
+      path: "/api/auth/$";
+      fullPath: "/api/auth/$";
+      preLoaderRoute: typeof ApiAuthSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
 interface adminDashboardRouteRouteChildren {
-  adminDashboardIndexRoute: typeof adminDashboardIndexRoute
+  adminDashboardIndexRoute: typeof adminDashboardIndexRoute;
 }
 
 const adminDashboardRouteRouteChildren: adminDashboardRouteRouteChildren = {
   adminDashboardIndexRoute: adminDashboardIndexRoute,
-}
+};
 
-const adminDashboardRouteRouteWithChildren =
-  adminDashboardRouteRoute._addFileChildren(adminDashboardRouteRouteChildren)
+const adminDashboardRouteRouteWithChildren = adminDashboardRouteRoute._addFileChildren(
+  adminDashboardRouteRouteChildren,
+);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -211,16 +212,16 @@ const rootRouteChildren: RootRouteChildren = {
   AuthIndexRoute: AuthIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiTrpcSplatRoute: ApiTrpcSplatRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.tsx";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }

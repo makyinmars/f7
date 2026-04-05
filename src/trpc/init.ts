@@ -5,11 +5,7 @@ import { ZodError } from "zod/v4";
 import { auth } from "@/auth/server";
 import { db } from "@/db";
 
-export const createTRPCContext = async (opts: {
-  i18n?: I18n;
-  headers: Headers;
-  req: Request;
-}) => {
+export const createTRPCContext = async (opts: { i18n?: I18n; headers: Headers; req: Request }) => {
   const session = await auth.api.getSession({
     headers: opts.headers,
   });
@@ -27,8 +23,7 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
       ...shape,
       data: {
         ...shape.data,
-        zodError:
-          error.cause instanceof ZodError ? error.cause.flatten() : null,
+        zodError: error.cause instanceof ZodError ? error.cause.flatten() : null,
       },
     };
   },

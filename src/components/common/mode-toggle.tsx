@@ -65,7 +65,7 @@ const ModeToggle = () => {
             <Icon
               className={cn(
                 "relative m-auto h-4 w-4",
-                isActive ? "text-primary-foreground" : "text-primary"
+                isActive ? "text-primary-foreground" : "text-primary",
               )}
             />
           </button>

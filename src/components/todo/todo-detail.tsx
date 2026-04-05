@@ -16,7 +16,7 @@ function TodoDetail() {
   const trpc = useTRPC();
   const { todoId } = Route.useParams();
   const todoQuery = useSuspenseQuery(
-    trpc.todo.byId.queryOptions({ id: todoId }, { enabled: !!todoId })
+    trpc.todo.byId.queryOptions({ id: todoId }, { enabled: !!todoId }),
   );
 
   const formatDate = (date: Date | string | null) => {
@@ -105,7 +105,7 @@ function TodoDetail() {
                 </h3>
                 <span
                   className={`inline-flex items-center rounded-md px-3 py-1 font-medium text-sm ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
-                    todoQuery.data.status
+                    todoQuery.data.status,
                   )}`}
                 >
                   {getStatusLabel(todoQuery.data.status)}
@@ -135,18 +135,14 @@ function TodoDetail() {
                 <h3 className="font-medium text-muted-foreground text-sm">
                   <Trans>Created At</Trans>
                 </h3>
-                <p className="text-sm">
-                  {formatDate(todoQuery.data.createdAt)}
-                </p>
+                <p className="text-sm">{formatDate(todoQuery.data.createdAt)}</p>
               </div>
 
               <div className="space-y-2">
                 <h3 className="font-medium text-muted-foreground text-sm">
                   <Trans>Last Updated</Trans>
                 </h3>
-                <p className="text-sm">
-                  {formatDate(todoQuery.data.updatedAt)}
-                </p>
+                <p className="text-sm">{formatDate(todoQuery.data.updatedAt)}</p>
               </div>
             </div>
 
@@ -156,9 +152,7 @@ function TodoDetail() {
               <h3 className="font-medium text-muted-foreground text-sm">
                 <Trans>Todo ID</Trans>
               </h3>
-              <p className="font-mono text-muted-foreground text-sm">
-                {todoId}
-              </p>
+              <p className="font-mono text-muted-foreground text-sm">{todoId}</p>
             </div>
           </CardContent>
         </Card>

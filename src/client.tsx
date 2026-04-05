@@ -13,6 +13,6 @@ startTransition(() => {
     document,
     <StrictMode>
       <StartClient />
-    </StrictMode>
+    </StrictMode>,
   );
 });

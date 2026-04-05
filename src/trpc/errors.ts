@@ -7,7 +7,7 @@ import { TRPCError } from "@trpc/server";
 export function createTranslatedError(
   i18n: I18n | undefined,
   code: "NOT_FOUND" | "BAD_REQUEST" | "INTERNAL_SERVER_ERROR" | "UNAUTHORIZED",
-  fallbackMessage: string
+  fallbackMessage: string,
 ) {
   // Use the fallback message as the translation key and fallback
   const message = i18n?._(fallbackMessage) ?? fallbackMessage;
@@ -22,30 +22,16 @@ export function createTranslatedError(
  * Predefined error creators with i18n support
  */
 export const createErrors = (i18n: I18n | undefined) => ({
-  todoNotFound: () =>
-    createTranslatedError(i18n, "NOT_FOUND", "Todo not found"),
+  todoNotFound: () => createTranslatedError(i18n, "NOT_FOUND", "Todo not found"),
 
-  invalidInput: () =>
-    createTranslatedError(i18n, "BAD_REQUEST", "Invalid input"),
+  invalidInput: () => createTranslatedError(i18n, "BAD_REQUEST", "Invalid input"),
 
   todoDeleteFailed: () =>
-    createTranslatedError(
-      i18n,
-      "INTERNAL_SERVER_ERROR",
-      "Failed to delete todo"
-    ),
+    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to delete todo"),
 
   todoUpdateFailed: () =>
-    createTranslatedError(
-      i18n,
-      "INTERNAL_SERVER_ERROR",
-      "Failed to update todo"
-    ),
+    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to update todo"),
 
   todoCreateFailed: () =>
-    createTranslatedError(
-      i18n,
-      "INTERNAL_SERVER_ERROR",
-      "Failed to create todo"
-    ),
+    createTranslatedError(i18n, "INTERNAL_SERVER_ERROR", "Failed to create todo"),
 });

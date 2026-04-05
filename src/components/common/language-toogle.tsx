@@ -14,7 +14,7 @@ const updateLanguage = createServerFn({ method: "POST" })
       serialize("locale", data, {
         maxAge: 30 * 24 * 60 * 60,
         path: "/",
-      })
+      }),
     );
   });
 
@@ -25,7 +25,7 @@ const LanguageToggle = () => {
   return (
     <div
       className={cn(
-        "relative flex h-8 items-center rounded-lg bg-background p-1 ring-1 ring-border"
+        "relative flex h-8 items-center rounded-lg bg-background p-1 ring-1 ring-border",
       )}
     >
       {Object.entries(locales).map(([locale, label]) => {
@@ -34,7 +34,7 @@ const LanguageToggle = () => {
           <button
             className={cn(
               "relative rounded-lg px-3 py-0.5 font-medium text-sm transition-colors",
-              isActive ? "bg-primary text-primary-foreground" : "text-primary"
+              isActive ? "bg-primary text-primary-foreground" : "text-primary",
             )}
             key={locale}
             onClick={async () => {
@@ -50,7 +50,7 @@ const LanguageToggle = () => {
 
                 // Optionally refresh the current route to update any translated content
                 // This is much gentler than a full page reload
-                navigate({ to: window.location.pathname, replace: true });
+                await navigate({ to: window.location.pathname, replace: true });
               } catch (error) {
                 console.error(error);
               }

@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    ".tanstack/**",
+    "dist/**",
+    ".turbo/**",
+    "dev-dist/**",
+    ".zed/**",
+    ".vscode/**",
+    ".output/**",
+    ".nitro/**",
+    ".vercel/**",
+    ".sst/**",
+    "drizzle/**",
+    ".claude/**",
+    "src/routeTree.gen.ts",
+    "routeTree.gen.ts",
+    "sst-env.d.ts",
+    "sst.config.ts",
+    "src/locales/**/*.js"
+  ],
+  "semi": true,
+  "singleQuote": false,
+  "sortPackageJson": true,
+  "tabWidth": 2,
+  "useTabs": false
+}

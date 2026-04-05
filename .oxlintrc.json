@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    ".tanstack/**",
+    "dist/**",
+    ".turbo/**",
+    "dev-dist/**",
+    ".zed/**",
+    ".vscode/**",
+    ".output/**",
+    ".nitro/**",
+    ".vercel/**",
+    ".sst/**",
+    "drizzle/**",
+    ".claude/**",
+    "src/routeTree.gen.ts",
+    "routeTree.gen.ts",
+    "sst-env.d.ts",
+    "sst.config.ts",
+    "src/locales/**/*.js",
+    "drizzle.config.ts",
+    "lingui.config.ts",
+    "nitro.config.ts",
+    "vite.config.ts"
+  ],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
+  "plugins": ["eslint", "typescript", "react", "import", "unicorn"],
+  "env": {
+    "browser": true,
+    "es2022": true
+  }
+}

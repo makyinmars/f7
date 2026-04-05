@@ -1,24 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trans, useLingui } from "@lingui/react/macro";
 import { useQueryClient } from "@tanstack/react-query";
-import {
-  createFileRoute,
-  Link,
-  redirect,
-  useRouter,
-} from "@tanstack/react-router";
+import { createFileRoute, Link, redirect, useRouter } from "@tanstack/react-router";
 import { GalleryVerticalEnd } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import ContentLayout from "@/components/common/content-layout";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -35,7 +24,7 @@ import { useTRPC } from "@/trpc/react";
 export const Route = createFileRoute("/auth/signup")({
   beforeLoad: async ({ context }) => {
     const auth = await context.queryClient.ensureQueryData(
-      context.trpc.auth.getSession.queryOptions()
+      context.trpc.auth.getSession.queryOptions(),
     );
 
     if (auth?.session) {
@@ -66,7 +55,7 @@ function RouteComponent() {
   const register = useRegister({
     onSuccess: async () => {
       toast.success(
-        t`Account created successfully! Please check your email to verify your account.`
+        t`Account created successfully! Please check your email to verify your account.`,
       );
       form.reset();
       await queryClient.invalidateQueries(trpc.auth.getSession.queryFilter());
@@ -97,10 +86,7 @@ function RouteComponent() {
     <ContentLayout>
       <div className="flex min-h-svh flex-col items-center justify-center gap-6">
         <div className="flex w-full max-w-sm flex-col gap-6">
-          <Link
-            className="flex items-center gap-2 self-center font-medium"
-            to="/"
-          >
+          <Link className="flex items-center gap-2 self-center font-medium" to="/">
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
@@ -145,10 +131,7 @@ function RouteComponent() {
                     </span>
                   </div>
                   <Form {...form}>
-                    <form
-                      className="space-y-4"
-                      onSubmit={form.handleSubmit(onSubmit)}
-                    >
+                    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                       <FormField
                         control={form.control}
                         name="name"
@@ -158,11 +141,7 @@ function RouteComponent() {
                               <Trans>Full Name</Trans>
                             </FormLabel>
                             <FormControl>
-                              <Input
-                                placeholder={t`John Doe`}
-                                type="text"
-                                {...field}
-                              />
+                              <Input placeholder={t`John Doe`} type="text" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -177,11 +156,7 @@ function RouteComponent() {
                               <Trans>Email</Trans>
                             </FormLabel>
                             <FormControl>
-                              <Input
-                                placeholder={t`m@example.com`}
-                                type="email"
-                                {...field}
-                              />
+                              <Input placeholder={t`m@example.com`} type="email" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -202,11 +177,7 @@ function RouteComponent() {
                           </FormItem>
                         )}
                       />
-                      <Button
-                        className="w-full"
-                        disabled={register.isPending}
-                        type="submit"
-                      >
+                      <Button className="w-full" disabled={register.isPending} type="submit">
                         <Trans>Create account</Trans>
                       </Button>
                     </form>

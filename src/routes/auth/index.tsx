@@ -6,13 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import ContentLayout from "@/components/common/content-layout";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -28,7 +22,7 @@ import { useLogin } from "@/hooks/use-auth";
 export const Route = createFileRoute("/auth/")({
   beforeLoad: async ({ context }) => {
     const auth = await context.queryClient.ensureQueryData(
-      context.trpc.auth.getSession.queryOptions()
+      context.trpc.auth.getSession.queryOptions(),
     );
 
     if (auth?.session) {
@@ -62,9 +56,8 @@ function RouteComponent() {
       {
         loading: t`Logging in...`,
         success: t`Welcome back!`,
-        error: (err) =>
-          t`Login failed: ${err.message || "Invalid credentials"}`,
-      }
+        error: (err) => t`Login failed: ${err.message || "Invalid credentials"}`,
+      },
     );
   };
 
@@ -79,10 +72,7 @@ function RouteComponent() {
     <ContentLayout>
       <div className="flex min-h-svh flex-col items-center justify-center gap-6">
         <div className="flex w-full max-w-sm flex-col gap-6">
-          <Link
-            className="flex items-center gap-2 self-center font-medium"
-            to="/"
-          >
+          <Link className="flex items-center gap-2 self-center font-medium" to="/">
             <div className="flex size-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
               <GalleryVerticalEnd className="size-4" />
             </div>
@@ -127,10 +117,7 @@ function RouteComponent() {
                     </span>
                   </div>
                   <Form {...form}>
-                    <form
-                      className="space-y-4"
-                      onSubmit={form.handleSubmit(onSubmit)}
-                    >
+                    <form className="space-y-4" onSubmit={form.handleSubmit(onSubmit)}>
                       <FormField
                         control={form.control}
                         name="email"
@@ -140,11 +127,7 @@ function RouteComponent() {
                               <Trans>Email</Trans>
                             </FormLabel>
                             <FormControl>
-                              <Input
-                                placeholder={t`m@example.com`}
-                                type="email"
-                                {...field}
-                              />
+                              <Input placeholder={t`m@example.com`} type="email" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -184,10 +167,7 @@ function RouteComponent() {
                   </Form>
                   <div className="text-center text-sm">
                     <Trans>Don't have an account?</Trans>{" "}
-                    <Link
-                      className="underline underline-offset-4"
-                      to="/auth/signup"
-                    >
+                    <Link className="underline underline-offset-4" to="/auth/signup">
                       <Trans>Sign up</Trans>
                     </Link>
                   </div>

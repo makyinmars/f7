@@ -19,7 +19,7 @@ export const todoRouter = {
     async ({ ctx }) =>
       await ctx.db.query.todo.findMany({
         orderBy: desc(todo.createdAt),
-      })
+      }),
   ),
   byId: publicProcedure.input(apiTodoId).query(async ({ input, ctx }) => {
     const errors = createErrors(ctx.i18n);
@@ -42,29 +42,27 @@ export const todoRouter = {
 
     return foundTodo;
   }),
-  create: publicProcedure
-    .input(apiTodoCreate)
-    .mutation(async ({ input, ctx }) => {
-      const errors = createErrors(ctx.i18n);
-      const parsed = todoInsert.safeParse(input);
+  create: publicProcedure.input(apiTodoCreate).mutation(async ({ input, ctx }) => {
+    const errors = createErrors(ctx.i18n);
+    const parsed = todoInsert.safeParse(input);
 
-      if (!parsed.success) {
-        throw errors.invalidInput();
-      }
+    if (!parsed.success) {
+      throw errors.invalidInput();
+    }
 
-      try {
-        const [created] = await ctx.db
-          .insert(todo)
-          .values({
-            ...parsed.data,
-          })
-          .returning();
+    try {
+      const [created] = await ctx.db
+        .insert(todo)
+        .values({
+          ...parsed.data,
+        })
+        .returning();
 
-        return created;
-      } catch (_error) {
-        throw errors.todoCreateFailed();
-      }
-    }),
+      return created;
+    } catch {
+      throw errors.todoCreateFailed();
+    }
+  }),
   delete: publicProcedure.input(apiTodoId).mutation(async ({ input, ctx }) => {
     const errors = createErrors(ctx.i18n);
 
@@ -78,37 +76,32 @@ export const todoRouter = {
     }
 
     try {
-      const [deleted] = await ctx.db
-        .delete(todo)
-        .where(eq(todo.id, parsed.data.id))
-        .returning();
+      const [deleted] = await ctx.db.delete(todo).where(eq(todo.id, parsed.data.id)).returning();
       return deleted;
-    } catch (_error) {
+    } catch {
       throw errors.todoDeleteFailed();
     }
   }),
-  update: publicProcedure
-    .input(apiTodoUpdate)
-    .mutation(async ({ input, ctx }) => {
-      const errors = createErrors(ctx.i18n);
-      const parsed = todoUpdate.safeParse(input);
+  update: publicProcedure.input(apiTodoUpdate).mutation(async ({ input, ctx }) => {
+    const errors = createErrors(ctx.i18n);
+    const parsed = todoUpdate.safeParse(input);
 
-      if (!parsed.success) {
-        throw errors.invalidInput();
-      }
+    if (!parsed.success) {
+      throw errors.invalidInput();
+    }
 
-      try {
-        const [updated] = await ctx.db
-          .update(todo)
-          .set({
-            ...parsed.data,
-          })
-          .where(eq(todo.id, parsed.data.id as string))
-          .returning();
+    try {
+      const [updated] = await ctx.db
+        .update(todo)
+        .set({
+          ...parsed.data,
+        })
+        .where(eq(todo.id, parsed.data.id as string))
+        .returning();
 
-        return updated;
-      } catch (_error) {
-        throw errors.todoUpdateFailed();
-      }
-    }),
+      return updated;
+    } catch {
+      throw errors.todoUpdateFailed();
+    }
+  }),
 } satisfies TRPCRouterRecord;

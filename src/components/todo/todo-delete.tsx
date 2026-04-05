@@ -40,9 +40,7 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
           exact: true,
         });
 
-        const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey()
-        );
+        const previousData = queryClient.getQueryData(trpc.todo.list.queryKey());
 
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
           if (!old) {
@@ -54,26 +52,22 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
         return { previousData };
       },
       onError: (_err, _variables, context) => {
-        queryClient.setQueryData(
-          trpc.todo.list.queryKey(),
-          context?.previousData
-        );
+        queryClient.setQueryData(trpc.todo.list.queryKey(), context?.previousData);
       },
       onSuccess: (_deleted) => {
         // Navigate to home if we're on a todo detail page
         if (isOnTodoDetailPage) {
-          router.navigate({ to: "/" });
+          void router.navigate({ to: "/" });
         }
         // Toast is handled by toast.promise below
       },
-    })
+    }),
   );
 
   const handleDelete = () => {
     toast.promise(deleteMutation.mutateAsync({ id: todo.id }), {
       loading: t`Deleting todo...`,
-      success: (deleted) =>
-        t`"${deleted.text}" has been removed from your list`,
+      success: (deleted) => t`"${deleted.text}" has been removed from your list`,
       error: (err) => t`Error deleting todo: ${err.message}`,
     });
   };
@@ -88,8 +82,7 @@ const TodoDelete = ({ todo, children }: TodoDeleteProps) => {
           </AlertDialogTitle>
           <AlertDialogDescription>
             <Trans>
-              This action cannot be undone. This will permanently delete the
-              todo "{todo.text}".
+              This action cannot be undone. This will permanently delete the todo "{todo.text}".
             </Trans>
           </AlertDialogDescription>
         </AlertDialogHeader>

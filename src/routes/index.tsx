@@ -21,9 +21,7 @@ import { useTRPC } from "@/trpc/react";
 
 export const Route = createFileRoute("/")({
   loader: async ({ context }) => {
-    await context.queryClient.ensureQueryData(
-      context.trpc.todo.list.queryOptions()
-    );
+    await context.queryClient.ensureQueryData(context.trpc.todo.list.queryOptions());
   },
   pendingComponent: () => {
     const { t } = useLingui();
@@ -183,7 +181,7 @@ function Home() {
                   <TableCell>
                     <span
                       className={`inline-flex items-center rounded-md px-2 py-1 font-medium text-xs ring-1 ring-gray-500/10 ring-inset ${getStatusColor(
-                        todo.status
+                        todo.status,
                       )}`}
                     >
                       {getStatusLabel(todo.status)}
@@ -202,12 +200,7 @@ function Home() {
                   </TableCell>
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button
-                        asChild
-                        className="gap-2"
-                        size="sm"
-                        variant="ghost"
-                      >
+                      <Button asChild className="gap-2" size="sm" variant="ghost">
                         <Link params={{ todoId: todo.id }} to="/todo/$todoId">
                           <Eye className="h-3 w-3" />
                           <Trans>View</Trans>
@@ -220,11 +213,7 @@ function Home() {
                         </Button>
                       </TodoForm>
                       <TodoDelete todo={todo}>
-                        <Button
-                          className="gap-2"
-                          size="sm"
-                          variant="destructive"
-                        >
+                        <Button className="gap-2" size="sm" variant="destructive">
                           <Trash2 className="h-3 w-3" />
                           <Trans>Delete</Trans>
                         </Button>

@@ -34,7 +34,7 @@ const TanStackRouterDevtools =
     : React.lazy(() =>
         import("@tanstack/react-router-devtools").then((res) => ({
           default: res.TanStackRouterDevtools,
-        }))
+        })),
       );
 
 function ErrorComponent({ error }: { error: Error }) {
@@ -46,11 +46,7 @@ function ErrorComponent({ error }: { error: Error }) {
         <AlertTitle>Something went wrong</AlertTitle>
         <AlertDescription className="space-y-4">
           <p>{error.message}</p>
-          <Button
-            className="w-full"
-            onClick={() => router.invalidate()}
-            variant="outline"
-          >
+          <Button className="w-full" onClick={() => router.invalidate()} variant="outline">
             Try again
           </Button>
         </AlertDescription>
@@ -132,13 +128,7 @@ function RootComponent() {
   );
 }
 
-function RootDocument({
-  children,
-  locale,
-}: {
-  children: React.ReactNode;
-  locale: string;
-}) {
+function RootDocument({ children, locale }: { children: React.ReactNode; locale: string }) {
   return (
     <html lang={locale} suppressHydrationWarning={true}>
       <head>

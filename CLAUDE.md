@@ -9,14 +9,14 @@ This is a full-stack Todo application built with TanStack Start, a type-safe, cl
 ## Tech Stack
 
 - **Runtime**: Bun
-- **Framework**: TanStack Start (v1.121.16) with file-based routing
+- **Framework**: TanStack Start with file-based routing
 - **Frontend**: React 19, TanStack Query, React Hook Form, Zod validation
 - **Styling**: Tailwind CSS v4 with Shadcn/ui components
 - **Backend**: tRPC for type-safe APIs
 - **Database**: PostgreSQL with Drizzle ORM
 - **Internationalization**: Lingui.js for i18n support
 - **Deployment**: Configured for AWS Lambda
-- **Code Quality**: Ultracite for code formatting and linting
+- **Code Quality**: Vite+ with Oxfmt and Oxlint
 
 ## Common Development Commands
 
@@ -50,11 +50,12 @@ bun --env-file=.env.franklin db:studio
 bun --env-file=.env.franklin db:seed
 bun --env-file=.env.franklin db:generate
 
-# Code Quality (Ultracite)
-bun format           # Format code with Ultracite
-bun format:unsafe    # Format code with Ultracite (unsafe mode)
-bun lint             # Lint/check code with Ultracite
-bun check            # Run Ultracite lint checks
+# Code Quality (Vite+ / Oxc)
+bun format           # Format code with Oxfmt via Vite+
+bun format:unsafe    # Format and auto-fix lint issues
+bun lint             # Lint code with Oxlint via Vite+
+bun lint:fix         # Auto-fix lint issues when possible
+bun check            # Run formatting, linting, and type-aware checks
 
 # Internationalization commands
 bun lingui:extract  # Extract translatable strings
@@ -109,14 +110,14 @@ Database connection string: `postgresql://postgres:example@localhost:5432/f7`
 - AVOID let statements
 - PREFER single word variable names where possible
 - Use as many bun apis as possible like Bun.file()
-- No test or lint scripts are currently configured
+- No test framework is currently configured
 - The project uses Bun as the JavaScript runtime (not Node.js or npm)
 - Database migrations must be run manually after schema changes
 - AWS Lambda deployment is configured in `vite.config.ts`
 - ALWAYS run `bun typecheck` after editing files to ensure type safety
 - When adding translations, use `<Trans>` for JSX and `useLingui().t` for dynamic text
 - Run `bun lingui:extract` to extract new strings and `bun lingui:compile` after translating
-- Use `bun format` (Ultracite) for code formatting and `bun lint` for linting
-- Use `bun format:unsafe` for aggressive code transformations when needed
-- Run `bun check` to validate code patterns and structure with Ultracite
-- Ultracite has replaced Biome for formatting and linting in this project
+- Use `bun format` for code formatting and `bun lint` for linting
+- Use `bun format:unsafe` to apply formatting plus safe auto-fixes
+- Run `bun check` to validate formatting, linting, and type-aware checks
+- Vite+ replaces the prior Biome/Ultracite setup with Oxfmt and Oxlint

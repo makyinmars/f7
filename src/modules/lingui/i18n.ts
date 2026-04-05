@@ -6,8 +6,7 @@ export const locales = {
   sp: "Spanish",
 };
 
-export const isLocaleValid = (locale: string) =>
-  Object.keys(locales).includes(locale);
+export const isLocaleValid = (locale: string) => Object.keys(locales).includes(locale);
 
 export const defaultLocale = "en";
 

@@ -1,9 +1,4 @@
-import {
-  APP_LOGO_URL,
-  APP_NAME,
-  DEFAULT_DESCRIPTION,
-  DEFAULT_KEYWORDS,
-} from "@/constants/app";
+import { APP_LOGO_URL, APP_NAME, DEFAULT_DESCRIPTION, DEFAULT_KEYWORDS } from "@/constants/app";
 
 export type SEOConfig = {
   title?: string;

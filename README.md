@@ -5,7 +5,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 ## Tech Stack
 
 - **Runtime**: Bun
-- **Framework**: TanStack Start v1.121.16 (file-based routing)
+- **Framework**: TanStack Start (file-based routing)
 - **Frontend**: React 19, TanStack Query, React Hook Form
 - **Styling**: Tailwind CSS v4 + Shadcn/ui components
 - **Backend**: tRPC for type-safe APIs
@@ -14,7 +14,7 @@ A modern, type-safe Todo application built with TanStack Start, featuring end-to
 - **Internationalization**: Lingui.js for i18n support
 - **Environment**: T3 OSS env-core for type-safe environment variables
 - **Deployment**: AWS Lambda (configurable)
-- **Code Quality**: Ultracite for code formatting and linting
+- **Code Quality**: Vite+ with Oxfmt and Oxlint
 
 ## Quick Start
 
@@ -84,10 +84,11 @@ bun db:seed          # Seed the database with sample data
 bun db:generate      # Generate new migration files
 
 # Code Quality
-bun lint             # Lint/check code with Ultracite
-bun format           # Format code with Ultracite
-bun format:unsafe    # Format code with Ultracite (unsafe mode)
-bun check            # Run Ultracite lint checks
+bun lint             # Lint code with Oxlint via Vite+
+bun lint:fix         # Auto-fix lint issues when possible
+bun format           # Format code with Oxfmt via Vite+
+bun format:unsafe    # Format and auto-fix lint issues
+bun check            # Run formatting, linting, and type-aware checks
 
 # Internationalization
 bun lingui:extract   # Extract translatable strings
@@ -132,10 +133,10 @@ src/
 
 ### AWS Lambda (Default)
 
-The project is configured for AWS Lambda deployment with streaming support. The configuration is defined in two files:
+The project is configured for AWS Lambda deployment with Nitro v3 beta. The configuration is split between:
 
-- **`vite.config.ts`**: Sets the TanStack Start target to `aws-lambda`
-- **`nitro.config.ts`**: Configures Nitro for AWS Lambda with streaming enabled
+- **`vite.config.ts`**: Wires Nitro into Vite, configures the AWS Lambda preset, and defines the Vite+ fmt/lint/staged workflow
+- **`nitro.config.ts`**: Holds additional Nitro server config like `inlineDynamicImports`
 
 ### SST (Ion) - Optional AWS Deployment
 
@@ -203,14 +204,17 @@ sst console
 
 ### Other Platforms
 
-You can change the deployment target by modifying both configuration files:
+You can change the deployment target by modifying the Nitro config in `vite.config.ts`:
 
 **In `vite.config.ts`:**
 
 ```typescript
-tanstackStart({
-  target: "aws-lambda", // Change to: "vercel", "node", "static", "cloudflare", etc.
-});
+nitro: {
+  preset: "aws-lambda", // Change to match your deployment target
+  awsLambda: {
+    streaming: false, // Keep false until streaming is verified for this app
+  },
+},
 ```
 
 **In `nitro.config.ts`:**
@@ -218,10 +222,6 @@ tanstackStart({
 ```typescript
 export default defineNitroConfig({
   inlineDynamicImports: true,
-  preset: "aws-lambda", // Change to match your deployment target
-  awsLambda: {
-    streaming: false, // Currently not working as exptected, normally set to true
-  },
 });
 ```
 
@@ -421,26 +421,28 @@ throw errors.todoNotFound(); // "Todo not found" or "Tâche introuvable"
 - Use Drizzle Studio (`bun db:studio`) for database exploration
 - Follow the existing code conventions and patterns
 - Prefer composition over inheritance for component design
-- Code formatting and linting handled by Ultracite
+- Code formatting and linting handled by Vite+, Oxfmt, and Oxlint
 
-## Ultracite Integration
+## Vite+ Integration
 
-This project uses [Ultracite](https://www.ultracite.ai/) for code formatting and linting. Ultracite enhances the development workflow by providing consistent code quality tools.
+This project uses [Vite+](https://viteplus.dev/) for its unified local toolchain, with [Oxfmt](https://oxc.rs/) for formatting and [Oxlint](https://oxc.rs/) for linting.
 
 ### Commands
 
 ```bash
-bun format           # Format code using Ultracite
-bun format:unsafe    # Format code using Ultracite (unsafe transformations)
-bun lint             # Lint and validate code with Ultracite
-bun check            # Run Ultracite lint checks
+bun format           # Format code using Oxfmt
+bun format:unsafe    # Format and auto-fix lint issues
+bun lint             # Lint and validate code with Oxlint
+bun lint:fix         # Auto-fix lint issues when possible
+bun check            # Run formatting, linting, and type-aware checks
 ```
 
-Ultracite provides:
-- Consistent code formatting across the project
-- Advanced linting capabilities
-- Integration with existing development workflows
-- Enhanced code quality maintenance
+Vite+ provides:
+
+- A single `vp` workflow for dev, build, lint, and format
+- Oxc-based formatting and linting
+- Staged file checks through `vp staged`
+- Type-aware checks via `vp check`
 
 ## Contributing
 

@@ -69,9 +69,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           exact: true,
         });
 
-        const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey()
-        );
+        const previousData = queryClient.getQueryData(trpc.todo.list.queryKey());
 
         // Generate a temporary ID that works on both server and client
         const tempId = `temp-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -95,24 +93,19 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         return { previousData, optimisticTodo };
       },
       onError: (_err, _variables, context) => {
-        queryClient.setQueryData(
-          trpc.todo.list.queryKey(),
-          context?.previousData
-        );
+        queryClient.setQueryData(trpc.todo.list.queryKey(), context?.previousData);
       },
       onSuccess: (created, _variables, context) => {
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
           if (!old) {
             return [created];
           }
-          return old.map((todo) =>
-            todo.id === context?.optimisticTodo.id ? created : todo
-          );
+          return old.map((todo) => (todo.id === context?.optimisticTodo.id ? created : todo));
         });
         form.reset();
         setOpen(false);
       },
-    })
+    }),
   );
 
   // Update mutation with optimistic updates
@@ -124,28 +117,21 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
           exact: true,
         });
 
-        const previousData = queryClient.getQueryData(
-          trpc.todo.list.queryKey()
-        );
+        const previousData = queryClient.getQueryData(trpc.todo.list.queryKey());
 
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
           if (!old) {
             return previousData;
           }
           return old.map((todo) =>
-            todo.id === variables.id
-              ? { ...todo, ...variables, updatedAt: new Date() }
-              : todo
+            todo.id === variables.id ? { ...todo, ...variables, updatedAt: new Date() } : todo,
           );
         });
 
         return { previousData };
       },
       onError: (_err, _variables, context) => {
-        queryClient.setQueryData(
-          trpc.todo.list.queryKey(),
-          context?.previousData
-        );
+        queryClient.setQueryData(trpc.todo.list.queryKey(), context?.previousData);
       },
       onSuccess: async (updated) => {
         queryClient.setQueryData(trpc.todo.list.queryKey(), (old) => {
@@ -161,7 +147,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
         });
         setOpen(false);
       },
-    })
+    }),
   );
 
   const onSubmit = (data: TodoCreateAndUpdate) => {
@@ -222,11 +208,7 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
                     <Trans>Description</Trans>
                   </FormLabel>
                   <FormControl>
-                    <Textarea
-                      placeholder={t`Enter optional description`}
-                      rows={3}
-                      {...field}
-                    />
+                    <Textarea placeholder={t`Enter optional description`} rows={3} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -276,19 +258,14 @@ const TodoForm = ({ todo, children }: TodoFormProps) => {
                     </div>
                   </div>
                   <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
+                    <Switch checked={field.value} onCheckedChange={field.onChange} />
                   </FormControl>
                 </FormItem>
               )}
             />
             <Button
               className="w-full"
-              disabled={
-                todo ? updateMutation.isPending : createMutation.isPending
-              }
+              disabled={todo ? updateMutation.isPending : createMutation.isPending}
               type="submit"
             >
               {todo ? <Trans>Update Todo</Trans> : <Trans>Create Todo</Trans>}
