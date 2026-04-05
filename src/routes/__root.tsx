@@ -22,20 +22,15 @@ import appCss from "@/styles/app.css?url";
 import type { TRPCRouter } from "@/trpc/router";
 import { seo } from "@/utils/seo";
 
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+
 type MyRouterContext = {
   queryClient: QueryClient;
   trpc: TRPCOptionsProxy<TRPCRouter>;
   i18n: I18n;
 };
-
-const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
-    ? () => null
-    : React.lazy(() =>
-        import("@tanstack/react-router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
 
 function ErrorComponent({ error }: { error: Error }) {
   const router = useRouter();
@@ -135,6 +130,18 @@ function RootDocument({ children, locale }: { children: React.ReactNode; locale:
         <HeadContent />
       </head>
       <body suppressHydrationWarning>
+        <TanStackDevtools
+          plugins={[
+            {
+              name: "TanStack Query",
+              render: <ReactQueryDevtoolsPanel />,
+            },
+            {
+              name: "TanStack Router",
+              render: <TanStackRouterDevtoolsPanel />,
+            },
+          ]}
+        />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -142,7 +149,6 @@ function RootDocument({ children, locale }: { children: React.ReactNode; locale:
           enableSystem
         >
           {children}
-          <TanStackRouterDevtools position="bottom-right" />
           <Toaster richColors={true} />
           <Scripts />
         </ThemeProvider>
